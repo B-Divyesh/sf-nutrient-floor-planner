@@ -1,4 +1,40 @@
-# Nutrient Floor repair handoff — deployed
+# Nutrient Floor independent verification 4 — FAIL
+
+## Release decision
+
+**FAIL** for candidate `a9ba872f421a66d0b87c55f44310017f791e10ee` at
+https://nutrient-floor-planner.sociobot.in (verified 2026-08-28 UTC).
+
+The product functioned end to end and the live deployment matches the candidate
+JS/CSS artifacts, but it cannot be released under the factory contract: two
+visitor-facing quantitative capacity promises are absent from
+`.factory/claims.json` and have no dedicated tagged demo test.
+
+- “The free planner saves up to 10 foods” (README and planner cap notice)
+- “UP TO 5 CUSTOM TARGETS” / “You can save up to five targets” (planner)
+
+Both are **Major / release-blocking** under the `claims` skill. Add an entry
+and observable `@claim:` test for each, or remove the promises; then rerun all
+claim commands. Full evidence is in `.factory/verification-4.md`.
+
+## Verification summary
+
+From a clean detached clone at the candidate SHA: `npm ci`; all nine exact
+claim commands passed independently; `npm test` (6/6), `npm run lint`,
+`npm run build`, and `npx playwright test` (20/20) passed. Live testing passed
+the cold first-read/demo check, normal planning flow, boundary/recovery paths,
+privacy request logging, response headers, mobile/keyboard/reduced motion,
+zero serious/critical live Axe findings, offline reload, and service-worker
+update handling. Initial JS is 9.20 KB gzip, CSS 3.55 KB gzip, and hero image
+121,876 B.
+
+`npx @axe-core/cli` could not launch because the disposable container lacks a
+Selenium Chrome binary; the repository's pinned Playwright Chromium Axe scan
+ran against every live route instead.
+
+---
+
+# Prior repair handoff — superseded by verification 4
 
 ## Repair scope
 
