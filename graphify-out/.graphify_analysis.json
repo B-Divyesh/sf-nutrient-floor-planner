@@ -2,6 +2,7 @@
   "communities": {
     "0": [
       "src_main",
+      "src_main_closedialog",
       "src_main_days",
       "src_main_demobanner",
       "src_main_dialogmarkup",
@@ -11,44 +12,23 @@
       "src_main_foodlist",
       "src_main_footer",
       "src_main_header",
+      "src_main_isdemolocation",
       "src_main_knownroutes",
       "src_main_landing",
+      "src_main_licenseverdict",
       "src_main_link",
-      "src_main_mealcard",
-      "src_main_n",
       "src_main_notfound",
       "src_main_opendialog",
       "src_main_page",
       "src_main_plan",
       "src_main_planner",
+      "src_main_rememberdialogopener",
       "src_main_render",
       "src_main_routecopy",
-      "src_main_targetrows",
-      "src_main_titlefor"
+      "src_main_titlefor",
+      "src_main_toastmarkup"
     ],
     "1": [
-      "src_model",
-      "src_model_coverage",
-      "src_model_food",
-      "src_model_isfood",
-      "src_model_isid",
-      "src_model_isnumber",
-      "src_model_isplan",
-      "src_model_isrecord",
-      "src_model_istext",
-      "src_model_makeid",
-      "src_model_meal",
-      "src_model_nutrientkey",
-      "src_model_nutrientkeys",
-      "src_model_nutrientlabels",
-      "src_model_portion",
-      "src_model_status",
-      "src_model_target",
-      "src_model_test",
-      "src_model_totals",
-      "src_model_uid"
-    ],
-    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -66,11 +46,31 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
+    "2": [
+      "src_model",
+      "src_model_food",
+      "src_model_isfood",
+      "src_model_isid",
+      "src_model_isnumber",
+      "src_model_isplan",
+      "src_model_isrecord",
+      "src_model_istext",
+      "src_model_makeid",
+      "src_model_meal",
+      "src_model_nutrientkey",
+      "src_model_nutrientkeys",
+      "src_model_nutrientlabels",
+      "src_model_portion",
+      "src_model_target",
+      "src_model_uid"
+    ],
     "3": [
+      "src_main_discarddemo",
       "src_main_load",
       "src_main_namespace",
       "src_main_navigate",
       "src_main_save",
+      "src_main_storagefailure",
       "src_model_blankplan",
       "src_model_plan",
       "src_model_sampleplan",
@@ -107,39 +107,60 @@
       "package_version"
     ],
     "6": [
+      "src_main_mealcard",
+      "src_main_n",
+      "src_main_targetrows",
+      "src_model_coverage",
+      "src_model_status",
+      "src_model_test",
+      "src_model_totals"
+    ],
+    "7": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
       "scripts_generate_sw_paths",
-      "scripts_generate_sw_precache"
-    ],
-    "7": [
-      "public_sw",
-      "public_sw_shell"
+      "scripts_generate_sw_precache",
+      "scripts_generate_sw_shellassets"
     ],
     "8": [
+      "src_main_cachedverdict",
+      "src_main_collectlicense",
+      "src_main_safeget",
+      "src_main_saferemove",
+      "src_main_safeset",
+      "src_main_verifylicense"
+    ],
+    "9": [
+      "test",
       "tests_claims_spec",
       "tests_claims_spec_addfood"
     ],
-    "9": [
+    "10": [
+      "public_sw",
+      "public_sw_shell"
+    ],
+    "11": [
       "playwright_config"
     ],
-    "10": [
+    "12": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.16666666666666666,
-    "1": 0.1736842105263158,
-    "2": 0.125,
-    "3": 0.21212121212121213,
+    "0": 0.13846153846153847,
+    "1": 0.125,
+    "2": 0.2,
+    "3": 0.1978021978021978,
     "4": 0.18181818181818182,
     "5": 0.18181818181818182,
-    "6": 0.4,
-    "7": 1.0,
-    "8": 1.0,
-    "9": 1.0,
-    "10": 1.0
+    "6": 0.42857142857142855,
+    "7": 0.3333333333333333,
+    "8": 0.4666666666666667,
+    "9": 0.6666666666666666,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0
   },
   "gods": [
     {
@@ -148,14 +169,19 @@
       "degree": 11
     },
     {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 10
+    },
+    {
       "id": "src_model_isplan",
       "label": "isPlan()",
       "degree": 10
     },
     {
-      "id": "tsconfig_compileroptions",
-      "label": "compilerOptions",
-      "degree": 10
+      "id": "src_main_e",
+      "label": "e()",
+      "degree": 7
     },
     {
       "id": "src_main_load",
@@ -163,13 +189,8 @@
       "degree": 7
     },
     {
-      "id": "src_model_isfood",
-      "label": "isFood()",
-      "degree": 6
-    },
-    {
-      "id": "src_main_e",
-      "label": "e()",
+      "id": "package_scripts",
+      "label": "scripts",
       "degree": 6
     },
     {
@@ -178,33 +199,22 @@
       "degree": 6
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_main_render",
+      "label": "render()",
       "degree": 6
     },
     {
-      "id": "src_model_coverage",
-      "label": "coverage()",
-      "degree": 5
+      "id": "src_model_isfood",
+      "label": "isFood()",
+      "degree": 6
     },
     {
-      "id": "src_model_totals",
-      "label": "totals()",
+      "id": "src_main_mealcard",
+      "label": "mealCard()",
       "degree": 5
     }
   ],
   "surprises": [
-    {
-      "source": "targetRows()",
-      "target": "coverage()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
     {
       "source": "readPlan()",
       "target": "isPlan()",
@@ -218,6 +228,17 @@
     },
     {
       "source": "targetRows()",
+      "target": "coverage()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "targetRows()",
       "target": "status()",
       "source_files": [
         "src/main.ts",
@@ -225,7 +246,7 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities"
+      "why": "cross-file semantic connection"
     },
     {
       "source": "mealCard()",
@@ -236,14 +257,14 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities"
+      "why": "cross-file semantic connection"
     },
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "save()",
+      "target": "writePlan()",
       "source_files": [
         "src/main.ts",
-        "src/model.ts"
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
