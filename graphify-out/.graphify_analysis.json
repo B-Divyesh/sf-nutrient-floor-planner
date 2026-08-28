@@ -141,6 +141,11 @@
       "degree": 7
     },
     {
+      "id": "src_main_apppage",
+      "label": "appPage()",
+      "degree": 6
+    },
+    {
       "id": "src_main_targetrows",
       "label": "targetRows()",
       "degree": 6
@@ -151,13 +156,13 @@
       "degree": 6
     },
     {
-      "id": "src_main_apppage",
-      "label": "appPage()",
-      "degree": 6
+      "id": "src_model_coverage",
+      "label": "coverage()",
+      "degree": 5
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_model_totals",
+      "label": "totals()",
       "degree": 5
     },
     {
@@ -169,17 +174,12 @@
       "id": "src_main_mealcard",
       "label": "mealCard()",
       "degree": 5
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
-      "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "mealCard()",
-      "target": "totals()",
+      "source": "load()",
+      "target": "samplePlan()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
@@ -189,8 +189,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "mealCard()",
+      "target": "totals()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
@@ -222,8 +222,8 @@
       "why": "cross-file semantic connection"
     },
     {
-      "source": "save()",
-      "target": "writePlan()",
+      "source": "load()",
+      "target": "readPlan()",
       "source_files": [
         "src/main.ts",
         "src/store.ts"
