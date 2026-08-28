@@ -8,12 +8,32 @@ export type Plan = { targets: Target[]; foods: Food[]; meals: Meal[]; updatedAt:
 export const nutrientLabels: Record<NutrientKey, string> = { fibre: 'Fibre', protein: 'Protein', sugar: 'Sugar', saturatedFat: 'Saturated fat' };
 export const blankPlan = (): Plan => ({ targets: [], foods: [], meals: [], updatedAt: new Date().toISOString() });
 const uid = () => Math.random().toString(36).slice(2, 9);
+const nutrientKeys: NutrientKey[] = ['fibre', 'protein', 'sugar', 'saturatedFat'];
+const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+const isText = (value: unknown, max: number) => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
+const isId = (value: unknown) => typeof value === 'string' && value.length > 0 && value.length <= 80;
+const isNumber = (value: unknown, min = 0) => typeof value === 'number' && Number.isFinite(value) && value >= min;
+const isFood = (food: unknown) => {
+  if (!isRecord(food) || !isId(food.id) || !isText(food.name, 60) || !isText(food.serving, 40) || !isText(food.source, 80)) return false;
+  const nutrients = food.nutrients;
+  return isRecord(nutrients) && nutrientKeys.every(key => isNumber(nutrients[key]));
+};
+
+/** Accept only complete, safe plan records before they reach persistent storage. */
+export function isPlan(value: unknown): value is Plan {
+  if (!isRecord(value) || !Array.isArray(value.targets) || !Array.isArray(value.foods) || !Array.isArray(value.meals) || typeof value.updatedAt !== 'string' || value.targets.length > 5) return false;
+  const foods = value.foods;
+  if (!foods.every(isFood)) return false;
+  if (!value.targets.every(target => isRecord(target) && isId(target.id) && isText(target.label, 45) && nutrientKeys.includes(target.key as NutrientKey) && (target.kind === 'min' || target.kind === 'max') && isNumber(target.value, 0.1) && target.unit === 'g')) return false;
+  const foodIds = new Set(foods.map(food => (food as Food).id));
+  return value.meals.every(meal => isRecord(meal) && isId(meal.id) && isText(meal.name, 60) && Number.isInteger(meal.day) && (meal.day as number) >= 0 && (meal.day as number) < 7 && Array.isArray(meal.portions) && meal.portions.every(portion => isRecord(portion) && isId(portion.foodId) && foodIds.has(portion.foodId as string) && isNumber(portion.amount)));
+}
 
 export const samplePlan = (): Plan => ({
   targets: [
     { id: 'fibre', key: 'fibre', label: 'Fibre floor', value: 30, kind: 'min', unit: 'g' },
     { id: 'protein', key: 'protein', label: 'Protein floor', value: 75, kind: 'min', unit: 'g' },
-    { id: 'sugar', key: 'sugar', label: 'Added sugar limit', value: 36, kind: 'max', unit: 'g' }
+    { id: 'sugar', key: 'sugar', label: 'Total sugar limit', value: 36, kind: 'max', unit: 'g' }
   ],
   foods: [
     { id: 'oats', name: 'Rolled oats', serving: '½ cup dry', nutrients: { fibre: 4, protein: 5, sugar: 1, saturatedFat: 0.5 }, source: 'Label, packet at home' },

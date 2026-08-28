@@ -13,7 +13,7 @@ and never touch your real plan.
 ## Run
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
@@ -25,6 +25,7 @@ field; check labels before relying on a value.
 
 ```sh
 npm test
+npm run lint
 npx playwright test
 npm run build
 ```
@@ -38,14 +39,17 @@ Food values, targets, and meals are stored in IndexedDB on your device. Export
 or import the full plan as JSON. Nutrient Floor has no analytics or food
 catalogue network calls. The demo and normal planner work offline after setup.
 
-An optional $12 one-time upgrade is sold through Sociobot. It raises the free
-ten-food pantry limit and adds printing. Checkout returns a local license token;
-the app verifies it with Sociobot when online. See `/privacy` and `/terms`.
+The planner has no account or paid unlock. You can print the weekly sheet and
+keep as many foods as you need. See `/privacy` and `/terms`.
 
 ## Claims verified in the demo
 
 - Loads a seven-food plan with three placed meals.
 - No meal data leaves this device.
 - Works offline after setup.
+- Export or import your plan.
+- Your plan stays on this device.
+- Demo data uses a separate local space and is discarded when you leave.
+- Prints a weekly sheet.
 
 Each claim and its Playwright command are recorded in `.factory/claims.json`.

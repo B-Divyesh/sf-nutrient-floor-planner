@@ -1,6 +1,6 @@
-import { blankPlan, type Plan } from './model';
+import { blankPlan, isPlan, type Plan } from './model';
 const DB = 'nutrient-floor'; const STORE = 'plans';
 function open() { return new Promise<IDBDatabase>((resolve, reject) => { const r = indexedDB.open(DB, 1); r.onupgradeneeded = () => r.result.createObjectStore(STORE); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); }
-export async function readPlan(namespace: string): Promise<Plan> { try { const db = await open(); return await new Promise(resolve => { const r = db.transaction(STORE).objectStore(STORE).get(namespace); r.onsuccess = () => resolve((r.result as Plan) || blankPlan()); r.onerror = () => resolve(blankPlan()); }); } catch { return blankPlan(); } }
+export async function readPlan(namespace: string): Promise<Plan> { try { const db = await open(); return await new Promise(resolve => { const r = db.transaction(STORE).objectStore(STORE).get(namespace); r.onsuccess = () => resolve(isPlan(r.result) ? r.result : blankPlan()); r.onerror = () => resolve(blankPlan()); }); } catch { return blankPlan(); } }
 export async function writePlan(namespace: string, plan: Plan) { const db = await open(); await new Promise<void>((resolve, reject) => { const r = db.transaction(STORE, 'readwrite').objectStore(STORE).put({ ...plan, updatedAt: new Date().toISOString() }, namespace); r.onsuccess = () => resolve(); r.onerror = () => reject(r.error); }); }
 export async function clearPlan(namespace: string) { const db = await open(); await new Promise<void>((resolve, reject) => { const r = db.transaction(STORE, 'readwrite').objectStore(STORE).delete(namespace); r.onsuccess = () => resolve(); r.onerror = () => reject(r.error); }); }

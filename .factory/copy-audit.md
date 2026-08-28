@@ -9,13 +9,12 @@
 | Loads a seven-food plan. | 4 | pass |
 | Stored on this device. | 5 | pass |
 | Works offline after setup. | 4 | pass |
-| $12 one-time upgrade. | 3 | pass |
+| Export or import your plan. | 5 | pass |
 | Pick a few targets, save familiar foods, and place meal portions on a week. | 14 | pass |
 | Choose a floor or limit in grams. | 8 | pass |
 | Copy values from a label or source. | 8 | pass |
 | See gaps before you cook. | 6 | pass |
 | It does not count calories, diagnose health conditions, or upload a food diary. | 13 | pass |
-| $12 adds unlimited pantry foods and a printable weekly sheet. | 9 | pass |
 
 No landing sentence is over 22 words. No banned words appear.
 

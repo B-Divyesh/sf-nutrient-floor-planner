@@ -1,5 +1,9 @@
 [
   {"id":"demo-week-coverage","claim":"Loads a seven-food plan with three placed meals.","where":"landing demo action, README","test":"npx playwright test --grep @claim:demo-week-coverage","sandbox":"fresh browser context at /demo"},
-  {"id":"local-only","claim":"No meal data leaves this device.","where":"landing facts, privacy page, README","test":"npx playwright test --grep @claim:local-only","sandbox":"fresh browser context at /demo; intercept every request while adding a food"},
-  {"id":"offline-use","claim":"Works offline after setup.","where":"landing facts, README","test":"npx playwright test --grep @claim:offline-use","sandbox":"fresh browser context at /demo; first load online then setOffline(true) and add a meal"}
+  {"id":"local-only","claim":"No meal data leaves this device.","where":"privacy page, README","test":"npx playwright test --grep @claim:local-only","sandbox":"fresh browser context at /demo; intercept every request while adding a food"},
+  {"id":"offline-use","claim":"Works offline after setup.","where":"landing facts, README","test":"npx playwright test --grep @claim:offline-use","sandbox":"fresh browser context at /demo; first load online, then fresh offline reload through the service worker"},
+  {"id":"json-transfer","claim":"Export or import your plan.","where":"landing facts, planner toolbar, README","test":"npx playwright test --grep @claim:json-transfer","sandbox":"fresh browser context at /demo; download, parse, and re-import exported JSON"},
+  {"id":"local-persistence","claim":"Your plan stays on this device.","where":"landing facts, privacy page, README","test":"npx playwright test --grep @claim:local-persistence","sandbox":"fresh browser context at /plan; save a food and reload"},
+  {"id":"demo-isolation","claim":"Demo data uses a separate local space and is discarded when you leave.","where":"demo banner, privacy page, README","test":"npx playwright test --grep @claim:demo-isolation","sandbox":"fresh browser context at /demo; add a food, start for real, and re-enter demo"},
+  {"id":"print-week","claim":"Prints a weekly sheet.","where":"planner toolbar","test":"npx playwright test --grep @claim:print-week","sandbox":"fresh browser context at /demo; assert the browser print action is invoked"}
 ]
