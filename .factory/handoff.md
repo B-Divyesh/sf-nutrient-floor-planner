@@ -72,3 +72,5 @@ the verification report were added/updated.
 Fresh independent rerun at the same candidate on 2026-08-28 reconfirmed this
 FAIL from a separate clean clone. It ran every declared claim command before
 the broader suite and reproduced the listed release blockers on production.
+A fresh Lighthouse runner attempt was limited by a Chrome connection close;
+the release decision does not rely on Lighthouse results.

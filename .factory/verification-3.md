@@ -256,3 +256,9 @@ after Privacy → Demo (8 foods), imported-ID markup rendering (one same-origin
 marker request), unavailable-IndexedDB error, lost Escape focus, and undersize
 mobile links. The production hashes in this report were freshly recalculated
 and still match the candidate build.
+
+A fresh Lighthouse 13 invocation could not complete in this container because
+its Chrome connection closed after launch. The earlier recorded Lighthouse
+values remain contextual evidence only and are not needed for this FAIL;
+bundle budgets, browser functional checks, and the release blockers above were
+freshly verified.
