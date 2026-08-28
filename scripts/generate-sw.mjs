@@ -8,8 +8,16 @@ async function files(directory) {
   const nested = await Promise.all(entries.map(async entry => entry.isDirectory() ? files(join(directory, entry.name)) : [join(directory, entry.name)]));
   return nested.flat();
 }
-const paths = (await files(dist)).map(file => `/${relative(dist, file)}`).filter(path => !['/sw.js', '/404.html', '/staticwebapp.config.json'].includes(path));
-const precache = JSON.stringify([...new Set(['/', '/index.html', ...paths])]);
+const paths = (await files(dist)).map(file => `/${relative(dist, file)}`);
+// Cache only the offline shell and assets needed to render it. Source artwork,
+// social cards, icons not used by the page, and crawl files stay out of setup.
+const shellAssets = paths.filter(path =>
+  /^\/assets\/[^/]+\.(?:js|css)$/.test(path) ||
+  path === '/assets/hero.webp' ||
+  path === '/assets/icon-192.png' ||
+  path === '/manifest.webmanifest'
+);
+const precache = JSON.stringify([...new Set(['/', ...shellAssets])]);
 const source = `const CACHE = 'nutrient-floor-v${Date.now()}';
 const SHELL = ${precache};
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL))));
@@ -22,7 +30,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(caches.open(CACHE).then(cache => cache.match(url.pathname).then(hit => hit || fetch(event.request).then(response => {
     if (response.ok && !url.pathname.endsWith('/sw.js')) cache.put(url.pathname, response.clone());
     return response;
-  }).catch(() => event.request.mode === 'navigate' ? cache.match('/index.html') : Response.error()))));
+  }).catch(() => event.request.mode === 'navigate' ? cache.match('/') : Response.error()))));
 });
 `;
 await writeFile(join(dist, 'sw.js'), source);

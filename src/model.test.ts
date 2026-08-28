@@ -5,5 +5,10 @@ describe('nutrient math', () => {
   it('identifies sample fibre coverage', () => { const p = samplePlan(); expect(coverage(p).fibre).toBeGreaterThan(30); });
   it('checks floors and limits', () => { const min = samplePlan().targets[0]; const max = samplePlan().targets[2]; expect(status(min, 31).passes).toBe(true); expect(status(max, 40).passes).toBe(false); });
   it('rejects incomplete plan records before they can be stored', () => { expect(isPlan({ foods: [{}], targets: [], meals: [], updatedAt: 'x' })).toBe(false); expect(isPlan(samplePlan())).toBe(true); });
+  it('rejects IDs that could alter rendered HTML attributes', () => {
+    const plan = samplePlan();
+    plan.foods[0].id = 'x\"><img src="/qa-injected" alt="marker';
+    expect(isPlan(plan)).toBe(false);
+  });
   it('limits plans to five targets', () => { const plan = samplePlan(); plan.targets = Array.from({ length: 6 }, (_, index) => ({ ...plan.targets[0], id: `target-${index}` })); expect(isPlan(plan)).toBe(false); });
 });

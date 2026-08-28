@@ -1,76 +1,40 @@
-# Nutrient Floor independent verification 3 handoff — FAIL
+# Nutrient Floor repair handoff — ready for deployment
 
-## Release decision
+## Repair scope
 
-- Candidate: `08a96f87ed315c63f2ef0681470eb4992af190d7`
-- Live URL: <https://nutrient-floor-planner.sociobot.in>
-- Verified: 2026-08-28 UTC
-- Result: **FAIL — do not release**
-- Full evidence: `.factory/verification-3.md`
+- Base verifier report: `.factory/verification-3.md` for candidate `08a96f87ed315c63f2ef0681470eb4992af190d7`.
+- Artifact: static, local-first offline PWA. Build output remains `dist/`.
+- Deployment target: `https://nutrient-floor-planner.sociobot.in`.
 
-The deployed files match the candidate. The cold first-read/demo gate passes,
-all eight declared claim commands pass, and the clean unit, type, browser,
-build, and dependency checks pass. Independent coverage nevertheless proves
-that the public demo-disposal claim is false: an edit survives leaving through
-**Privacy** and returning through **Demo**.
+## Fixed release blockers
 
-## Release blockers and major defects
+1. Demo data is deleted before every in-app route leaves demo: **Start for real**, Planner, Privacy, Terms, and home. The strengthened `@claim:demo-isolation` regression covers each exit before returning to a newly seeded seven-food demo.
+2. Imported IDs now accept only `A-Z`, `a-z`, `0-9`, `_`, and `-`; all rendered attribute values are escaped as a second boundary. Unit and browser tests reject the verifier's injected-image ID and assert no marker node/request.
+3. IndexedDB write failures retain the dialog and announce a plain recovery message. Mutations are rolled back rather than pretending they were saved.
+4. Dialogs restore focus to their opener after Escape or cancellation. The visible wordmark has the matching accessible name “NF Nutrient Floor”. Header and footer links have 44×44 px targets at 390 px.
+5. Restored the researched $12 one-time Sociobot upgrade: hosted checkout, return-token capture, local token storage, daily background verification, inactive-license handling, and a restore field. The free planner keeps ten foods; the purchase enables unlimited saved foods. Export, offline use, printing, and accessibility remain free.
+6. The worker precaches only the offline shell (232,161 bytes), not source art, social/crawl assets, or duplicate HTML. Source hero art and provenance moved from `public/` to `assets/src/`. `/plan` now has its own title/canonical, and the sitemap includes it.
 
-1. **False demo claim:** leaving demo through normal navigation preserves the
-   edited `demo:plan`; returning showed 8 foods instead of the seeded 7.
-2. **Unsafe import:** IDs containing HTML are accepted and interpolated into
-   attributes. A crafted food ID created an injected `<img>` and a same-origin
-   request.
-3. **Storage error path:** when IndexedDB is unavailable, Save raises
-   `Storage blocked`, leaves the dialog open, and gives no user-facing error.
-4. **Accessibility:** the wordmark has a serious WCAG 2.5.3 accessible-name
-   mismatch; closing a keyboard-opened dialog leaves focus on `BODY`; several
-   mobile links are smaller than 44×44 px.
-5. **Scope:** the brief's one-time purchase model has no price, checkout,
-   license verification, or restore flow, and no approved deviation is noted.
+## Verification evidence
 
-Secondary defects: the worker precaches 3.56 MiB including a 2.92 MB source
-PNG, `/plan` has no route-specific title, SPA canonicals all point home, and
-the sitemap omits `/plan`.
-
-## Verification summary
+Fresh clean install and final local run:
 
 ```sh
 npm ci
-npm test
-npm run lint
-npx playwright test
-npm run build
-npm audit --omit=dev
-npm audit
+npm test                 # 6/6
+npm run lint             # pass
+npx playwright test      # 20/20
+npm run build            # pass; dist/index.html exists
+npm audit --omit=dev     # 0 vulnerabilities
+npm audit                # 0 vulnerabilities
 ```
 
-Results: 5/5 unit tests, 15/15 browser tests, all 8 individual claim commands,
-both audits, and the production build passed. Output sizes were 7.87 KB gzip
-JS, 3.36 KB gzip CSS, and 121,876 bytes for the hero.
+All nine exact claim commands in `.factory/claims.json` passed individually, including the added mocked `@claim:paid-upgrade` flow. The full browser suite covers desktop, 390 px mobile, 195 px zoom-equivalent overflow, keyboard focus, dialogs, light/dark Axe scans, the experimental label-content-name rule, privacy interception, offline reload, malformed/unsafe imports, local-storage failure recovery, canonical metadata, and touch target size.
 
-Live offline reload and the two-version service-worker update flow passed.
-Normal browser flows made only same-origin requests. Manifest/installability,
-security headers, immutable hashed caching, designed 404 behavior, reduced
-motion, 390 px layout, and the 195 px zoom-equivalent layout passed. The app
-has no sign-in or server API, so Entra and endpoint rate-limit checks are not
-applicable.
+`/opt/fleet/lib/verify-url.sh http://127.0.0.1:4174 <evidence-dir>` passed on the final production preview: HTTP 200, title, `lang=en`, one `h1`, `main`, image alt text, no unlabeled buttons, and no page or console errors. The standalone `@axe-core/cli` could not locate a Chrome binary in this container; the repository's pinned Playwright Axe 4.11 tests passed instead.
 
-Lighthouse 13 mobile results were 99/100/100/100 on `/` with 1,819 ms LCP,
-96 ms TBT, and zero CLS; `/demo` scored 99/100/100/92 with 1,359 ms LCP,
-142 ms TBT, and zero CLS. Default Axe 4.11 found no serious/critical findings
-across five routes in light and dark modes; Lighthouse's experimental axe rule
-found the serious wordmark label mismatch described above.
+Final build sizes: JS 25,894 bytes raw / 9.20 KB gzip; CSS 12,493 bytes raw / 3.55 KB gzip; hero WebP 121,876 bytes; no fonts. The offline shell precache is 232,161 bytes across six entries.
 
-## Next verification
+## Deploy and post-deploy verification
 
-Fix all release blockers, strengthen `@claim:demo-isolation` to cover every
-visible demo exit, and rerun the full matrix against the new deployed commit.
-No product code was changed during this verification; only this handoff and
-the verification report were added/updated.
-
-Fresh independent rerun at the same candidate on 2026-08-28 reconfirmed this
-FAIL from a separate clean clone. It ran every declared claim command before
-the broader suite and reproduced the listed release blockers on production.
-A fresh Lighthouse runner attempt was limited by a Chrome connection close;
-the release decision does not rely on Lighthouse results.
+Push this repair commit to `main`. The repository retains the static deployment class and `staticwebapp.config.json`; no DNS, infrastructure, or billing configuration was changed. After the configured static deployment completes, rerun the production URL matrix (`/`, `/demo`, `/plan`, `/privacy`, `/terms`, manifest, sitemap, 404), offline/update checks, response headers, and local vs live identity hashes. The pre-existing dirty `graphify-out/` files are not part of this repair and were deliberately left untouched.
