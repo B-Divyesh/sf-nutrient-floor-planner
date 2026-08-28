@@ -1,0 +1,240 @@
+{
+  "communities": {
+    "0": [
+      "src_main",
+      "src_main_apppage",
+      "src_main_collectlicense",
+      "src_main_days",
+      "src_main_demobanner",
+      "src_main_download",
+      "src_main_footer",
+      "src_main_header",
+      "src_main_landing",
+      "src_main_licensed",
+      "src_main_link",
+      "src_main_plan",
+      "src_main_render",
+      "src_main_routecopy",
+      "src_main_titlefor",
+      "src_main_verifylicense",
+      "src_model_food",
+      "src_model_makeid",
+      "src_model_nutrientlabels"
+    ],
+    "1": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_es2022",
+      "ref_src",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "2": [
+      "src_main_targetrows",
+      "src_model",
+      "src_model_coverage",
+      "src_model_meal",
+      "src_model_nutrientkey",
+      "src_model_portion",
+      "src_model_sampleplan",
+      "src_model_status",
+      "src_model_target",
+      "src_model_test",
+      "src_model_totals",
+      "src_model_uid"
+    ],
+    "3": [
+      "src_main_load",
+      "src_main_namespace",
+      "src_main_navigate",
+      "src_main_save",
+      "src_model_blankplan",
+      "src_model_plan",
+      "src_store",
+      "src_store_clearplan",
+      "src_store_open",
+      "src_store_readplan",
+      "src_store_writeplan"
+    ],
+    "4": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_type",
+      "package_version"
+    ],
+    "5": [
+      "package_devdependencies",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "playwright_test",
+      "typescript",
+      "vite",
+      "vitest"
+    ],
+    "6": [
+      "src_main_e",
+      "src_main_foodlist",
+      "src_main_mealcard",
+      "src_main_modal",
+      "src_main_n",
+      "src_main_planner"
+    ],
+    "7": [
+      "public_sw",
+      "public_sw_shell"
+    ],
+    "8": [
+      "playwright_config"
+    ],
+    "9": [
+      "tests_claims_spec"
+    ],
+    "10": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.17543859649122806,
+    "1": 0.125,
+    "2": 0.25757575757575757,
+    "3": 0.23636363636363636,
+    "4": 0.2,
+    "5": 0.2222222222222222,
+    "6": 0.4666666666666667,
+    "7": 1.0,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 10
+    },
+    {
+      "id": "src_main_render",
+      "label": "render()",
+      "degree": 8
+    },
+    {
+      "id": "src_main_load",
+      "label": "load()",
+      "degree": 7
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_planner",
+      "label": "planner()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_apppage",
+      "label": "appPage()",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "src_main_e",
+      "label": "e()",
+      "degree": 5
+    },
+    {
+      "id": "src_main_mealcard",
+      "label": "mealCard()",
+      "degree": 5
+    },
+    {
+      "id": "src_model_totals",
+      "label": "totals()",
+      "degree": 5
+    }
+  ],
+  "surprises": [
+    {
+      "source": "mealCard()",
+      "target": "totals()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "load()",
+      "target": "samplePlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "targetRows()",
+      "target": "coverage()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "targetRows()",
+      "target": "status()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "save()",
+      "target": "writePlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
