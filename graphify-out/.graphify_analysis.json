@@ -1,27 +1,6 @@
 {
   "communities": {
     "0": [
-      "src_main",
-      "src_main_apppage",
-      "src_main_collectlicense",
-      "src_main_days",
-      "src_main_demobanner",
-      "src_main_download",
-      "src_main_footer",
-      "src_main_header",
-      "src_main_landing",
-      "src_main_licensed",
-      "src_main_link",
-      "src_main_plan",
-      "src_main_render",
-      "src_main_routecopy",
-      "src_main_titlefor",
-      "src_main_verifylicense",
-      "src_model_food",
-      "src_model_makeid",
-      "src_model_nutrientlabels"
-    ],
-    "1": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -39,21 +18,67 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
-    "2": [
-      "src_main_targetrows",
+    "1": [
       "src_model",
       "src_model_coverage",
+      "src_model_isfood",
+      "src_model_isid",
+      "src_model_isnumber",
+      "src_model_isplan",
+      "src_model_isrecord",
+      "src_model_istext",
       "src_model_meal",
-      "src_model_nutrientkey",
+      "src_model_nutrientkeys",
       "src_model_portion",
       "src_model_sampleplan",
       "src_model_status",
-      "src_model_target",
       "src_model_test",
       "src_model_totals",
       "src_model_uid"
     ],
+    "2": [
+      "src_main",
+      "src_main_days",
+      "src_main_dialogstate",
+      "src_main_download",
+      "src_main_knownroutes",
+      "src_main_opendialog",
+      "src_main_plan",
+      "src_main_render",
+      "src_main_titlefor",
+      "src_model_food",
+      "src_model_makeid",
+      "src_model_nutrientkey",
+      "src_model_nutrientlabels",
+      "src_model_target"
+    ],
     "3": [
+      "axe_core_playwright",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "playwright_test",
+      "typescript",
+      "vite",
+      "vitest"
+    ],
+    "4": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_type",
+      "package_version"
+    ],
+    "5": [
       "src_main_load",
       "src_main_namespace",
       "src_main_navigate",
@@ -66,74 +91,78 @@
       "src_store_readplan",
       "src_store_writeplan"
     ],
-    "4": [
-      "package",
-      "package_name",
-      "package_private",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_dev",
-      "package_scripts_preview",
-      "package_scripts_test",
-      "package_type",
-      "package_version"
-    ],
-    "5": [
-      "package_devdependencies",
-      "package_devdependencies_playwright_test",
-      "package_devdependencies_typescript",
-      "package_devdependencies_vite",
-      "package_devdependencies_vitest",
-      "playwright_test",
-      "typescript",
-      "vite",
-      "vitest"
-    ],
     "6": [
+      "src_main_demobanner",
+      "src_main_dialogmarkup",
+      "src_main_footer",
+      "src_main_header",
+      "src_main_landing",
+      "src_main_link",
+      "src_main_notfound",
+      "src_main_page",
+      "src_main_routecopy"
+    ],
+    "7": [
       "src_main_e",
       "src_main_foodlist",
       "src_main_mealcard",
-      "src_main_modal",
       "src_main_n",
-      "src_main_planner"
+      "src_main_planner",
+      "src_main_targetrows"
     ],
-    "7": [
+    "8": [
+      "scripts_generate_sw",
+      "scripts_generate_sw_dist",
+      "scripts_generate_sw_files",
+      "scripts_generate_sw_paths",
+      "scripts_generate_sw_precache"
+    ],
+    "9": [
+      "test",
+      "tests_claims_spec",
+      "tests_claims_spec_addfood"
+    ],
+    "10": [
       "public_sw",
       "public_sw_shell"
     ],
-    "8": [
+    "11": [
       "playwright_config"
     ],
-    "9": [
-      "tests_claims_spec"
-    ],
-    "10": [
+    "12": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.17543859649122806,
-    "1": 0.125,
-    "2": 0.25757575757575757,
-    "3": 0.23636363636363636,
-    "4": 0.2,
-    "5": 0.2222222222222222,
-    "6": 0.4666666666666667,
-    "7": 1.0,
-    "8": 1.0,
-    "9": 1.0,
-    "10": 1.0
+    "0": 0.125,
+    "1": 0.25,
+    "2": 0.16483516483516483,
+    "3": 0.18181818181818182,
+    "4": 0.18181818181818182,
+    "5": 0.23636363636363636,
+    "6": 0.25,
+    "7": 0.5333333333333333,
+    "8": 0.4,
+    "9": 0.6666666666666666,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0
   },
   "gods": [
+    {
+      "id": "src_main_page",
+      "label": "page()",
+      "degree": 11
+    },
     {
       "id": "tsconfig_compileroptions",
       "label": "compilerOptions",
       "degree": 10
     },
     {
-      "id": "src_main_render",
-      "label": "render()",
-      "degree": 8
+      "id": "src_model_isplan",
+      "label": "isPlan()",
+      "degree": 10
     },
     {
       "id": "src_main_load",
@@ -141,8 +170,13 @@
       "degree": 7
     },
     {
-      "id": "src_main_apppage",
-      "label": "appPage()",
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 6
+    },
+    {
+      "id": "src_main_e",
+      "label": "e()",
       "degree": 6
     },
     {
@@ -151,35 +185,36 @@
       "degree": 6
     },
     {
-      "id": "src_main_planner",
-      "label": "planner()",
+      "id": "src_model_isfood",
+      "label": "isFood()",
       "degree": 6
-    },
-    {
-      "id": "src_model_coverage",
-      "label": "coverage()",
-      "degree": 5
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
-      "degree": 5
-    },
-    {
-      "id": "src_main_e",
-      "label": "e()",
-      "degree": 5
     },
     {
       "id": "src_main_mealcard",
       "label": "mealCard()",
       "degree": 5
+    },
+    {
+      "id": "src_main_planner",
+      "label": "planner()",
+      "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "targetRows()",
+      "target": "coverage()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "targetRows()",
+      "target": "status()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
@@ -200,37 +235,26 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "coverage()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "targetRows()",
-      "target": "status()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
       "source": "load()",
-      "target": "readPlan()",
+      "target": "samplePlan()",
       "source_files": [
         "src/main.ts",
-        "src/store.ts"
+        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "cross-file semantic connection"
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "readPlan()",
+      "target": "isPlan()",
+      "source_files": [
+        "src/store.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
     }
   ],
   "tokens": {
