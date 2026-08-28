@@ -5,5 +5,6 @@
   {"id":"json-transfer","claim":"Export or import your plan.","where":"landing facts, planner toolbar, README","test":"npx playwright test --grep @claim:json-transfer","sandbox":"fresh browser context at /demo; download, parse, and re-import exported JSON"},
   {"id":"local-persistence","claim":"Your plan stays on this device.","where":"landing facts, privacy page, README","test":"npx playwright test --grep @claim:local-persistence","sandbox":"fresh browser context at /plan; save a food and reload"},
   {"id":"demo-isolation","claim":"Demo data uses a separate local space and is discarded when you leave.","where":"demo banner, privacy page, README","test":"npx playwright test --grep @claim:demo-isolation","sandbox":"fresh browser context at /demo; add a food, start for real, and re-enter demo"},
-  {"id":"print-week","claim":"Prints a weekly sheet.","where":"planner toolbar","test":"npx playwright test --grep @claim:print-week","sandbox":"fresh browser context at /demo; assert the browser print action is invoked"}
+  {"id":"print-week","claim":"Prints a weekly sheet.","where":"planner toolbar","test":"npx playwright test --grep @claim:print-week","sandbox":"fresh browser context at /demo; assert the browser print action is invoked"},
+  {"id":"food-source","claim":"Food values are entered by you and include a source field.","where":"README","test":"npx playwright test --grep @claim:food-source","sandbox":"fresh browser context at /plan; save a food with a numeric value and source, then assert both are shown"}
 ]

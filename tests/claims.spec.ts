@@ -78,6 +78,26 @@ test('@claim:print-week invokes the browser print action', async ({ page }) => {
   await expect.poll(() => page.evaluate(() => (window as Window & { printed?: number }).printed)).toBe(1);
 });
 
+test('@claim:food-source saves user-entered food values with their source', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await page.getByLabel('Food name').fill('Labelled beans');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 cup');
+  await page.getByLabel('Source or label').fill('Tin label');
+  await page.locator('input[name="fibre"]').fill('7.5');
+  await page.getByRole('button', { name: 'Save food' }).click();
+  await expect(page.getByText('per 1 cup · Tin label')).toBeVisible();
+  await expect(page.getByText('7.5g fibre')).toBeVisible();
+});
+
+test('empty light planner has no serious or critical axe violations', async ({ page }) => {
+  await page.goto('/plan');
+  await expect(page.getByRole('button', { name: 'Add your first target' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Add your first target' })).toHaveCSS('color', 'rgb(16, 40, 58)');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
+});
+
 test('rejects invalid imports before storage and remains recoverable after reload', async ({ page }) => {
   await page.goto('/plan');
   await page.getByLabel('Import plan').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"foods":[{}],"targets":[],"meals":[],"updatedAt":"x"}') });

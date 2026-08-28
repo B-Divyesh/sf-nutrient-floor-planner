@@ -39,8 +39,7 @@ Food values, targets, and meals are stored in IndexedDB on your device. Export
 or import the full plan as JSON. Nutrient Floor has no analytics or food
 catalogue network calls. The demo and normal planner work offline after setup.
 
-The planner has no account or paid unlock. You can print the weekly sheet and
-keep as many foods as you need. See `/privacy` and `/terms`.
+You can print the weekly sheet. See `/privacy` and `/terms`.
 
 ## Claims verified in the demo
 
@@ -51,5 +50,6 @@ keep as many foods as you need. See `/privacy` and `/terms`.
 - Your plan stays on this device.
 - Demo data uses a separate local space and is discarded when you leave.
 - Prints a weekly sheet.
+- Food values are entered by you and include a source field.
 
 Each claim and its Playwright command are recorded in `.factory/claims.json`.
