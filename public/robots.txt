@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nutrient-floor-planner.sociobot.in/sitemap.xml

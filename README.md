@@ -1,14 +1,51 @@
 # Nutrient Floor
 
-Live: https://nutrient-floor-planner.sociobot.in — built by the Param Factory (`pwa-offline`).
+Plan meals that meet your nutrient targets.
 
-See `.factory/brief.json` for the researched problem this solves and `.factory/design.md` for the visual system.
+Nutrient Floor is for home cooks who want to clear a fibre or protein floor,
+or keep sugar below a limit, without keeping a calorie diary. It stores a small
+trusted food list and weekly meal plan in the browser on your device.
 
-## Develop
+Try the isolated sample plan at `/demo` or `/?demo=1`. It loads seven foods,
+three meals, and three targets. Demo changes use a separate IndexedDB namespace
+and never touch your real plan.
 
-```
+## Run
+
+```sh
 npm install
 npm run dev
-npm test
-npm run build   # -> dist/
 ```
+
+Open `http://localhost:5173`. Use **Start for real** in the demo, or open
+`/plan`, to create a private plan. Values are user-entered and include a source
+field; check labels before relying on a value.
+
+## Verify
+
+```sh
+npm test
+npx playwright test
+npm run build
+```
+
+The build output is `dist/`, with `index.html` at its root. Deploy it as a
+static single-page application and preserve the included `staticwebapp.config.json`.
+
+## Data and privacy
+
+Food values, targets, and meals are stored in IndexedDB on your device. Export
+or import the full plan as JSON. Nutrient Floor has no analytics or food
+catalogue network calls. The demo and normal planner work offline after setup.
+
+An optional $12 one-time upgrade is sold through Sociobot. It raises the free
+ten-food pantry limit and adds printing. Checkout returns a local license token;
+the app verifies it with Sociobot when online. See `/privacy` and `/terms`.
+
+## Claims verified in the demo
+
+- Loads a seven-food plan with three placed meals.
+- No meal data leaves this device.
+- Works offline after setup.
+
+Each claim and its Playwright command are recorded in `.factory/claims.json`.
