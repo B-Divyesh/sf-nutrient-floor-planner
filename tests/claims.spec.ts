@@ -437,6 +437,8 @@ test('SPA navigation, back, focus, announcements, and unknown routes work', asyn
   await expect(page).toHaveURL(/\/privacy$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Your meal plan stays on this device.' })).toBeFocused();
   await expect(page.locator('#route-live')).toContainText('Privacy — Nutrient Floor');
+  await expect(page.locator('#route-live')).toHaveCSS('position', 'absolute');
+  await expect(page.locator('#route-live')).toHaveCSS('clip', 'rect(0px, 0px, 0px, 0px)');
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Plan meals that meet your nutrient targets.' })).toBeFocused();
