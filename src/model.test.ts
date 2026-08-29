@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TARGET_LIMIT, canSaveTarget, coverage, isPlan, normalizeRequiredText, samplePlan, status, totals } from './model';
+import { MAX_NUTRIENT_PER_SERVING, MAX_PORTION_AMOUNT, MAX_NUTRIENT_TOTAL, TARGET_LIMIT, canSaveTarget, coverage, formatNutrient, isPlan, normalizeRequiredText, samplePlan, status, totals } from './model';
 describe('nutrient math', () => {
   it('adds portions by amount', () => { const p = samplePlan(); expect(totals([{ foodId: 'lentils', amount: 2 }], p.foods).fibre).toBe(32); });
   it('identifies sample fibre coverage', () => { const p = samplePlan(); expect(coverage(p).fibre).toBeGreaterThan(30); });
@@ -13,6 +13,33 @@ describe('nutrient math', () => {
     expect(status(minimum, 0.1 * 0.75)).toMatchObject({ passes: false, difference: 0.025 });
   });
   it('rejects incomplete plan records before they can be stored', () => { expect(isPlan({ foods: [{}], targets: [], meals: [], updatedAt: 'x' })).toBe(false); expect(isPlan(samplePlan())).toBe(true); });
+  it('rejects numeric values beyond the supported range before storage', () => {
+    const plan = samplePlan();
+    plan.foods[0].nutrients.fibre = MAX_NUTRIENT_PER_SERVING + 0.1;
+    expect(isPlan(plan)).toBe(false);
+    plan.foods[0].nutrients.fibre = 4;
+    plan.targets[0].value = MAX_NUTRIENT_TOTAL + 0.1;
+    expect(isPlan(plan)).toBe(false);
+    plan.targets[0].value = 30;
+    plan.meals[0].portions[0].amount = MAX_PORTION_AMOUNT + 0.25;
+    expect(isPlan(plan)).toBe(false);
+  });
+  it('rejects finite records whose multiplication would exceed the safe weekly total', () => {
+    const plan = {
+      targets: [{ id: 'fibre-floor', key: 'fibre', label: 'Fibre floor', value: 30, kind: 'min', unit: 'g' }],
+      foods: [{ id: 'large-food', name: 'Large food', serving: '1 serving', source: 'Test label', nutrients: { fibre: MAX_NUTRIENT_PER_SERVING, protein: 0, sugar: 0, saturatedFat: 0 } }],
+      meals: [{ id: 'large-meal', name: 'Large meal', day: 0, portions: [{ foodId: 'large-food', amount: 11 }] }],
+      updatedAt: new Date().toISOString()
+    };
+    expect(MAX_NUTRIENT_PER_SERVING * 11).toBeGreaterThan(MAX_NUTRIENT_TOTAL);
+    expect(isPlan(plan)).toBe(false);
+    expect(totals(plan.meals[0].portions, plan.foods).fibre).toBeNaN();
+  });
+  it('never turns an unsafe total into an on-plan status or an Infinity display', () => {
+    const target = samplePlan().targets[0];
+    expect(status(target, Number.POSITIVE_INFINITY)).toMatchObject({ passes: false, calculationValid: false, ratio: 0 });
+    expect(formatNutrient(Number.POSITIVE_INFINITY)).toBe('—');
+  });
   it('normalizes required text once for forms and stored plans', () => {
     expect(normalizeRequiredText('  Fibre floor  ', 45)).toBe('Fibre floor');
     expect(normalizeRequiredText('   ', 45)).toBeNull();

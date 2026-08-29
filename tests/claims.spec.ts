@@ -521,6 +521,56 @@ test('rejects invalid imports before storage and remains recoverable after reloa
   await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
 });
 
+test('rejects an overflowing food value with a field-specific recovery message and never persists a false pass', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add your first target' }).click();
+  await page.getByLabel('Target name').fill('Boundary fibre');
+  await page.getByLabel('Grams per week').fill('30');
+  await page.getByRole('button', { name: 'Save target' }).click();
+  await expect(page.getByText('Boundary fibre', { exact: true })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await page.getByLabel('Food name').fill('Boundary food');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 serving');
+  await page.getByLabel('Source or label').fill('Test label');
+  const fibre = page.locator('dialog input[name="fibre"]');
+  await fibre.fill('1e308');
+  expect(await fibre.evaluate(input => ({ valid: input.validity.valid, rangeOverflow: input.validity.rangeOverflow }))).toEqual({ valid: false, rangeOverflow: true });
+  await page.getByRole('button', { name: 'Save food' }).click();
+
+  const dialog = page.getByRole('dialog', { name: 'Add a food and its serving.' });
+  await expect(dialog).toBeVisible();
+  await expect(fibre).toHaveAttribute('aria-invalid', 'true');
+  await expect(dialog.getByRole('alert')).toHaveText('Fibre must be no more than 100,000 grams per serving.');
+  await expect(page.getByText('Boundary food', { exact: true })).toHaveCount(0);
+
+  await page.reload();
+  const target = page.locator('.target', { hasText: 'Boundary fibre' });
+  await expect(target).toHaveClass(/gap/);
+  await expect(target.getByText('0 g', { exact: true })).toBeVisible();
+  await expect(target.getByText('30 g short', { exact: true })).toBeVisible();
+  await expect(target.getByRole('meter')).toHaveAccessibleName('Boundary fibre: 0 grams against a 30 gram floor, 30 g short');
+  await expect(page.getByText(/Infinity/)).toHaveCount(0);
+});
+
+test('rejects finite imports whose derived weekly total would overflow the supported range', async ({ page }) => {
+  await createPersistedBaselinePlan(page);
+  const unsafePlan = {
+    targets: [{ id: 'boundary-fibre', key: 'fibre', label: 'Boundary fibre', value: 30, kind: 'min', unit: 'g' }],
+    foods: [{ id: 'boundary-food', name: 'Boundary food', serving: '1 serving', source: 'Test label', nutrients: { fibre: 100000, protein: 0, sugar: 0, saturatedFat: 0 } }],
+    meals: [{ id: 'boundary-meal', name: 'Boundary meal', day: 0, portions: [{ foodId: 'boundary-food', amount: 11 }] }],
+    updatedAt: new Date().toISOString()
+  };
+  await importPlan(page, unsafePlan);
+  await expect(page.getByText('That file is not a valid Nutrient Floor plan. Choose an exported JSON file.')).toBeVisible();
+  await expect(page.getByText('Boundary food', { exact: true })).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByText('Baseline food', { exact: true })).toBeVisible();
+  await expect(page.getByText('Baseline target', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Baseline meal', exact: true })).toBeVisible();
+  await expect(page.getByText(/Infinity/)).toHaveCount(0);
+});
+
 for (const invalidCase of [
   { name: 'food name', kind: 'food', field: 'name', message: 'Enter a food name. It cannot be blank.' },
   { name: 'serving', kind: 'food', field: 'serving', message: 'Enter a serving. It cannot be blank.' },

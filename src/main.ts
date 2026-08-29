@@ -1,5 +1,5 @@
 import './style.css';
-import { TARGET_LIMIT, blankPlan, canSaveTarget, coverage, formatNutrient, isPlan, makeId, normalizeRequiredText, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
+import { MAX_NUTRIENT_PER_SERVING, MAX_NUTRIENT_TOTAL, MAX_PORTION_AMOUNT, TARGET_LIMIT, blankPlan, canSaveTarget, coverage, formatNutrient, isPlan, makeId, normalizeRequiredText, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
 import { clearPlan, readPlan, writePlan } from './store';
 import { applyWaitingServiceWorkerUpdate } from './update';
 
@@ -54,8 +54,10 @@ function targetRows() {
     const actual = formatNutrient(state.actual);
     const targetValue = formatNutrient(state.target);
     const difference = formatNutrient(state.difference);
-    const wording = state.passes ? 'on plan' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
-    const label = `${target.label}: ${actual} grams against a ${targetValue} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`;
+    const wording = !state.calculationValid ? 'calculation needs attention' : state.passes ? 'on plan' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
+    const label = state.calculationValid
+      ? `${target.label}: ${actual} grams against a ${targetValue} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`
+      : `${target.label}: calculation needs attention. Check the saved food values and portions.`;
     return `<article class="target ${state.passes ? 'pass' : 'gap'}"><div><b>${e(target.label)}</b><small>${target.kind === 'min' ? 'floor' : 'limit'} · ${targetValue} g</small></div><meter aria-label="${e(label)}" min="0" max="100" value="${Math.round(state.ratio * 100)}"></meter><div class="target-total"><b>${actual} g</b><small>${wording}</small></div><div class="record-actions"><button class="icon-button edit-button" data-action="edit-target" data-id="${e(target.id)}" aria-label="Edit ${e(target.label)}">Edit</button><button class="icon-button delete-button" data-action="ask-delete-target" data-id="${e(target.id)}" aria-label="Delete ${e(target.label)}">×</button></div></article>`;
   }).join('')}</div>`;
 }
@@ -78,12 +80,12 @@ function dialogMarkup() {
   if (current.kind === 'food') {
     const existing = current.id ? plan.foods.find(food => food.id === current.id) : undefined;
     const food = existing || { name: '', serving: '', source: '', nutrients: { fibre: 0, protein: 0, sugar: 0, saturatedFat: 0 } };
-    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT SAVED FOOD' : 'NEW SAVED FOOD'}</p><h2 id="modal-title">${existing ? 'Edit this food and its serving.' : 'Add a food and its serving.'}</h2>${error}<label>Food name<input name="name" value="${e(food.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" value="${e(food.serving)}" required maxlength="40" aria-describedby="form-error" /></label><label>Source or label<input name="source" value="${e(food.source)}" required maxlength="80" aria-describedby="form-error" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" step="0.1" value="${food.nutrients[k]}" required /></label>`).join('')}</div><button class="button primary" type="submit">${existing ? 'Save food changes' : 'Save food'}</button></form></dialog>`;
+    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT SAVED FOOD' : 'NEW SAVED FOOD'}</p><h2 id="modal-title">${existing ? 'Edit this food and its serving.' : 'Add a food and its serving.'}</h2>${error}<label>Food name<input name="name" value="${e(food.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" value="${e(food.serving)}" required maxlength="40" aria-describedby="form-error" /></label><label>Source or label<input name="source" value="${e(food.source)}" required maxlength="80" aria-describedby="form-error" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" max="${MAX_NUTRIENT_PER_SERVING}" step="0.1" value="${food.nutrients[k]}" required aria-describedby="form-error" /></label>`).join('')}</div><button class="button primary" type="submit">${existing ? 'Save food changes' : 'Save food'}</button></form></dialog>`;
   }
   if (current.kind === 'target') {
     const existing = current.id ? plan.targets.find(target => target.id === current.id) : undefined;
     const target = existing || { label: '', key: 'fibre' as NutrientKey, kind: 'min' as Target['kind'], value: '' };
-    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT TARGET' : 'NEW TARGET'}</p><h2 id="modal-title">${existing ? 'Edit this nutrient floor or limit.' : 'Add a nutrient floor or limit.'}</h2>${error}<label>Target name<input name="label" value="${e(target.label)}" required maxlength="45" aria-describedby="form-error" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}" ${target.key === k ? 'selected' : ''}>${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min" ${target.kind === 'min' ? 'selected' : ''}>Minimum floor</option><option value="max" ${target.kind === 'max' ? 'selected' : ''}>Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" step="0.1" value="${target.value}" required /></label><button class="button primary" type="submit">${existing ? 'Save target changes' : 'Save target'}</button></form></dialog>`;
+    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT TARGET' : 'NEW TARGET'}</p><h2 id="modal-title">${existing ? 'Edit this nutrient floor or limit.' : 'Add a nutrient floor or limit.'}</h2>${error}<label>Target name<input name="label" value="${e(target.label)}" required maxlength="45" aria-describedby="form-error" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}" ${target.key === k ? 'selected' : ''}>${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min" ${target.kind === 'min' ? 'selected' : ''}>Minimum floor</option><option value="max" ${target.kind === 'max' ? 'selected' : ''}>Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" max="${MAX_NUTRIENT_TOTAL}" step="0.1" value="${target.value}" required aria-describedby="form-error" /></label><button class="button primary" type="submit">${existing ? 'Save target changes' : 'Save target'}</button></form></dialog>`;
   }
   if (current.kind === 'confirm') {
     const name = current.subject === 'food' ? plan.foods.find(f => f.id === current.id)?.name || 'this food' : current.subject === 'target' ? plan.targets.find(t => t.id === current.id)?.label || 'this target' : plan.meals.find(m => m.id === current.id)?.name || 'this meal';
@@ -94,7 +96,7 @@ function dialogMarkup() {
   const mealDialog = current as Extract<DialogState, { kind: 'meal' }>;
   const existing = mealDialog.id ? plan.meals.find(m => m.id === mealDialog.id) : undefined;
   const meal = existing || { id: '', name: '', day: mealDialog.day, portions: [] };
-  return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="meal" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">MEAL PORTIONS</p><h2 id="modal-title">${existing ? 'Edit this meal.' : 'Add a meal.'}</h2>${error}<label>Meal name<input name="name" value="${e(meal.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Day<select name="day">${DAYS.map((d, i) => `<option value="${i}" ${meal.day === i ? 'selected' : ''}>${d}</option>`).join('')}</select></label><fieldset><legend>Portions</legend>${plan.foods.length ? plan.foods.map(f => `<label class="portion"><span>${e(f.name)} <small>per ${e(f.serving)}</small></span><input type="number" name="food:${e(f.id)}" min="0" step="0.25" value="${meal.portions.find(p => p.foodId === f.id)?.amount || 0}" /></label>`).join('') : '<p>Add a food first, then return to this meal.</p>'}</fieldset><button class="button primary" type="submit">Save meal</button></form></dialog>`;
+  return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="meal" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">MEAL PORTIONS</p><h2 id="modal-title">${existing ? 'Edit this meal.' : 'Add a meal.'}</h2>${error}<label>Meal name<input name="name" value="${e(meal.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Day<select name="day">${DAYS.map((d, i) => `<option value="${i}" ${meal.day === i ? 'selected' : ''}>${d}</option>`).join('')}</select></label><fieldset><legend>Portions</legend>${plan.foods.length ? plan.foods.map(f => `<label class="portion"><span>${e(f.name)} <small>per ${e(f.serving)}</small></span><input type="number" name="food:${e(f.id)}" min="0" max="${MAX_PORTION_AMOUNT}" step="0.25" value="${meal.portions.find(p => p.foodId === f.id)?.amount || 0}" aria-describedby="form-error" /></label>`).join('') : '<p>Add a food first, then return to this meal.</p>'}</fieldset><button class="button primary" type="submit">Save meal</button></form></dialog>`;
 }
 
 function notFound() { return `<main id="main" class="legal" tabindex="-1"><article><p class="eyebrow">NUTRIENT FLOOR</p><h1 tabindex="-1">Page not found</h1><p>The address does not match a page in this planner.</p><div class="not-found-actions"><a class="button primary" href="/?demo=1" data-route>Open the sample plan</a><a class="button" href="/plan" data-route>Go to the planner</a></div></article></main>`; }
@@ -225,6 +227,21 @@ function formText(data: FormData, form: HTMLFormElement, fieldName: string, max:
   showFormError(form, fieldName, `Enter a ${label.toLowerCase()}. It cannot be blank.`);
   return null;
 }
+function formNumber(data: FormData, form: HTMLFormElement, fieldName: string, label: string, min: number, max: number, unit: string) {
+  const value = Number(data.get(fieldName));
+  if (Number.isFinite(value) && value >= min && value <= max) return value;
+  const range = min === 0 ? `between 0 and ${max.toLocaleString()} ${unit}` : `between ${min} and ${max.toLocaleString()} ${unit}`;
+  showFormError(form, fieldName, `Enter ${label} ${range}.`);
+  return null;
+}
+document.addEventListener('invalid', event => {
+  const input = event.target as HTMLInputElement;
+  const form = input.form;
+  if (!form?.dataset.form || !input.validity.rangeOverflow) return;
+  if (input.name in nutrientLabels) showFormError(form, input.name, `${nutrientLabels[input.name as NutrientKey]} must be no more than ${MAX_NUTRIENT_PER_SERVING.toLocaleString()} grams per serving.`);
+  else if (input.name === 'value') showFormError(form, input.name, `Grams per week must be no more than ${MAX_NUTRIENT_TOTAL.toLocaleString()} grams.`);
+  else if (input.name.startsWith('food:')) showFormError(form, input.name, `This portion must be no more than ${MAX_PORTION_AMOUNT.toLocaleString()} servings.`);
+}, true);
 document.addEventListener('submit', async event => {
   const form = event.target as HTMLFormElement; const formName = form.dataset.form;
   if (!formName) return;
@@ -244,12 +261,18 @@ document.addEventListener('submit', async event => {
     const serving = formText(data, form, 'serving', 40, 'Serving');
     const source = formText(data, form, 'source', 80, 'Source or label');
     if (!name || !serving || !source) return;
-    const nutrients = Object.fromEntries((['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => [k, Number(data.get(k))])) as Food['nutrients'];
+    const nutrientEntries: [NutrientKey, number][] = [];
+    for (const key of ['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]) {
+      const value = formNumber(data, form, key, `${nutrientLabels[key].toLowerCase()} in grams per serving`, 0, MAX_NUTRIENT_PER_SERVING, 'grams per serving');
+      if (value === null) return;
+      nutrientEntries.push([key, value]);
+    }
+    const nutrients = Object.fromEntries(nutrientEntries) as Food['nutrients'];
     const foodId = dialog?.kind === 'food' ? dialog.id : undefined;
     const record = { id: foodId || makeId(), name, serving, source, nutrients };
     const foodIndex = plan.foods.findIndex(food => food.id === foodId);
     const nextPlan = { ...plan, foods: foodIndex >= 0 ? plan.foods.map((food, index) => index === foodIndex ? record : food) : [...plan.foods, record] };
-    if (!isPlan(nextPlan)) { showFormError(form, 'name', 'Check the food values, then try again.'); return; }
+    if (!isPlan(nextPlan)) { showFormError(form, 'fibre', 'This food would make a meal total unsafe. Lower its nutrient value or portion, then try again.'); return; }
     plan = nextPlan; notice = foodIndex >= 0 ? 'Food changes saved.' : 'Food saved to your pantry.';
   }
   if (formName === 'target') {
@@ -257,7 +280,9 @@ document.addEventListener('submit', async event => {
     if (!targetId && !canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); return; }
     const label = formText(data, form, 'label', 45, 'Target name');
     if (!label) return;
-    const record = { id: targetId || makeId(), label, key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' };
+    const value = formNumber(data, form, 'value', 'a target value', 0.1, MAX_NUTRIENT_TOTAL, 'grams');
+    if (value === null) return;
+    const record = { id: targetId || makeId(), label, key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value, unit: 'g' };
     const targetIndex = plan.targets.findIndex(target => target.id === targetId);
     const nextPlan = { ...plan, targets: targetIndex >= 0 ? plan.targets.map((target, index) => index === targetIndex ? record : target) : [...plan.targets, record] };
     if (!isPlan(nextPlan)) { showFormError(form, 'label', 'Check the target values, then try again.'); return; }
@@ -267,12 +292,17 @@ document.addEventListener('submit', async event => {
     const mealDialog = dialog;
     const name = formText(data, form, 'name', 60, 'Meal name');
     if (!name) return;
-    const portions = plan.foods.map(f => ({ foodId: f.id, amount: Number(data.get(`food:${f.id}`)) })).filter(p => p.amount > 0);
+    const portions = [] as { foodId: string; amount: number }[];
+    for (const food of plan.foods) {
+      const amount = formNumber(data, form, `food:${food.id}`, `${food.name} portion`, 0, MAX_PORTION_AMOUNT, 'servings');
+      if (amount === null) return;
+      if (amount > 0) portions.push({ foodId: food.id, amount });
+    }
     const result = { id: mealDialog.id || makeId(), name, day: Number(data.get('day')), portions };
     const index = plan.meals.findIndex(m => m.id === mealDialog.id);
     const meals = index >= 0 ? plan.meals.map((meal, mealIndex) => mealIndex === index ? result : meal) : [...plan.meals, result];
     const nextPlan = { ...plan, meals };
-    if (!isPlan(nextPlan)) { showFormError(form, 'name', 'Check the meal values, then try again.'); return; }
+    if (!isPlan(nextPlan)) { showFormError(form, portions[0] ? `food:${portions[0].foodId}` : 'name', `This meal would exceed the ${MAX_NUTRIENT_TOTAL.toLocaleString()} gram weekly total limit. Lower a portion, then try again.`); return; }
     plan = nextPlan;
     notice = 'Meal saved to your week.';
   }
