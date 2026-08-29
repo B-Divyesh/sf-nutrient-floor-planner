@@ -1,35 +1,6 @@
 {
   "communities": {
     "0": [
-      "src_main",
-      "src_main_closedialog",
-      "src_main_days",
-      "src_main_dialogstate",
-      "src_main_discarddemo",
-      "src_main_download",
-      "src_main_isdemolocation",
-      "src_main_knownroutes",
-      "src_main_licenseverdict",
-      "src_main_load",
-      "src_main_namespace",
-      "src_main_navigate",
-      "src_main_opendialog",
-      "src_main_plan",
-      "src_main_render",
-      "src_main_save",
-      "src_main_storagefailure",
-      "src_main_titlefor",
-      "src_model_blankplan",
-      "src_model_makeid",
-      "src_model_plan",
-      "src_model_sampleplan",
-      "src_store",
-      "src_store_clearplan",
-      "src_store_open",
-      "src_store_readplan",
-      "src_store_writeplan"
-    ],
-    "1": [
       "axe_core_playwright",
       "package",
       "package_devdependencies",
@@ -53,12 +24,13 @@
       "vite",
       "vitest"
     ],
-    "2": [
+    "1": [
+      "src_main_targetrows",
       "src_model",
       "src_model_canimportfoods",
       "src_model_cansavefood",
       "src_model_cansavetarget",
-      "src_model_food",
+      "src_model_coverage",
       "src_model_free_food_limit",
       "src_model_isfood",
       "src_model_isid",
@@ -67,16 +39,16 @@
       "src_model_isrecord",
       "src_model_istext",
       "src_model_meal",
-      "src_model_nutrientkey",
       "src_model_nutrientkeys",
-      "src_model_nutrientlabels",
       "src_model_portion",
-      "src_model_target",
+      "src_model_sampleplan",
+      "src_model_status",
       "src_model_target_limit",
       "src_model_test",
+      "src_model_totals",
       "src_model_uid"
     ],
-    "3": [
+    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -94,19 +66,35 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
+    "3": [
+      "src_main",
+      "src_main_days",
+      "src_main_dialogstate",
+      "src_main_download",
+      "src_main_isdemolocation",
+      "src_main_knownroutes",
+      "src_main_licenseverdict",
+      "src_main_plan",
+      "src_model_food",
+      "src_model_makeid",
+      "src_model_nutrientkey",
+      "src_model_nutrientlabels",
+      "src_model_target"
+    ],
     "4": [
-      "src_main_dialogmarkup",
-      "src_main_e",
-      "src_main_foodlist",
-      "src_main_mealcard",
-      "src_main_n",
-      "src_main_planner",
-      "src_main_rememberdialogopener",
-      "src_main_targetrows",
-      "src_main_toastmarkup",
-      "src_model_coverage",
-      "src_model_status",
-      "src_model_totals"
+      "src_main_discarddemo",
+      "src_main_load",
+      "src_main_namespace",
+      "src_main_navigate",
+      "src_main_save",
+      "src_main_storagefailure",
+      "src_model_blankplan",
+      "src_model_plan",
+      "src_store",
+      "src_store_clearplan",
+      "src_store_open",
+      "src_store_readplan",
+      "src_store_writeplan"
     ],
     "5": [
       "src_main_demobanner",
@@ -119,6 +107,16 @@
       "src_main_routecopy"
     ],
     "6": [
+      "src_main_dialogmarkup",
+      "src_main_e",
+      "src_main_foodlist",
+      "src_main_mealcard",
+      "src_main_n",
+      "src_main_planner",
+      "src_main_rememberdialogopener",
+      "src_main_toastmarkup"
+    ],
+    "7": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
@@ -126,7 +124,7 @@
       "scripts_generate_sw_precache",
       "scripts_generate_sw_shellassets"
     ],
-    "7": [
+    "8": [
       "src_main_cachedverdict",
       "src_main_collectlicense",
       "src_main_safeget",
@@ -134,37 +132,46 @@
       "src_main_safeset",
       "src_main_verifylicense"
     ],
-    "8": [
+    "9": [
+      "test",
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
       "tests_claims_spec_importplan",
       "tests_claims_spec_planwithfoods"
     ],
-    "9": [
+    "10": [
+      "src_main_closedialog",
+      "src_main_opendialog",
+      "src_main_render",
+      "src_main_titlefor"
+    ],
+    "11": [
       "public_sw",
       "public_sw_shell"
     ],
-    "10": [
+    "12": [
       "playwright_config"
     ],
-    "11": [
+    "13": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.1339031339031339,
-    "1": 0.09090909090909091,
-    "2": 0.16666666666666666,
-    "3": 0.125,
-    "4": 0.22727272727272727,
+    "0": 0.09090909090909091,
+    "1": 0.18181818181818182,
+    "2": 0.125,
+    "3": 0.15384615384615385,
+    "4": 0.21794871794871795,
     "5": 0.2857142857142857,
-    "6": 0.3333333333333333,
-    "7": 0.4666666666666667,
-    "8": 0.4,
-    "9": 1.0,
-    "10": 1.0,
-    "11": 1.0
+    "6": 0.2857142857142857,
+    "7": 0.3333333333333333,
+    "8": 0.4666666666666667,
+    "9": 0.3333333333333333,
+    "10": 0.5,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0
   },
   "gods": [
     {
@@ -183,28 +190,18 @@
       "degree": 10
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
-      "degree": 7
-    },
-    {
       "id": "src_main_e",
       "label": "e()",
       "degree": 7
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
-      "degree": 6
+      "id": "src_main_load",
+      "label": "load()",
+      "degree": 7
     },
     {
       "id": "src_model_isfood",
       "label": "isFood()",
-      "degree": 6
-    },
-    {
-      "id": "src_main_render",
-      "label": "render()",
       "degree": 6
     },
     {
@@ -213,12 +210,33 @@
       "degree": 6
     },
     {
-      "id": "src_model_coverage",
-      "label": "coverage()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_render",
+      "label": "render()",
+      "degree": 6
+    },
+    {
+      "id": "src_store_readplan",
+      "label": "readPlan()",
       "degree": 5
     }
   ],
   "surprises": [
+    {
+      "source": "load()",
+      "target": "samplePlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
     {
       "source": "readPlan()",
       "target": "isPlan()",
@@ -231,44 +249,33 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "coverage()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "targetRows()",
-      "target": "status()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "load()",
-      "target": "samplePlan()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
       "source": "mealCard()",
       "target": "totals()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "readPlan()",
+      "target": "blankPlan()",
+      "source_files": [
+        "src/store.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "discardDemo()",
+      "target": "clearPlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
