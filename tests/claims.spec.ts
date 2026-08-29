@@ -11,6 +11,38 @@ async function addFood(page: import('@playwright/test').Page, name = 'Test beans
   await expect(page.getByText(name)).toBeVisible();
 }
 
+async function addTarget(page: import('@playwright/test').Page, name: string) {
+  await page.getByRole('button', { name: 'Add target' }).click();
+  await expect(page.getByRole('dialog', { name: 'Add a nutrient floor or limit.' })).toBeVisible();
+  await page.getByLabel('Target name').fill(name);
+  await page.getByLabel('Grams per week').fill('10');
+  await page.getByRole('button', { name: 'Save target' }).click();
+  await expect(page.getByText(name, { exact: true })).toBeVisible();
+}
+
+function planWithFoods(count: number) {
+  return {
+    targets: [],
+    foods: Array.from({ length: count }, (_, index) => ({
+      id: `food-${index + 1}`,
+      name: `Imported food ${index + 1}`,
+      serving: '1 cup',
+      source: 'Package label',
+      nutrients: { fibre: 1, protein: 1, sugar: 0, saturatedFat: 0 }
+    })),
+    meals: [],
+    updatedAt: new Date().toISOString()
+  };
+}
+
+async function importPlan(page: import('@playwright/test').Page, plan: object) {
+  await page.getByLabel('Import plan').setInputFiles({
+    name: 'plan.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(plan))
+  });
+}
+
 test('@claim:demo-week-coverage loads a seven-food plan with three placed meals', async ({ page }) => {
   await page.goto('/demo');
   await expect(page.getByRole('heading', { name: 'Build a week that clears your targets.' })).toBeVisible();
@@ -89,6 +121,36 @@ test('@claim:paid-upgrade restores a valid one-time license and shows its checko
   await expect(page.getByText('Upgrade active on this device.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open your upgraded planner' })).toBeVisible();
   await expect.poll(() => page.evaluate(() => localStorage.getItem('sb_license:nutrient-floor-planner'))).toBe('returned-token');
+});
+
+test('@claim:free-food-cap blocks an eleventh free food, including imports, and permits it after a valid upgrade', async ({ page }) => {
+  await page.goto('/plan');
+  await importPlan(page, planWithFoods(11));
+  await expect(page.getByRole('status')).toContainText('That plan has more than 10 foods. Upgrade first, then import it.');
+  await expect(page.locator('.food')).toHaveCount(0);
+
+  await importPlan(page, planWithFoods(10));
+  await expect(page.locator('.food')).toHaveCount(10);
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await expect(page.getByRole('status')).toContainText('The free planner holds 10 foods. Upgrade for unlimited saved foods.');
+  await expect(page.getByRole('dialog', { name: 'Add a food and its serving.' })).toHaveCount(0);
+
+  await page.route('**/verify?license=cap-license', route => route.fulfill({ json: { valid: true, reason: 'ok' } }));
+  await page.goto('/plan?license=cap-license');
+  await expect(page.getByText('Upgrade active on this device.')).toBeVisible();
+  await expect(page.locator('.food')).toHaveCount(10);
+  await addFood(page, 'Eleventh food');
+  await expect(page.locator('.food')).toHaveCount(11);
+});
+
+test('@claim:target-cap blocks a sixth target after five saves', async ({ page }) => {
+  await page.goto('/plan');
+  for (let index = 1; index <= 5; index++) await addTarget(page, `Target ${index}`);
+  await expect(page.locator('.target')).toHaveCount(5);
+  await page.getByRole('button', { name: 'Add target' }).click();
+  await expect(page.getByRole('status')).toContainText('You can save up to 5 targets.');
+  await expect(page.getByRole('dialog', { name: 'Add a nutrient floor or limit.' })).toHaveCount(0);
+  await expect(page.locator('.target')).toHaveCount(5);
 });
 
 test('@claim:print-week invokes the browser print action', async ({ page }) => {

@@ -60,6 +60,8 @@ device.
 - Your plan stays on this device.
 - Demo data uses a separate local space and is discarded when you leave.
 - $12 is a one-time purchase for unlimited saved foods.
+- The free planner saves up to 10 foods; a valid upgrade allows more.
+- Saves up to five targets.
 - Prints a weekly sheet.
 - Food values are entered by you and include a source field.
 

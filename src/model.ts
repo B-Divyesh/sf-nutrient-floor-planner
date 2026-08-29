@@ -4,6 +4,8 @@ export type Food = { id: string; name: string; serving: string; nutrients: Recor
 export type Portion = { foodId: string; amount: number };
 export type Meal = { id: string; name: string; day: number; portions: Portion[] };
 export type Plan = { targets: Target[]; foods: Food[]; meals: Meal[]; updatedAt: string };
+export const FREE_FOOD_LIMIT = 10;
+export const TARGET_LIMIT = 5;
 
 export const nutrientLabels: Record<NutrientKey, string> = { fibre: 'Fibre', protein: 'Protein', sugar: 'Sugar', saturatedFat: 'Saturated fat' };
 export const blankPlan = (): Plan => ({ targets: [], foods: [], meals: [], updatedAt: new Date().toISOString() });
@@ -22,7 +24,7 @@ const isFood = (food: unknown) => {
 
 /** Accept only complete, safe plan records before they reach persistent storage. */
 export function isPlan(value: unknown): value is Plan {
-  if (!isRecord(value) || !Array.isArray(value.targets) || !Array.isArray(value.foods) || !Array.isArray(value.meals) || typeof value.updatedAt !== 'string' || value.targets.length > 5) return false;
+  if (!isRecord(value) || !Array.isArray(value.targets) || !Array.isArray(value.foods) || !Array.isArray(value.meals) || typeof value.updatedAt !== 'string' || value.targets.length > TARGET_LIMIT) return false;
   const foods = value.foods;
   if (!foods.every(isFood)) return false;
   if (!value.targets.every(target => isRecord(target) && isId(target.id) && isText(target.label, 45) && nutrientKeys.includes(target.key as NutrientKey) && (target.kind === 'min' || target.kind === 'max') && isNumber(target.value, 0.1) && target.unit === 'g')) return false;
@@ -33,6 +35,10 @@ export function isPlan(value: unknown): value is Plan {
   const mealIds = new Set(value.meals.map(meal => (meal as Meal).id));
   return mealIds.size === value.meals.length;
 }
+
+export const canSaveFood = (foodCount: number, hasUnlimitedFoods: boolean) => hasUnlimitedFoods || foodCount < FREE_FOOD_LIMIT;
+export const canImportFoods = (foodCount: number, hasUnlimitedFoods: boolean) => hasUnlimitedFoods || foodCount <= FREE_FOOD_LIMIT;
+export const canSaveTarget = (targetCount: number) => targetCount < TARGET_LIMIT;
 
 export const samplePlan = (): Plan => ({
   targets: [

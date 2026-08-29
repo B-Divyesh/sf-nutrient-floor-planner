@@ -1,5 +1,5 @@
 import './style.css';
-import { blankPlan, coverage, isPlan, makeId, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
+import { FREE_FOOD_LIMIT, TARGET_LIMIT, blankPlan, canImportFoods, canSaveFood, canSaveTarget, coverage, isPlan, makeId, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
 import { clearPlan, readPlan, writePlan } from './store';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -20,6 +20,8 @@ const LICENSE_CHECK_KEY = 'sb_license_check:nutrient-floor-planner';
 const LICENSE_MAX_AGE = 24 * 60 * 60 * 1000;
 const CANONICAL_ORIGIN = 'https://nutrient-floor-planner.sociobot.in';
 let licensed = false;
+const foodLimitNotice = `The free planner holds ${FREE_FOOD_LIMIT} foods. Upgrade for unlimited saved foods.`;
+const targetLimitNotice = `You can save up to ${TARGET_LIMIT} targets.`;
 const e = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]!));
 const n = (value: number) => Math.round(value * 10) / 10;
 const namespace = () => demo ? 'demo:plan' : 'real:plan';
@@ -209,8 +211,8 @@ document.addEventListener('click', async event => {
   const action = el.dataset.action; const id = el.dataset.id!;
   if (action === 'apply-update' && waitingWorker) { waitingWorker.postMessage('SKIP_WAITING'); location.reload(); return; }
   if (action === 'close-dialog') { closeDialog(); return; }
-  if (action === 'show-food') { if (!demo && !licensed && plan.foods.length >= 10) { notice = 'The free planner holds 10 foods. Upgrade for unlimited saved foods.'; render(); } else { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); } return; }
-  if (action === 'show-target') { if (plan.targets.length >= 5) { notice = 'You can save up to five targets.'; render(); } else { rememberDialogOpener(el); dialog = { kind: 'target' }; render(); } return; }
+  if (action === 'show-food') { if (!demo && !canSaveFood(plan.foods.length, licensed)) { notice = foodLimitNotice; render(); } else { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); } return; }
+  if (action === 'show-target') { if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); } else { rememberDialogOpener(el); dialog = { kind: 'target' }; render(); } return; }
   if (action === 'new-meal') { rememberDialogOpener(el); dialog = { kind: 'meal', day: Number(el.dataset.day || 0) }; render(); return; }
   if (action === 'edit-meal') { const meal = plan.meals.find(m => m.id === id); if (meal) { rememberDialogOpener(el); dialog = { kind: 'meal', id, day: meal.day }; render(); } return; }
   if (action?.startsWith('ask-delete-')) { rememberDialogOpener(el); dialog = { kind: 'confirm', subject: action.slice('ask-delete-'.length) as 'food' | 'target' | 'meal', id }; render(); return; }
@@ -241,11 +243,12 @@ document.addEventListener('submit', async event => {
     closeDialog(); return;
   }
   if (formName === 'food') {
+    if (!demo && !canSaveFood(plan.foods.length, licensed)) { notice = foodLimitNotice; render(); return; }
     const nutrients = Object.fromEntries((['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => [k, Number(data.get(k))])) as Food['nutrients'];
     plan.foods.push({ id: makeId(), name: String(data.get('name')).trim(), serving: String(data.get('serving')).trim(), source: String(data.get('source')).trim(), nutrients }); notice = 'Food saved to your pantry.';
   }
   if (formName === 'target') {
-    if (plan.targets.length >= 5) { dialog = null; notice = 'You can save up to five targets.'; render(); return; }
+    if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); return; }
     plan.targets.push({ id: makeId(), label: String(data.get('label')).trim(), key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' }); notice = 'Target saved.';
   }
   if (formName === 'meal' && dialog?.kind === 'meal') {
@@ -265,6 +268,11 @@ document.addEventListener('change', async event => {
   try {
     const incoming: unknown = JSON.parse(await input.files[0].text());
     if (!isPlan(incoming)) throw new Error('Invalid plan');
+    if (!demo && !canImportFoods(incoming.foods.length, licensed)) {
+      notice = `That plan has more than ${FREE_FOOD_LIMIT} foods. Upgrade first, then import it.`;
+      render();
+      return;
+    }
     const previousPlan = plan;
     plan = incoming;
     if (await save()) notice = 'Plan imported.';
