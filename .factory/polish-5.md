@@ -38,6 +38,9 @@ and direct-demo captures are in
 - Product screenshots: [home desktop](evidence/polish-5-local/home-desktop.png),
   [demo mobile](evidence/polish-5-local/demo-mobile.png), and
   [404 mobile](evidence/polish-5-local/404-mobile.png).
+- Local Lighthouse mobile: 100 performance, accessibility, best practices,
+  and SEO; LCP 1.65 s, CLS 0, TBT 0. See
+  [lighthouse.json](evidence/polish-5-local/lighthouse.json).
 - Live routes `/`, `/demo`, `/plan`, `/privacy`, `/terms`, and `/404.html`
   each have one h1, one main, the expected title, and zero serious/critical
   Axe findings; the unknown-route response is HTTP 404. See

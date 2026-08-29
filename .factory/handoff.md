@@ -39,6 +39,9 @@ Clean clone: `/tmp/nutrient-floor-polish5.cbpahC` at repair commit
 - Full Playwright suite: 42/42 passed. It covers PWA offline reload, demo
   isolation, privacy request logging, dialogs and keyboard focus, routes and
   titles, mobile/200% layout, 404, CSP, and Axe checks.
+- Local Lighthouse mobile: 100 performance, 100 accessibility, 100 best
+  practices, and 100 SEO; LCP 1.65 s, CLS 0, TBT 0. See
+  [lighthouse.json](evidence/polish-5-local/lighthouse.json).
 - Live cold checks: `verify-url.sh` passed for [home](evidence/polish-5-live-home/verify.json)
   (973 ms, no errors) and [direct demo](evidence/polish-5-live-demo/verify.json)
   (744 ms, no errors).
