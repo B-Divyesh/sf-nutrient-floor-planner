@@ -31,9 +31,9 @@ demo namespace, and offline service worker remain intact.
 
 ## Clean-clone verification
 
-Fresh clone: `/tmp/nutrient-polish-clean.wtHlmf`
+Fresh final-tree clone: `/tmp/nutrient-polish-final.30u5jZ`
 
-Exact commit: `46bb383f897a5d3593fd0b4816e6e445d9b2454f`
+Exact tested commit: `7af96d5214510a80f576036bb682d8a20d3bc824`
 
 - `npm ci` — passed; 0 vulnerabilities.
 - Every one of the 13 exact commands in `.factory/claims.json` — passed
