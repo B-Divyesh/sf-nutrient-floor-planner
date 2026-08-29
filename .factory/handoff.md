@@ -1,4 +1,27 @@
-# Nutrient Floor verification 14 handoff — PASS
+# Nutrient Floor review 6 handoff — PASS
+
+## Current review summary
+
+- Reviewed the live product at https://nutrient-floor-planner.sociobot.in.
+- Added .factory/review-6.md; no product code was changed.
+- Cold phone/desktop first read, one-click sample, reset, Start for real,
+  real-plan isolation, request logging, offline use, routes, metadata, links,
+  404, mobile Axe, and prior-finding confirmation all passed.
+- Clean clone /tmp/nutrient-floor-review6.RuHLFs passed npm ci, all 17 exact
+  claim commands, npm test, npm run lint, npm run build, and Playwright 44/44.
+- Decision: PASS with zero findings. The researched .factory/brief.json is
+  absent, so no additional brief-specific scope could be verified.
+- Preserved unrelated pre-existing graphify-out worktree changes.
+
+## Current re-run
+
+    npm ci
+    npm test
+    npm run lint
+    npm run build
+    npx playwright test --reporter=line
+
+## Historical verification 14 record
 
 ## Release decision
 
