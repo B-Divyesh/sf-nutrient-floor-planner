@@ -1,0 +1,34 @@
+{
+  "firstScreen": {
+    "h1": "Plan meals that meet your nutrient targets.",
+    "actionHeight": 44,
+    "scrollWidth": 390
+  },
+  "homeSeriousCritical": [],
+  "demo": {
+    "foods": 7,
+    "meals": 3,
+    "targets": 3
+  },
+  "reducedMotionDurations": [],
+  "demoSeriousCritical": [],
+  "firstTab": "Skip to planner",
+  "skipTarget": "main",
+  "afterSkip": "Export plan",
+  "thresholds": [
+    {
+      "id": "maximum",
+      "text": "Tiny sugar limit | limit · 0.1 g | 0.125 g | 0.025 g over | ×",
+      "accessibleName": "Tiny sugar limit: 0.125 grams against a 0.1 gram limit, 0.025 g over"
+    },
+    {
+      "id": "minimum",
+      "text": "Tiny fibre floor | floor · 0.1 g | 0.075 g | 0.025 g short | ×",
+      "accessibleName": "Tiny fibre floor: 0.075 grams against a 0.1 gram floor, 0.025 g short"
+    }
+  ],
+  "offline": "reloaded demo and opened meal dialog",
+  "consoleErrors": [],
+  "foreignRequests": [],
+  "dataRequests": []
+}

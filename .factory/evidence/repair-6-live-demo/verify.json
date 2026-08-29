@@ -1,0 +1,14 @@
+{
+  "url": "https://nutrient-floor-planner.sociobot.in/demo?repair=6-final",
+  "loadMs": 725,
+  "errors": [],
+  "a11y": {
+    "title": "Demo — Nutrient Floor",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 1809
+  }
+}
