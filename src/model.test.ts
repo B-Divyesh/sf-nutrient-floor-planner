@@ -4,6 +4,14 @@ describe('nutrient math', () => {
   it('adds portions by amount', () => { const p = samplePlan(); expect(totals([{ foodId: 'lentils', amount: 2 }], p.foods).fibre).toBe(32); });
   it('identifies sample fibre coverage', () => { const p = samplePlan(); expect(coverage(p).fibre).toBeGreaterThan(30); });
   it('checks floors and limits', () => { const min = samplePlan().targets[0]; const max = samplePlan().targets[2]; expect(status(min, 31).passes).toBe(true); expect(status(max, 40).passes).toBe(false); });
+  it('keeps maximum comparisons and differences at the supported nutrient precision', () => {
+    const maximum = { id: 'sugar-max', key: 'sugar', label: 'Tiny sugar limit', value: 0.1, kind: 'max', unit: 'g' } as const;
+    expect(status(maximum, 0.1 * 1.25)).toMatchObject({ passes: false, difference: 0.025 });
+  });
+  it('keeps minimum comparisons and differences at the supported nutrient precision', () => {
+    const minimum = { id: 'fibre-min', key: 'fibre', label: 'Tiny fibre floor', value: 0.1, kind: 'min', unit: 'g' } as const;
+    expect(status(minimum, 0.1 * 0.75)).toMatchObject({ passes: false, difference: 0.025 });
+  });
   it('rejects incomplete plan records before they can be stored', () => { expect(isPlan({ foods: [{}], targets: [], meals: [], updatedAt: 'x' })).toBe(false); expect(isPlan(samplePlan())).toBe(true); });
   it('rejects IDs that could alter rendered HTML attributes', () => {
     const plan = samplePlan();

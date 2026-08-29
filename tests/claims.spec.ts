@@ -227,6 +227,48 @@ test('@claim:target-comparison compares entered values with a chosen target', as
   await expect(page.getByText('on plan', { exact: true })).toBeVisible();
 });
 
+for (const threshold of [
+  {
+    name: 'maximum',
+    target: { id: 'tiny-sugar', key: 'sugar', label: 'Tiny sugar limit', value: 0.1, kind: 'max', unit: 'g' },
+    amount: 1.25,
+    total: '0.125 g',
+    difference: '0.025 g over',
+    accessibleName: 'Tiny sugar limit: 0.125 grams against a 0.1 gram limit, 0.025 g over'
+  },
+  {
+    name: 'minimum',
+    target: { id: 'tiny-fibre', key: 'fibre', label: 'Tiny fibre floor', value: 0.1, kind: 'min', unit: 'g' },
+    amount: 0.75,
+    total: '0.075 g',
+    difference: '0.025 g short',
+    accessibleName: 'Tiny fibre floor: 0.075 grams against a 0.1 gram floor, 0.025 g short'
+  }
+] as const) {
+  test(`uses one precision policy at the 0.1 times ${threshold.amount} ${threshold.name} threshold`, async ({ page }) => {
+    await page.goto('/plan');
+    const nutrient = threshold.target.key;
+    await importPlan(page, {
+      targets: [threshold.target],
+      foods: [{
+        id: `tiny-${nutrient}-food`,
+        name: `Tiny ${nutrient} food`,
+        serving: '1 serving',
+        source: 'Package label',
+        nutrients: { fibre: nutrient === 'fibre' ? 0.1 : 0, protein: 0, sugar: nutrient === 'sugar' ? 0.1 : 0, saturatedFat: 0 }
+      }],
+      meals: [{ id: `tiny-${nutrient}-meal`, name: `Tiny ${nutrient} meal`, day: 0, portions: [{ foodId: `tiny-${nutrient}-food`, amount: threshold.amount }] }],
+      updatedAt: new Date().toISOString()
+    });
+
+    const row = page.locator('.target', { hasText: threshold.target.label });
+    await expect(row).toHaveClass(/gap/);
+    await expect(row.getByText(threshold.total, { exact: true })).toBeVisible();
+    await expect(row.getByText(threshold.difference, { exact: true })).toBeVisible();
+    await expect(row.getByRole('meter')).toHaveAccessibleName(threshold.accessibleName);
+  });
+}
+
 test('@claim:user-chosen-targets starts without recommended target values', async ({ page }) => {
   await page.goto('/plan');
   await page.getByRole('button', { name: 'Add your first target' }).click();

@@ -5,6 +5,7 @@ export type Portion = { foodId: string; amount: number };
 export type Meal = { id: string; name: string; day: number; portions: Portion[] };
 export type Plan = { targets: Target[]; foods: Food[]; meals: Meal[]; updatedAt: string };
 export const TARGET_LIMIT = 5;
+export const NUTRIENT_DECIMAL_PLACES = 3;
 
 export const nutrientLabels: Record<NutrientKey, string> = { fibre: 'Fibre', protein: 'Protein', sugar: 'Sugar', saturatedFat: 'Saturated fat' };
 export const blankPlan = (): Plan => ({ targets: [], foods: [], meals: [], updatedAt: new Date().toISOString() });
@@ -37,6 +38,14 @@ export function isPlan(value: unknown): value is Plan {
 
 export const canSaveTarget = (targetCount: number) => targetCount < TARGET_LIMIT;
 
+/**
+ * Food values use 0.1 g steps and portions use 0.25 steps, so supported
+ * calculations can produce thousandths of a gram. Normalize once at that
+ * precision before values are compared or presented.
+ */
+export const nutrientValue = (value: number) => Number(value.toFixed(NUTRIENT_DECIMAL_PLACES));
+export const formatNutrient = (value: number) => nutrientValue(value).toString();
+
 export const samplePlan = (): Plan => ({
   targets: [
     { id: 'fibre', key: 'fibre', label: 'Fibre floor', value: 30, kind: 'min', unit: 'g' },
@@ -62,8 +71,22 @@ export const samplePlan = (): Plan => ({
 export function totals(portions: Portion[], foods: Food[]): Record<NutrientKey, number> {
   const total: Record<NutrientKey, number> = { fibre: 0, protein: 0, sugar: 0, saturatedFat: 0 };
   for (const p of portions) { const food = foods.find(f => f.id === p.foodId); if (food) for (const key of Object.keys(total) as NutrientKey[]) total[key] += food.nutrients[key] * p.amount; }
+  for (const key of nutrientKeys) total[key] = nutrientValue(total[key]);
   return total;
 }
 export function coverage(plan: Plan) { return totals(plan.meals.flatMap(m => m.portions), plan.foods); }
-export function status(target: Target, actual: number) { const passes = target.kind === 'min' ? actual >= target.value : actual <= target.value; return { passes, difference: Math.abs(actual - target.value), ratio: target.kind === 'min' ? Math.min(actual / target.value, 1) : Math.min(target.value / Math.max(actual, 0.01), 1) }; }
+export function status(target: Target, actual: number) {
+  const comparedActual = nutrientValue(actual);
+  const comparedTarget = nutrientValue(target.value);
+  const passes = target.kind === 'min' ? comparedActual >= comparedTarget : comparedActual <= comparedTarget;
+  return {
+    actual: comparedActual,
+    target: comparedTarget,
+    passes,
+    difference: nutrientValue(Math.abs(comparedActual - comparedTarget)),
+    ratio: target.kind === 'min'
+      ? Math.min(comparedActual / comparedTarget, 1)
+      : Math.min(comparedTarget / Math.max(comparedActual, 0.001), 1)
+  };
+}
 export const makeId = uid;

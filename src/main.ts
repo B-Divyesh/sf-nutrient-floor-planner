@@ -1,6 +1,7 @@
 import './style.css';
-import { TARGET_LIMIT, blankPlan, canSaveTarget, coverage, isPlan, makeId, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
+import { TARGET_LIMIT, blankPlan, canSaveTarget, coverage, formatNutrient, isPlan, makeId, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
 import { clearPlan, readPlan, writePlan } from './store';
+import { applyWaitingServiceWorkerUpdate } from './update';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const routeLive = document.querySelector<HTMLDivElement>('#route-live')!;
@@ -18,7 +19,6 @@ let dialogReturnSelector: string | null = null;
 const CANONICAL_ORIGIN = 'https://nutrient-floor-planner.sociobot.in';
 const targetLimitNotice = `You can save up to ${TARGET_LIMIT} targets.`;
 const e = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]!));
-const n = (value: number) => Math.round(value * 10) / 10;
 const namespace = () => 'real:plan';
 const knownRoutes = new Set(['/', '/demo', '/plan', '/privacy', '/terms']);
 const isDemoLocation = () => location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
@@ -49,18 +49,22 @@ function targetRows() {
   const week = coverage(plan);
   if (!plan.targets.length) return `<div class="empty"><p>No targets yet.</p><button class="button small" data-action="show-target">Add your first target</button></div>`;
   return `<div class="target-list">${plan.targets.map(target => {
-    const actual = week[target.key]; const state = status(target, actual); const wording = state.passes ? 'on plan' : target.kind === 'min' ? `${n(state.difference)} g short` : `${n(state.difference)} g over`;
-    const label = `${target.label}: ${n(actual)} grams against a ${target.value} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`;
-    return `<article class="target ${state.passes ? 'pass' : 'gap'}"><div><b>${e(target.label)}</b><small>${target.kind === 'min' ? 'floor' : 'limit'} · ${target.value} g</small></div><meter aria-label="${e(label)}" min="0" max="100" value="${Math.round(state.ratio * 100)}"></meter><div class="target-total"><b>${n(actual)} g</b><small>${wording}</small></div><button class="icon-button" data-action="ask-delete-target" data-id="${e(target.id)}" aria-label="Delete ${e(target.label)}">×</button></article>`;
+    const state = status(target, week[target.key]);
+    const actual = formatNutrient(state.actual);
+    const targetValue = formatNutrient(state.target);
+    const difference = formatNutrient(state.difference);
+    const wording = state.passes ? 'on plan' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
+    const label = `${target.label}: ${actual} grams against a ${targetValue} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`;
+    return `<article class="target ${state.passes ? 'pass' : 'gap'}"><div><b>${e(target.label)}</b><small>${target.kind === 'min' ? 'floor' : 'limit'} · ${targetValue} g</small></div><meter aria-label="${e(label)}" min="0" max="100" value="${Math.round(state.ratio * 100)}"></meter><div class="target-total"><b>${actual} g</b><small>${wording}</small></div><button class="icon-button" data-action="ask-delete-target" data-id="${e(target.id)}" aria-label="Delete ${e(target.label)}">×</button></article>`;
   }).join('')}</div>`;
 }
 function foodList() {
   if (!plan.foods.length) return `<div class="empty"><p>Your saved foods will appear here.</p><button class="button small" data-action="show-food">Add a food</button></div>`;
-  return `<div class="food-list">${plan.foods.map(food => `<article class="food"><div><b>${e(food.name)}</b><small>per ${e(food.serving)} · ${e(food.source)}</small></div><div>${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).filter(k => food.nutrients[k]).map(k => `<span>${food.nutrients[k]}g ${nutrientLabels[k].toLowerCase()}</span>`).join('')}</div><button class="icon-button" data-action="ask-delete-food" data-id="${e(food.id)}" aria-label="Delete ${e(food.name)}">×</button></article>`).join('')}</div>`;
+  return `<div class="food-list">${plan.foods.map(food => `<article class="food"><div><b>${e(food.name)}</b><small>per ${e(food.serving)} · ${e(food.source)}</small></div><div>${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).filter(k => food.nutrients[k]).map(k => `<span>${formatNutrient(food.nutrients[k])}g ${nutrientLabels[k].toLowerCase()}</span>`).join('')}</div><button class="icon-button" data-action="ask-delete-food" data-id="${e(food.id)}" aria-label="Delete ${e(food.name)}">×</button></article>`).join('')}</div>`;
 }
 function mealCard(meal: Plan['meals'][number]) {
   const total = totals(meal.portions, plan.foods);
-  return `<article class="meal" data-meal="${e(meal.id)}"><div class="meal-top"><span class="day-label">${DAYS[meal.day]}</span><button class="icon-button" data-action="ask-delete-meal" data-id="${e(meal.id)}" aria-label="Delete ${e(meal.name)}">×</button></div><button class="meal-name" data-action="edit-meal" data-id="${e(meal.id)}">${e(meal.name)}</button><p>${meal.portions.length ? meal.portions.map(p => `${p.amount}× ${e(plan.foods.find(f => f.id === p.foodId)?.name || 'missing food')}`).join(' · ') : 'No portions yet'}</p><div class="meal-total">${plan.targets.slice(0, 2).map(t => `${n(total[t.key])}g ${t.key}`).join(' · ') || 'Add targets'}</div></article>`;
+  return `<article class="meal" data-meal="${e(meal.id)}"><div class="meal-top"><span class="day-label">${DAYS[meal.day]}</span><button class="icon-button" data-action="ask-delete-meal" data-id="${e(meal.id)}" aria-label="Delete ${e(meal.name)}">×</button></div><button class="meal-name" data-action="edit-meal" data-id="${e(meal.id)}">${e(meal.name)}</button><p>${meal.portions.length ? meal.portions.map(p => `${p.amount}× ${e(plan.foods.find(f => f.id === p.foodId)?.name || 'missing food')}`).join(' · ') : 'No portions yet'}</p><div class="meal-total">${plan.targets.slice(0, 2).map(t => `${formatNutrient(total[t.key])}g ${t.key}`).join(' · ') || 'Add targets'}</div></article>`;
 }
 function planner() {
   return `<main id="main" class="app-main" tabindex="-1"><section class="planner-heading"><div><p class="eyebrow">WEEKLY TOTALS / ${demo ? 'SAMPLE PLAN' : 'YOUR PLAN'}</p><h1 tabindex="-1">Build a week that meets your targets.</h1><p>Each value is per serving. Check your labels before you rely on a plan.</p></div><div class="toolbar"><button class="button small" data-action="export-json">Export plan</button><label class="button small file-button">Import plan<input type="file" accept="application/json" data-action="import-json" /></label><button class="button small" data-action="print-plan">Print week</button></div></section><section class="coverage-board ruled" aria-labelledby="coverage-title"><div class="board-head"><h2 id="coverage-title">Week at a glance</h2><span>${plan.meals.length} meal${plan.meals.length === 1 ? '' : 's'} planned</span></div>${targetRows()}</section><section id="planner" class="week" aria-labelledby="week-title"><div class="board-head"><h2 id="week-title">Place meals on your week</h2><button class="button small" data-action="new-meal">Add a meal</button></div><div class="days">${DAYS.map((day, i) => `<section class="day" data-day="${i}"><h3>${day}</h3>${plan.meals.filter(m => m.day === i).map(mealCard).join('')}<button class="add-meal" data-action="new-meal" data-day="${i}">+ Add meal</button></section>`).join('')}</div></section><section class="two-col"><section class="pantry ruled" aria-labelledby="pantry-title"><div class="board-head"><div><p class="eyebrow">SAVED FOODS</p><h2 id="pantry-title">Your saved foods</h2></div><button class="button small" data-action="show-food">Add food</button></div>${foodList()}</section><section class="targets-panel" aria-labelledby="targets-title"><div class="board-head"><div><p class="eyebrow">UP TO 5 TARGETS</p><h2 id="targets-title">Your nutrient targets</h2></div><button class="button small" data-action="show-target">Add target</button></div>${plan.targets.length ? `<p class="muted">Use a floor for enough of something. Use a limit for less of something.</p>` : ''}</section></section></main>`;
@@ -180,7 +184,7 @@ document.addEventListener('click', async event => {
   const route = el.closest<HTMLAnchorElement>('[data-route]');
   if (route) { event.preventDefault(); void navigate(`${route.pathname}${route.search}`); return; }
   const action = el.dataset.action; const id = el.dataset.id!;
-  if (action === 'apply-update' && waitingWorker) { waitingWorker.postMessage('SKIP_WAITING'); location.reload(); return; }
+  if (action === 'apply-update' && waitingWorker) { applyWaitingServiceWorkerUpdate(navigator.serviceWorker, waitingWorker, () => location.reload()); return; }
   if (action === 'close-dialog') { closeDialog(); return; }
   if (action === 'show-food') { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); return; }
   if (action === 'show-target') { if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); } else { rememberDialogOpener(el); dialog = { kind: 'target' }; render(); } return; }
