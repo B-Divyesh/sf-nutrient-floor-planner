@@ -33,9 +33,9 @@ single-page application. Keep the included `staticwebapp.config.json`.
 
 ## Data and privacy
 
-Foods, targets, and meals stay in browser storage on your device. The planner
-uses no analytics and sends no meal data elsewhere. You can export or import
-the complete plan as JSON. Nutrient Floor is free to use.
+Foods, targets, and meal portions stay in browser storage on your device. The
+planner uses no analytics and sends no meal data elsewhere. You can export and
+reimport the complete plan as JSON. Nutrient Floor is free to use.
 
 The planner and demo work offline after setup. You can also print the weekly
 plan. Read `/privacy` and `/terms` for details.
@@ -54,13 +54,14 @@ Check labels before relying on a total.
 - Nutrient Floor is free to use with no payment gate.
 - The planner uses no analytics and sends no meal data elsewhere.
 - The planner and demo work offline after setup.
-- You can export or import your complete plan.
-- Your plan stays on this device.
+- You can export and reimport your complete plan as JSON.
+- Foods, targets, and meal portions stay on this device.
 - Demo changes stay in the open tab and reset when you leave.
 - The planner saves up to five targets.
 - The planner prints a weekly plan.
 - Food values are entered by you and saved with a source.
-- The planner compares entered food values with targets you choose.
+- The planner compares your food values with floors and limits you choose.
+- It shows short, on-plan, within-limit, and over-limit states.
 - The planner does not supply recommended target values.
 - You can plan meals without entering calories.
 - The production build contains `dist/index.html`.

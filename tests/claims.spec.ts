@@ -45,6 +45,16 @@ async function importPlan(page: import('@playwright/test').Page, plan: object) {
   });
 }
 
+async function readExport(page: Page) {
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export plan' }).click();
+  const exported = await download;
+  const stream = await exported.createReadStream();
+  let text = '';
+  for await (const part of stream!) text += part.toString();
+  return { text, plan: JSON.parse(text) };
+}
+
 async function createPersistedBaselinePlan(page: Page) {
   await page.goto('/plan');
   await addFood(page, 'Baseline food');
@@ -174,26 +184,50 @@ test('an activated service worker removes the previous cache before reloading', 
   }
 });
 
-test('@claim:json-transfer exports complete JSON and imports it', async ({ page }) => {
+test('@claim:json-transfer exports and reimports the complete plan as JSON', async ({ page }) => {
   await page.goto('/demo');
-  const download = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Export plan' }).click();
-  const exported = await download;
-  const text = await exported.createReadStream().then(async stream => {
-    let result = ''; for await (const part of stream!) result += part.toString(); return result;
-  });
-  const parsed = JSON.parse(text);
-  expect(parsed.foods).toHaveLength(7);
-  expect(parsed.meals).toHaveLength(3);
-  await page.getByLabel('Import plan').setInputFiles({ name: 'plan.json', mimeType: 'application/json', buffer: Buffer.from(text) });
+  const exported = await readExport(page);
+  expect(exported.plan.foods).toHaveLength(7);
+  expect(exported.plan.targets).toHaveLength(3);
+  expect(exported.plan.meals).toHaveLength(3);
+
+  await page.goto('/plan');
+  await page.getByLabel('Import plan').setInputFiles({ name: 'plan.json', mimeType: 'application/json', buffer: Buffer.from(exported.text) });
   await expect(page.getByText('Plan imported.')).toBeVisible();
+  const reexported = await readExport(page);
+  expect(reexported.plan).toEqual(exported.plan);
 });
 
-test('@claim:local-persistence saved foods survive a reload', async ({ page }) => {
+test('@claim:local-persistence saves foods, targets, and meal portions through a reload', async ({ page }) => {
   await page.goto('/plan');
-  await addFood(page, 'Persistent beans');
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await page.getByLabel('Food name').fill('Persistent beans');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('¾ cup');
+  await page.getByLabel('Source or label').fill('Jar label');
+  await page.locator('input[name="fibre"]').fill('7.5');
+  await page.locator('input[name="protein"]').fill('3.5');
+  await page.getByRole('button', { name: 'Save food' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add target' }).click();
+  await page.getByLabel('Target name').fill('Weekly bean fibre');
+  await page.getByLabel('Grams per week').fill('10');
+  await page.getByRole('button', { name: 'Save target' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await page.getByLabel('Meal name').fill('Bean lunch');
+  await page.getByLabel('Persistent beans per ¾ cup').fill('1.5');
+  await page.getByRole('button', { name: 'Save meal' }).click();
+  await expect(page.getByRole('button', { name: 'Bean lunch', exact: true })).toBeVisible();
   await page.reload();
-  await expect(page.getByText('Persistent beans')).toBeVisible();
+  await expect(page.getByText('Persistent beans', { exact: true })).toBeVisible();
+  await expect(page.getByText('per ¾ cup · Jar label')).toBeVisible();
+  await expect(page.getByText('7.5g fibre')).toBeVisible();
+  const target = page.locator('.target', { hasText: 'Weekly bean fibre' });
+  await expect(target.getByText('floor · 10 g', { exact: true })).toBeVisible();
+  await expect(target.getByText('11.25 g', { exact: true })).toBeVisible();
+  await expect(target.getByText('on plan', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Bean lunch', exact: true })).toBeVisible();
+  await expect(page.locator('.meal', { hasText: 'Bean lunch' })).toContainText('1.5× Persistent beans');
 });
 
 test('@claim:demo-isolation resets demo edits after visible exits, hard navigation, and tab closure', async ({ page, browser }) => {
@@ -289,21 +323,113 @@ test('@claim:food-source saves user-entered food values with their source', asyn
   await expect(page.getByText('7.5g fibre')).toBeVisible();
 });
 
-test('@claim:target-comparison compares entered values with a chosen target', async ({ page }) => {
+test('@claim:target-comparison compares floors and limits with short, on-plan, within-limit, and over-limit states', async ({ page }) => {
   await page.goto('/plan');
   await page.getByRole('button', { name: 'Add food' }).click();
-  await page.getByLabel('Food name').fill('Fibre cereal');
+  await page.getByLabel('Food name').fill('Fibre and sugar cereal');
   await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 bowl');
   await page.getByLabel('Source or label').fill('Box label');
   await page.locator('input[name="fibre"]').fill('8');
+  await page.locator('input[name="sugar"]').fill('3');
   await page.getByRole('button', { name: 'Save food' }).click();
-  await addTarget(page, 'Weekly fibre');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  for (const target of [
+    { label: 'Fibre floor gap', key: 'Fibre', kind: 'Minimum floor', value: '20' },
+    { label: 'Fibre floor met', key: 'Fibre', kind: 'Minimum floor', value: '16' },
+    { label: 'Sugar limit met', key: 'Sugar', kind: 'Maximum limit', value: '6' },
+    { label: 'Sugar limit gap', key: 'Sugar', kind: 'Maximum limit', value: '5' }
+  ]) {
+    await page.getByRole('button', { name: 'Add target' }).click();
+    await page.getByLabel('Target name').fill(target.label);
+    await page.locator('dialog select[name="key"]').selectOption({ label: target.key });
+    await page.locator('dialog select[name="kind"]').selectOption({ label: target.kind });
+    await page.getByLabel('Grams per week').fill(target.value);
+    await page.getByRole('button', { name: 'Save target' }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+  }
   await page.getByRole('button', { name: 'Add a meal' }).first().click();
   await page.getByLabel('Meal name').fill('Cereal breakfast');
-  await page.getByLabel('Fibre cereal per 1 bowl').fill('2');
+  await page.getByLabel('Fibre and sugar cereal per 1 bowl').fill('2');
   await page.getByRole('button', { name: 'Save meal' }).click();
-  await expect(page.getByText('16 g', { exact: true })).toBeVisible();
-  await expect(page.getByText('on plan', { exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Cereal breakfast', exact: true })).toBeVisible();
+
+  const floorGap = page.locator('.target', { hasText: 'Fibre floor gap' });
+  await expect(floorGap).toHaveClass(/gap/);
+  await expect(floorGap.getByText('16 g', { exact: true })).toBeVisible();
+  await expect(floorGap.getByText('4 g short', { exact: true })).toBeVisible();
+  await expect(floorGap.getByRole('meter')).toHaveAccessibleName('Fibre floor gap: 16 grams against a 20 gram floor, 4 g short');
+
+  const floorMet = page.locator('.target', { hasText: 'Fibre floor met' });
+  await expect(floorMet).toHaveClass(/pass/);
+  await expect(floorMet.getByText('on plan', { exact: true })).toBeVisible();
+
+  const limitMet = page.locator('.target', { hasText: 'Sugar limit met' });
+  await expect(limitMet).toHaveClass(/pass/);
+  await expect(limitMet.getByText('6 g', { exact: true })).toBeVisible();
+  await expect(limitMet.getByText('on plan', { exact: true })).toBeVisible();
+
+  const limitGap = page.locator('.target', { hasText: 'Sugar limit gap' });
+  await expect(limitGap).toHaveClass(/gap/);
+  await expect(limitGap.getByText('1 g over', { exact: true })).toBeVisible();
+  await expect(limitGap.getByRole('meter')).toHaveAccessibleName('Sugar limit gap: 6 grams against a 5 gram limit, 1 g over');
+});
+
+test('food and target edits preserve meal portions, return focus, recalculate totals, and persist', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await page.getByLabel('Food name').fill('Editable lentils');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 cup');
+  await page.getByLabel('Source or label').fill('Tin label');
+  await page.locator('input[name="fibre"]').fill('8');
+  await page.getByRole('button', { name: 'Save food' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add target' }).click();
+  await page.getByLabel('Target name').fill('Editable fibre floor');
+  await page.getByLabel('Grams per week').fill('10');
+  await page.getByRole('button', { name: 'Save target' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await page.getByLabel('Meal name').fill('Lentil lunch');
+  await page.getByLabel('Editable lentils per 1 cup').fill('1');
+  await page.getByRole('button', { name: 'Save meal' }).click();
+  await expect(page.getByRole('button', { name: 'Lentil lunch', exact: true })).toBeVisible();
+
+  const editFood = page.getByRole('button', { name: 'Edit Editable lentils' });
+  await editFood.focus();
+  await expect(editFood).toBeFocused();
+  await page.keyboard.press('Enter');
+  const foodDialog = page.getByRole('dialog', { name: 'Edit this food and its serving.' });
+  await expect(foodDialog).toBeVisible();
+  await expect(page.getByLabel('Food name')).toHaveValue('Editable lentils');
+  await expect(page.getByLabel('Source or label')).toHaveValue('Tin label');
+  await expect(page.locator('input[name="fibre"]')).toHaveValue('8');
+  await page.getByLabel('Food name').fill('Corrected lentils');
+  await page.getByLabel('Source or label').fill('Corrected label');
+  await page.locator('input[name="fibre"]').fill('12');
+  await page.getByRole('button', { name: 'Save food changes' }).click();
+  await expect(page.getByRole('button', { name: 'Edit Corrected lentils' })).toBeFocused();
+  await expect(page.locator('.meal', { hasText: 'Lentil lunch' })).toContainText('1× Corrected lentils');
+  await expect(page.locator('.target', { hasText: 'Editable fibre floor' }).getByText('12 g', { exact: true })).toBeVisible();
+
+  const editTarget = page.getByRole('button', { name: 'Edit Editable fibre floor' });
+  await editTarget.click();
+  const targetDialog = page.getByRole('dialog', { name: 'Edit this nutrient floor or limit.' });
+  await expect(targetDialog).toBeVisible();
+  await expect(page.getByLabel('Target name')).toHaveValue('Editable fibre floor');
+  await expect(targetDialog.locator('select[name="key"]')).toHaveValue('fibre');
+  await expect(targetDialog.locator('select[name="kind"]')).toHaveValue('min');
+  await expect(page.getByLabel('Grams per week')).toHaveValue('10');
+  await page.getByLabel('Target name').fill('Corrected fibre floor');
+  await page.getByLabel('Grams per week').fill('13');
+  await page.getByRole('button', { name: 'Save target changes' }).click();
+  await expect(page.getByRole('button', { name: 'Edit Corrected fibre floor' })).toBeFocused();
+  await expect(page.locator('.target', { hasText: 'Corrected fibre floor' }).getByText('1 g short', { exact: true })).toBeVisible();
+
+  await page.reload();
+  await expect(page.getByText('Corrected lentils', { exact: true })).toBeVisible();
+  await expect(page.getByText('per 1 cup · Corrected label')).toBeVisible();
+  await expect(page.locator('.meal', { hasText: 'Lentil lunch' })).toContainText('1× Corrected lentils');
+  await expect(page.locator('.target', { hasText: 'Corrected fibre floor' }).getByText('1 g short', { exact: true })).toBeVisible();
 });
 
 for (const threshold of [

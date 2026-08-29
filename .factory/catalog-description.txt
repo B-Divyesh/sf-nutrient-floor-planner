@@ -1,1 +1,1 @@
-Plan weekly meals against the nutrient targets you choose.
+Plan weekly meals against nutrient floors and limits you choose.

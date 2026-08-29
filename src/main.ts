@@ -6,7 +6,7 @@ import { applyWaitingServiceWorkerUpdate } from './update';
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const routeLive = document.querySelector<HTMLDivElement>('#route-live')!;
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-type DialogState = { kind: 'food' | 'target' } | { kind: 'meal'; id?: string; day: number } | { kind: 'confirm'; subject: 'food' | 'target' | 'meal'; id: string };
+type DialogState = { kind: 'food' | 'target'; id?: string } | { kind: 'meal'; id?: string; day: number } | { kind: 'confirm'; subject: 'food' | 'target' | 'meal'; id: string };
 
 let demo = location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
 let plan: Plan = blankPlan();
@@ -56,12 +56,12 @@ function targetRows() {
     const difference = formatNutrient(state.difference);
     const wording = state.passes ? 'on plan' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
     const label = `${target.label}: ${actual} grams against a ${targetValue} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`;
-    return `<article class="target ${state.passes ? 'pass' : 'gap'}"><div><b>${e(target.label)}</b><small>${target.kind === 'min' ? 'floor' : 'limit'} · ${targetValue} g</small></div><meter aria-label="${e(label)}" min="0" max="100" value="${Math.round(state.ratio * 100)}"></meter><div class="target-total"><b>${actual} g</b><small>${wording}</small></div><button class="icon-button" data-action="ask-delete-target" data-id="${e(target.id)}" aria-label="Delete ${e(target.label)}">×</button></article>`;
+    return `<article class="target ${state.passes ? 'pass' : 'gap'}"><div><b>${e(target.label)}</b><small>${target.kind === 'min' ? 'floor' : 'limit'} · ${targetValue} g</small></div><meter aria-label="${e(label)}" min="0" max="100" value="${Math.round(state.ratio * 100)}"></meter><div class="target-total"><b>${actual} g</b><small>${wording}</small></div><div class="record-actions"><button class="icon-button edit-button" data-action="edit-target" data-id="${e(target.id)}" aria-label="Edit ${e(target.label)}">Edit</button><button class="icon-button delete-button" data-action="ask-delete-target" data-id="${e(target.id)}" aria-label="Delete ${e(target.label)}">×</button></div></article>`;
   }).join('')}</div>`;
 }
 function foodList() {
   if (!plan.foods.length) return `<div class="empty"><p>Your saved foods will appear here.</p><button class="button small" data-action="show-food">Add a food</button></div>`;
-  return `<div class="food-list">${plan.foods.map(food => `<article class="food"><div><b>${e(food.name)}</b><small>per ${e(food.serving)} · ${e(food.source)}</small></div><div>${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).filter(k => food.nutrients[k]).map(k => `<span>${formatNutrient(food.nutrients[k])}g ${nutrientLabels[k].toLowerCase()}</span>`).join('')}</div><button class="icon-button" data-action="ask-delete-food" data-id="${e(food.id)}" aria-label="Delete ${e(food.name)}">×</button></article>`).join('')}</div>`;
+  return `<div class="food-list">${plan.foods.map(food => `<article class="food"><div><b>${e(food.name)}</b><small>per ${e(food.serving)} · ${e(food.source)}</small></div><div>${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).filter(k => food.nutrients[k]).map(k => `<span>${formatNutrient(food.nutrients[k])}g ${nutrientLabels[k].toLowerCase()}</span>`).join('')}</div><div class="record-actions"><button class="icon-button edit-button" data-action="edit-food" data-id="${e(food.id)}" aria-label="Edit ${e(food.name)}">Edit</button><button class="icon-button delete-button" data-action="ask-delete-food" data-id="${e(food.id)}" aria-label="Delete ${e(food.name)}">×</button></div></article>`).join('')}</div>`;
 }
 function mealCard(meal: Plan['meals'][number]) {
   const total = totals(meal.portions, plan.foods);
@@ -75,8 +75,16 @@ function dialogMarkup() {
   const current = dialog;
   if (!current) return '';
   const error = `<p id="form-error" class="form-error" role="alert"${dialogError ? '' : ' hidden'}>${e(dialogError)}</p>`;
-  if (current.kind === 'food') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW SAVED FOOD</p><h2 id="modal-title">Add a food and its serving.</h2>${error}<label>Food name<input name="name" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" required maxlength="40" aria-describedby="form-error" /></label><label>Source or label<input name="source" required maxlength="80" aria-describedby="form-error" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" step="0.1" value="0" required /></label>`).join('')}</div><button class="button primary" type="submit">Save food</button></form></dialog>`;
-  if (current.kind === 'target') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW TARGET</p><h2 id="modal-title">Add a nutrient floor or limit.</h2>${error}<label>Target name<input name="label" required maxlength="45" aria-describedby="form-error" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}">${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min">Minimum floor</option><option value="max">Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" step="0.1" required /></label><button class="button primary" type="submit">Save target</button></form></dialog>`;
+  if (current.kind === 'food') {
+    const existing = current.id ? plan.foods.find(food => food.id === current.id) : undefined;
+    const food = existing || { name: '', serving: '', source: '', nutrients: { fibre: 0, protein: 0, sugar: 0, saturatedFat: 0 } };
+    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT SAVED FOOD' : 'NEW SAVED FOOD'}</p><h2 id="modal-title">${existing ? 'Edit this food and its serving.' : 'Add a food and its serving.'}</h2>${error}<label>Food name<input name="name" value="${e(food.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" value="${e(food.serving)}" required maxlength="40" aria-describedby="form-error" /></label><label>Source or label<input name="source" value="${e(food.source)}" required maxlength="80" aria-describedby="form-error" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" step="0.1" value="${food.nutrients[k]}" required /></label>`).join('')}</div><button class="button primary" type="submit">${existing ? 'Save food changes' : 'Save food'}</button></form></dialog>`;
+  }
+  if (current.kind === 'target') {
+    const existing = current.id ? plan.targets.find(target => target.id === current.id) : undefined;
+    const target = existing || { label: '', key: 'fibre' as NutrientKey, kind: 'min' as Target['kind'], value: '' };
+    return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">${existing ? 'EDIT TARGET' : 'NEW TARGET'}</p><h2 id="modal-title">${existing ? 'Edit this nutrient floor or limit.' : 'Add a nutrient floor or limit.'}</h2>${error}<label>Target name<input name="label" value="${e(target.label)}" required maxlength="45" aria-describedby="form-error" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}" ${target.key === k ? 'selected' : ''}>${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min" ${target.kind === 'min' ? 'selected' : ''}>Minimum floor</option><option value="max" ${target.kind === 'max' ? 'selected' : ''}>Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" step="0.1" value="${target.value}" required /></label><button class="button primary" type="submit">${existing ? 'Save target changes' : 'Save target'}</button></form></dialog>`;
+  }
   if (current.kind === 'confirm') {
     const name = current.subject === 'food' ? plan.foods.find(f => f.id === current.id)?.name || 'this food' : current.subject === 'target' ? plan.targets.find(t => t.id === current.id)?.label || 'this target' : plan.meals.find(m => m.id === current.id)?.name || 'this meal';
     const mealsAffected = current.subject === 'food' ? plan.meals.filter(m => m.portions.some(p => p.foodId === current.id)).length : 0;
@@ -191,6 +199,8 @@ document.addEventListener('click', async event => {
   if (action === 'close-dialog') { closeDialog(); return; }
   if (action === 'show-food') { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); return; }
   if (action === 'show-target') { if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); } else { rememberDialogOpener(el); dialog = { kind: 'target' }; render(); } return; }
+  if (action === 'edit-food') { if (plan.foods.some(food => food.id === id)) { rememberDialogOpener(el); dialog = { kind: 'food', id }; render(); } return; }
+  if (action === 'edit-target') { if (plan.targets.some(target => target.id === id)) { rememberDialogOpener(el); dialog = { kind: 'target', id }; render(); } return; }
   if (action === 'new-meal') { rememberDialogOpener(el); dialog = { kind: 'meal', day: Number(el.dataset.day || 0) }; render(); return; }
   if (action === 'edit-meal') { const meal = plan.meals.find(m => m.id === id); if (meal) { rememberDialogOpener(el); dialog = { kind: 'meal', id, day: meal.day }; render(); } return; }
   if (action?.startsWith('ask-delete-')) { rememberDialogOpener(el); dialog = { kind: 'confirm', subject: action.slice('ask-delete-'.length) as 'food' | 'target' | 'meal', id }; render(); return; }
@@ -235,17 +245,23 @@ document.addEventListener('submit', async event => {
     const source = formText(data, form, 'source', 80, 'Source or label');
     if (!name || !serving || !source) return;
     const nutrients = Object.fromEntries((['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => [k, Number(data.get(k))])) as Food['nutrients'];
-    const nextPlan = { ...plan, foods: [...plan.foods, { id: makeId(), name, serving, source, nutrients }] };
+    const foodId = dialog?.kind === 'food' ? dialog.id : undefined;
+    const record = { id: foodId || makeId(), name, serving, source, nutrients };
+    const foodIndex = plan.foods.findIndex(food => food.id === foodId);
+    const nextPlan = { ...plan, foods: foodIndex >= 0 ? plan.foods.map((food, index) => index === foodIndex ? record : food) : [...plan.foods, record] };
     if (!isPlan(nextPlan)) { showFormError(form, 'name', 'Check the food values, then try again.'); return; }
-    plan = nextPlan; notice = 'Food saved to your pantry.';
+    plan = nextPlan; notice = foodIndex >= 0 ? 'Food changes saved.' : 'Food saved to your pantry.';
   }
   if (formName === 'target') {
-    if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); return; }
+    const targetId = dialog?.kind === 'target' ? dialog.id : undefined;
+    if (!targetId && !canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); return; }
     const label = formText(data, form, 'label', 45, 'Target name');
     if (!label) return;
-    const nextPlan = { ...plan, targets: [...plan.targets, { id: makeId(), label, key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' }] };
+    const record = { id: targetId || makeId(), label, key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' };
+    const targetIndex = plan.targets.findIndex(target => target.id === targetId);
+    const nextPlan = { ...plan, targets: targetIndex >= 0 ? plan.targets.map((target, index) => index === targetIndex ? record : target) : [...plan.targets, record] };
     if (!isPlan(nextPlan)) { showFormError(form, 'label', 'Check the target values, then try again.'); return; }
-    plan = nextPlan; notice = 'Target saved.';
+    plan = nextPlan; notice = targetIndex >= 0 ? 'Target changes saved.' : 'Target saved.';
   }
   if (formName === 'meal' && dialog?.kind === 'meal') {
     const mealDialog = dialog;
