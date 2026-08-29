@@ -8,7 +8,7 @@ from `.factory/verification-4.md` for candidate
 
 - Repair commit: `c5f06d9` — `fix: enforce and verify planner capacity limits`
 - Deployment: Azure Static Web Apps production deployment
-  `20156b80-2171-4296-9cdd-dcd5d38b9aa4`
+  `5d2923cb-aa2d-41dc-8f27-d414decca203`
 - Live URL: https://nutrient-floor-planner.sociobot.in
 
 ## What changed
