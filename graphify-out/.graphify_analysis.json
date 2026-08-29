@@ -223,13 +223,13 @@
       "degree": 6
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
+      "id": "src_model_formatnutrient",
+      "label": "formatNutrient()",
       "degree": 6
     },
     {
-      "id": "src_model_formatnutrient",
-      "label": "formatNutrient()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
@@ -245,6 +245,17 @@
   ],
   "surprises": [
     {
+      "source": "formText()",
+      "target": "normalizeRequiredText()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
       "source": "mealCard()",
       "target": "totals()",
       "source_files": [
@@ -258,17 +269,6 @@
     {
       "source": "targetRows()",
       "target": "formatNutrient()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "formText()",
-      "target": "normalizeRequiredText()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
