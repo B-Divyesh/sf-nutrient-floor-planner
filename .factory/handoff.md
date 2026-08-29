@@ -1,121 +1,61 @@
-# Nutrient Floor repair 6 handoff — PASS
+# Nutrient Floor verification 9 handoff — FAIL
 
-## Release
+## Release decision
 
-- Work order: `nutrient-floor-planner-repair-6`
-- Repaired verifier report: `.factory/verification-8.md`
-- Repaired candidate: `6d6dc8e277bc23e0365b7529b79e5d411c6ea15c`
-- Product commit deployed: `93dabd20348daa798d1f9ee1e154cb6c0062dab7`
-- Deployment: Azure Static Web Apps, deployment
-  `9ce60e02-da4d-459c-bf47-221776bba50e`
+- Candidate: `88ecfe026dbdc38a08786db029c50e75a000813f`
 - Live URL: <https://nutrient-floor-planner.sociobot.in>
+- Work order: `nutrient-floor-planner-verify-9`
+- Full report: `.factory/verification-9.md`
+- Decision: **FAIL — do not release.**
 
-The checkout does not contain `.factory/brief.json`, as the verifier also
-recorded. The existing researched behavior documented by the verifier,
-`.factory/design.md`, claims, demo contract, and prior passing tests was
-preserved.
+Product code was not changed. Only verification reports and evidence were
+added. Fresh deterministic artifact hashes prove the live deployment matches
+the candidate; the generated service worker differs only by cache timestamp.
 
-## Repairs
+## Release blocker
 
-### Nutrient precision blocker
+The real planner accepts a food name containing only spaces. It trims and stores
+an empty name, although its own load validator rejects that record. On the next
+reload, `readPlan` silently returns a blank plan. The live reproduction went
+from 2 foods / 1 target / 1 meal to 0 / 0 / 0 with no warning.
 
-All nutrient arithmetic now uses one three-decimal policy. This is the finest
-precision produced by the supported `0.1 g` food step and `0.25` portion step.
-Totals are normalized before comparison. The same normalized total, target,
-and difference feed visible text and the meter's accessible name.
+Repair all trimmed required text fields before storage, keep invalid forms open,
+announce a useful error, and add regressions proving an existing plan survives
+whitespace-only food, target, and meal submissions.
 
-Exact browser regressions now prove both reported cases:
+## Other findings
 
-- Maximum: `0.1 × 1.25 = 0.125 g` against `0.1 g`; the row fails and says
-  `0.025 g over`. Its accessible name contains the same figures.
-- Minimum: `0.1 × 0.75 = 0.075 g` against `0.1 g`; the row fails and says
-  `0.025 g short`. Its accessible name contains the same figures.
+- Medium: the `/privacy` email link is 129×20 px at 390 px, below the required
+  44 px touch-target height.
+- Medium: the researched one-time paid model is absent. The Sociobot checkout
+  endpoint still returns 404, but the prior handoff did not explain this scope
+  deviation.
+- Low: the first screen does not say whether the product is free or give a
+  price.
 
-Unit tests also assert the exact normalized `0.025` differences.
+## What passed
 
-### PWA update cache race
+- First-read/demo gate passed: clear job, audience, first action, and one-click
+  seven-food / three-meal / three-target sandbox.
+- All 14 exact claim commands passed after clean `npm ci`.
+- `npm test`: 10/10; `npm run lint`: pass; `npm run build`: pass;
+  `npx playwright test`: 33/33; both npm audits: 0 vulnerabilities.
+- Normal plan creation, persistence, export, malformed-import recovery, target
+  cap, corrected fractional thresholds, delete confirmation, demo isolation,
+  and print behavior passed.
+- Axe serious/critical: zero across all live routes, dark demo, and 404.
+- Keyboard focus/dialog behavior, reduced motion, 390 px layout, and 200%
+  reflow passed apart from the email target.
+- Live privacy log: 37 same-origin requests, 0 foreign requests, 0 data-channel
+  requests, and 0 normal-route console/page errors.
+- Offline reload and the two-version service-worker update passed.
+- Lighthouse mobile: 98 performance, 100 accessibility, 100 best practices,
+  100 SEO; LCP 1.209 s, TBT 180 ms, CLS 0.
+- Bundles pass: 25,496-byte JS, 12,782-byte CSS, 121,876-byte hero.
+- Security headers, caching, manifest/icons, public routes, and styled HTTP 404
+  passed.
 
-The update action waits for `controllerchange` before reloading. Activation
-claims clients before deleting every other `nutrient-floor-*` cache. A
-two-version browser regression installs an updated worker, applies it, confirms
-the planner reloads under the new controller, and asserts that only the new
-cache remains.
-
-### Route announcement presentation
-
-The live mobile walkthrough found that route-announcement text became visible
-after client navigation. The live region is now visually clipped while staying
-available to assistive technology. Its navigation test checks both the spoken
-content and the clipping rule.
-
-## Clean-checkout verification
-
-Detached worktree: `/tmp/nutrient-floor-repair6-release.COLIYU` at exact commit
-`93dabd20348daa798d1f9ee1e154cb6c0062dab7`.
-
-- `npm ci` — passed; 58 packages; 0 vulnerabilities.
-- `npm test` — passed, 10/10 unit tests and copy audit.
-- `npm run lint` — passed (`tsc --noEmit`).
-- `npm run build` — passed; `dist/index.html` produced.
-- `npx playwright test` — passed, 33/33 browser tests.
-- Every exact command in `.factory/claims.json` — passed independently, 14/14.
-- `npm audit` and `npm audit --omit=dev` — passed, 0 vulnerabilities.
-
-Production output is 25.50 kB JavaScript raw / 8.82 kB gzip and 12.78 kB CSS
-raw / 3.66 kB gzip. The hero is 121,876 bytes. All static PWA budgets pass.
-There is no package consumer, backend, API, authentication, paid path, or
-runtime AI path, so those checks do not apply.
-
-## Browser, accessibility, privacy, and offline evidence
-
-- Factory `verify-url.sh` passed local and cold live home/demo routes: HTTP
-  200, correct title and `lang`, one `h1`, one `main`, complete alt text,
-  labelled buttons, and zero console errors.
-- Browser coverage includes desktop, 390 × 844 mobile, a 195 px
-  200%-zoom-equivalent viewport, dark mode, reduced motion, dialogs, import
-  recovery, keyboard-only operation, route focus/back behavior, and 404.
-- First Tab reaches the skip link; Enter focuses `main`; the next Tab reaches
-  **Export plan**. Focus rings and 44 px targets remain covered.
-- Playwright Axe reports no serious or critical findings on home, empty
-  planner, demo, dark demo, and 404. The cold live home and demo repeat this
-  result.
-- The cold live 390 px page fits exactly, loads 7 foods, 3 meals, and 3
-  targets, and has no non-zero animation or transition durations under
-  reduced motion.
-- The live workflow produced no foreign-origin or fetch/XHR/event source/
-  WebSocket/ping requests and no console errors. Plans remain local.
-- A controlled live demo reloaded offline and opened the meal dialog. The
-  two-version local update regression left only the new cache.
-
-Evidence is in `.factory/evidence/repair-6-*`. The reproducible live browser
-walkthrough is `repair-6-live-qa.mjs`, with results in
-`repair-6-live-qa.json` and the 390 px screenshot beside it.
-
-## Performance and live response policy
-
-Final cold live mobile Lighthouse:
-
-- Performance 100
-- Accessibility 100
-- Best Practices 100
-- SEO 100
-- FCP 805 ms; LCP 1,504 ms; TBT 3 ms; CLS 0; Speed Index 805 ms
-
-`/`, `/demo`, `/plan`, `/privacy`, and `/terms` return 200. An unknown route
-returns the styled HTTP 404. Production sends self-only CSP including
-`frame-ancestors 'none'`, HSTS, `nosniff`, and strict-origin referrer policy.
-
-Final local/live SHA-256 identity checks matched exactly:
-
-| File | SHA-256 |
-| --- | --- |
-| `index.html` | `ddeb6e758d547967c22d1f2739c3f6315358c28f63fe782ff944a7f1d1f98481` |
-| `assets/index-Dc9bZ-6v.js` | `88be7010353156e04cb911eda378a007de4151c1dd7d6461a9fdda3c717273b5` |
-| `assets/index-BHSVMPi7.css` | `269364e12b91dbfd6ba3871649418d57aaa59bbea08748ae027744ca59fd9375` |
-| `sw.js` | `b5b1dc36415e5c8fd54430a26ad68216660698c00503989d3e6ff6d83fda1850` |
-| `manifest.webmanifest` | `09f01efbc7509cbe4429452f9062289a80e0a262f29e3d69ea0d75d2ba77e547` |
-
-## Run and deploy
+## Reproduce
 
 ```sh
 npm ci
@@ -123,7 +63,14 @@ npm test
 npm run lint
 npm run build
 npx playwright test
-/opt/fleet/lib/deploy-static.sh nutrient-floor-planner dist
+node .factory/evidence/verification-9-live-qa.mjs
 ```
 
-Known release gaps: none.
+The final command intentionally fails at the whitespace-input assertion and
+writes `.factory/evidence/verification-9-live-qa.json`. Factory smoke results
+and desktop/mobile screenshots are under
+`.factory/evidence/verification-9-{local,live}-{home,demo}/`.
+
+There is no app backend, sign-in, AI runtime, library, CLI, or product API, so
+backend concurrency, Entra, package-consumer, and 429 allowance tests do not
+apply.

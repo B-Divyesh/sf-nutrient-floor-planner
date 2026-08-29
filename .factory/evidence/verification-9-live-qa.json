@@ -1,0 +1,344 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "requests": [
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/?verification=9-cold",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/hero.webp",
+      "type": "image",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/demo?verification=9-keyboard",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan?verification=9-normal",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan?verification=9-normal",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan?verification=9-whitespace",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan?verification=9-whitespace",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/hero.webp",
+      "type": "image",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/demo",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/privacy",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/terms",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-Dc9bZ-6v.js",
+      "type": "script",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BHSVMPi7.css",
+      "type": "stylesheet",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/verification-9-not-found",
+      "type": "document",
+      "method": "GET"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/404.css",
+      "type": "stylesheet",
+      "method": "GET"
+    }
+  ],
+  "foreignRequests": [],
+  "dataRequests": [],
+  "axe": {
+    "404": [],
+    "home-mobile-reduced": [],
+    "demo-mobile-reduced": [],
+    "light-/": [],
+    "light-/demo": [],
+    "light-/plan": [],
+    "light-/privacy": [],
+    "light-/terms": [],
+    "demo-dark": []
+  },
+  "routeUndersizedControls": {
+    "/": [],
+    "/demo": [],
+    "/plan": [],
+    "/privacy": [
+      {
+        "text": "hello@sociobot.in",
+        "width": 129.09375,
+        "height": 20
+      }
+    ],
+    "/terms": []
+  },
+  "firstRead": {
+    "status": 200,
+    "title": "Nutrient Floor — Plan meals around nutrient targets",
+    "h1": "Plan meals that meet your nutrient targets.",
+    "audience": "For home cooks who want enough fibre or protein without logging every calorie.",
+    "action": "Try it with sample data",
+    "actionBox": {
+      "x": 16,
+      "y": 374.171875,
+      "width": 218.078125,
+      "height": 44
+    },
+    "actionAboveFold": true,
+    "facts": [
+      "Stored on this device",
+      "Works offline after setup",
+      "Export or import your plan"
+    ],
+    "hero": {
+      "complete": true,
+      "naturalWidth": 1200,
+      "naturalHeight": 800,
+      "alt": "Ingredients arranged across a blue kitchen planning sheet."
+    },
+    "scrollWidth": 390
+  },
+  "homeHeaders": {
+    "cache-control": "public, must-revalidate, max-age=30",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 10:41:08 GMT",
+    "etag": "\"37512222\"",
+    "last-modified": "Sat, 29 Aug 2026 09:40:33 GMT",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-xss-protection": "1; mode=block"
+  },
+  "demo": {
+    "url": "https://nutrient-floor-planner.sociobot.in/?demo=1",
+    "foods": 7,
+    "meals": 3,
+    "targets": 3,
+    "scrollWidth": 390,
+    "motionDurations": [],
+    "undersizedControls": []
+  },
+  "keyboard": {
+    "firstTab": "Skip to planner",
+    "firstFocusStyle": {
+      "outline": "rgb(11, 61, 102) solid 3px",
+      "top": "16px"
+    },
+    "skipTarget": "main",
+    "afterSkip": "Export plan",
+    "dialogInitialFocus": "name",
+    "dialogClosed": true,
+    "returnedToOpener": true
+  },
+  "normalFlow": {
+    "foods": 1,
+    "meals": 1,
+    "targets": 2,
+    "fibreText": "Weekly fibre | floor · 30 g | 24 g | 6 g short | ×",
+    "sugarText": "Weekly sugar | limit · 10 g | 4 g | on plan | ×",
+    "persistedAfterReload": true,
+    "exportCounts": {
+      "foods": 1,
+      "meals": 1,
+      "targets": 2
+    }
+  },
+  "invalidImport": {
+    "message": "That file is not a valid Nutrient Floor plan. Choose an exported JSON file.",
+    "preservedFood": true
+  },
+  "thresholds": [
+    {
+      "id": "maximum",
+      "class": "target gap",
+      "text": "Tiny sugar limit | limit · 0.1 g | 0.125 g | 0.025 g over | ×",
+      "meterName": "Tiny sugar limit: 0.125 grams against a 0.1 gram limit, 0.025 g over"
+    },
+    {
+      "id": "minimum",
+      "class": "target gap",
+      "text": "Tiny fibre floor | floor · 0.1 g | 0.075 g | 0.025 g short | ×",
+      "meterName": "Tiny fibre floor: 0.075 grams against a 0.1 gram floor, 0.025 g short"
+    }
+  ],
+  "whitespaceFood": {
+    "dialogClosed": true,
+    "foodCount": 2,
+    "foodTexts": [
+      "minimum food\nper 1 serving · Package label\n0.1g fibre\n×",
+      "per 1 cup · Package label\n×"
+    ],
+    "afterReload": {
+      "foodCount": 0,
+      "targetCount": 0,
+      "mealCount": 0
+    }
+  },
+  "consoleErrorsBefore404": [],
+  "notFound": {
+    "status": 404,
+    "title": "Page not found — Nutrient Floor",
+    "h1": "Page not found"
+  },
+  "zoom200": {
+    "viewport": 195,
+    "scrollWidth": 195,
+    "mealTextPx": 14,
+    "foodSmallPx": 14
+  },
+  "offline": {
+    "controllerBefore": true,
+    "heading": "Build a week that meets your targets.",
+    "dialog": true,
+    "cacheKeys": [
+      "nutrient-floor-v1787996411007"
+    ]
+  }
+}
