@@ -9,20 +9,17 @@
       "src_main_download",
       "src_main_isdemolocation",
       "src_main_knownroutes",
-      "src_main_licenseverdict",
       "src_main_load",
       "src_main_namespace",
       "src_main_navigate",
       "src_main_opendialog",
       "src_main_plan",
       "src_main_render",
+      "src_main_routemeta",
       "src_main_save",
       "src_main_storagefailure",
-      "src_main_titlefor",
       "src_model_blankplan",
-      "src_model_makeid",
       "src_model_plan",
-      "src_model_sampleplan",
       "src_store",
       "src_store_clearplan",
       "src_store_open",
@@ -30,53 +27,28 @@
       "src_store_writeplan"
     ],
     "1": [
-      "axe_core_playwright",
-      "package",
-      "package_devdependencies",
-      "package_devdependencies_axe_core_playwright",
-      "package_devdependencies_playwright_test",
-      "package_devdependencies_typescript",
-      "package_devdependencies_vite",
-      "package_devdependencies_vitest",
-      "package_name",
-      "package_private",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_dev",
-      "package_scripts_lint",
-      "package_scripts_preview",
-      "package_scripts_test",
-      "package_type",
-      "package_version",
-      "playwright_test",
-      "typescript",
-      "vite",
-      "vitest"
-    ],
-    "2": [
       "src_model",
-      "src_model_canimportfoods",
-      "src_model_cansavefood",
       "src_model_cansavetarget",
       "src_model_food",
-      "src_model_free_food_limit",
       "src_model_isfood",
       "src_model_isid",
       "src_model_isnumber",
       "src_model_isplan",
       "src_model_isrecord",
       "src_model_istext",
+      "src_model_makeid",
       "src_model_meal",
       "src_model_nutrientkey",
       "src_model_nutrientkeys",
       "src_model_nutrientlabels",
       "src_model_portion",
+      "src_model_sampleplan",
       "src_model_target",
       "src_model_target_limit",
       "src_model_test",
       "src_model_uid"
     ],
-    "3": [
+    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -94,7 +66,7 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
-    "4": [
+    "3": [
       "src_main_dialogmarkup",
       "src_main_e",
       "src_main_foodlist",
@@ -108,7 +80,33 @@
       "src_model_status",
       "src_model_totals"
     ],
+    "4": [
+      "axe_core_playwright",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "playwright_test",
+      "typescript",
+      "vite",
+      "vitest"
+    ],
     "5": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_type",
+      "package_version"
+    ],
+    "6": [
       "src_main_demobanner",
       "src_main_footer",
       "src_main_header",
@@ -118,7 +116,7 @@
       "src_main_page",
       "src_main_routecopy"
     ],
-    "6": [
+    "7": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
@@ -126,15 +124,8 @@
       "scripts_generate_sw_precache",
       "scripts_generate_sw_shellassets"
     ],
-    "7": [
-      "src_main_cachedverdict",
-      "src_main_collectlicense",
-      "src_main_safeget",
-      "src_main_saferemove",
-      "src_main_safeset",
-      "src_main_verifylicense"
-    ],
     "8": [
+      "test",
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
@@ -153,15 +144,15 @@
     ]
   },
   "cohesion": {
-    "0": 0.1339031339031339,
-    "1": 0.09090909090909091,
-    "2": 0.16666666666666666,
-    "3": 0.125,
-    "4": 0.22727272727272727,
-    "5": 0.2857142857142857,
-    "6": 0.3333333333333333,
-    "7": 0.4666666666666667,
-    "8": 0.4,
+    "0": 0.15942028985507245,
+    "1": 0.16842105263157894,
+    "2": 0.125,
+    "3": 0.22727272727272727,
+    "4": 0.18181818181818182,
+    "5": 0.18181818181818182,
+    "6": 0.2857142857142857,
+    "7": 0.3333333333333333,
+    "8": 0.3333333333333333,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0
@@ -173,14 +164,19 @@
       "degree": 11
     },
     {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 10
+    },
+    {
       "id": "src_model_isplan",
       "label": "isPlan()",
       "degree": 10
     },
     {
-      "id": "tsconfig_compileroptions",
-      "label": "compilerOptions",
-      "degree": 10
+      "id": "src_main_e",
+      "label": "e()",
+      "degree": 7
     },
     {
       "id": "src_main_load",
@@ -188,9 +184,14 @@
       "degree": 7
     },
     {
-      "id": "src_main_e",
-      "label": "e()",
-      "degree": 7
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 6
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
+      "degree": 6
     },
     {
       "id": "src_main_render",
@@ -203,18 +204,8 @@
       "degree": 6
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
-      "degree": 6
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 6
-    },
-    {
-      "id": "src_main_save",
-      "label": "save()",
+      "id": "src_store_readplan",
+      "label": "readPlan()",
       "degree": 5
     }
   ],
@@ -224,6 +215,17 @@
       "target": "isPlan()",
       "source_files": [
         "src/store.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "load()",
+      "target": "samplePlan()",
+      "source_files": [
+        "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -243,17 +245,6 @@
     },
     {
       "source": "load()",
-      "target": "samplePlan()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "load()",
       "target": "readPlan()",
       "source_files": [
         "src/main.ts",
@@ -264,11 +255,11 @@
       "why": "cross-file semantic connection"
     },
     {
-      "source": "save()",
-      "target": "writePlan()",
+      "source": "readPlan()",
+      "target": "blankPlan()",
       "source_files": [
-        "src/main.ts",
-        "src/store.ts"
+        "src/store.ts",
+        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
