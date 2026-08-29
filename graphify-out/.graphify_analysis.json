@@ -225,13 +225,13 @@
       "degree": 10
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
+      "id": "src_main_e",
+      "label": "e()",
       "degree": 7
     },
     {
-      "id": "src_main_e",
-      "label": "e()",
+      "id": "src_main_load",
+      "label": "load()",
       "degree": 7
     },
     {
@@ -284,6 +284,17 @@
       "why": "cross-file semantic connection"
     },
     {
+      "source": "formText()",
+      "target": "normalizeRequiredText()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
       "source": "load()",
       "target": "samplePlan()",
       "source_files": [
@@ -300,17 +311,6 @@
       "source_files": [
         "src/main.ts",
         "src/store.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "formText()",
-      "target": "normalizeRequiredText()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
