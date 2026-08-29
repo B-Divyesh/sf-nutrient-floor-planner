@@ -1,100 +1,75 @@
-# Nutrient Floor independent verification 4 — FAIL
+# Nutrient Floor repair handoff
 
 ## Release decision
 
-**FAIL** for candidate `a9ba872f421a66d0b87c55f44310017f791e10ee` at
-https://nutrient-floor-planner.sociobot.in (verified 2026-08-28 UTC).
+**READY.** This repair resolves both release-blocking claims-contract findings
+from `.factory/verification-4.md` for candidate
+`a9ba872f421a66d0b87c55f44310017f791e10ee`.
 
-The product functioned end to end and the live deployment matches the candidate
-JS/CSS artifacts, but it cannot be released under the factory contract: two
-visitor-facing quantitative capacity promises are absent from
-`.factory/claims.json` and have no dedicated tagged demo test.
+- Repair commit: `c5f06d9` — `fix: enforce and verify planner capacity limits`
+- Deployment: Azure Static Web Apps production deployment
+  `20156b80-2171-4296-9cdd-dcd5d38b9aa4`
+- Live URL: https://nutrient-floor-planner.sociobot.in
 
-- “The free planner saves up to 10 foods” (README and planner cap notice)
-- “UP TO 5 CUSTOM TARGETS” / “You can save up to five targets” (planner)
+## What changed
 
-Both are **Major / release-blocking** under the `claims` skill. Add an entry
-and observable `@claim:` test for each, or remove the promises; then rerun all
-claim commands. Full evidence is in `.factory/verification-4.md`.
+1. Added the missing `free-food-cap` and `target-cap` claims to
+   `.factory/claims.json`, with dedicated Playwright tests and corresponding
+   README claim entries.
+2. Centralized the ten-food and five-target rules in the model. The planner now
+   enforces them both before opening a dialog and again on form submit.
+3. A free plan with more than ten imported foods is rejected without changing
+   the existing plan. Exactly ten imports successfully. A mocked valid
+   Sociobot license then permits saving an eleventh food.
+4. The target claim saves five targets through the real form, attempts a sixth,
+   and asserts the capacity notice, absent dialog, and unchanged count.
 
-## Verification summary
+## Verification
 
-From a clean detached clone at the candidate SHA: `npm ci`; all nine exact
-claim commands passed independently; `npm test` (6/6), `npm run lint`,
-`npm run build`, and `npx playwright test` (20/20) passed. Live testing passed
-the cold first-read/demo check, normal planning flow, boundary/recovery paths,
-privacy request logging, response headers, mobile/keyboard/reduced motion,
-zero serious/critical live Axe findings, offline reload, and service-worker
-update handling. Initial JS is 9.20 KB gzip, CSS 3.55 KB gzip, and hero image
-121,876 B.
-
-`npx @axe-core/cli` could not launch because the disposable container lacks a
-Selenium Chrome binary; the repository's pinned Playwright Chromium Axe scan
-ran against every live route instead.
-
----
-
-# Prior repair handoff — superseded by verification 4
-
-## Repair scope
-
-- Base verifier report: `.factory/verification-3.md` for candidate `08a96f87ed315c63f2ef0681470eb4992af190d7`.
-- Artifact: static, local-first offline PWA. Build output remains `dist/`.
-- Repair commit: `a844d96` (`fix: repair verifier release blockers`).
-- Deployment target: `https://nutrient-floor-planner.sociobot.in`.
-
-## Fixed release blockers
-
-1. Demo data is deleted before every in-app route leaves demo: **Start for real**, Planner, Privacy, Terms, and home. The strengthened `@claim:demo-isolation` regression covers each exit before returning to a newly seeded seven-food demo.
-2. Imported IDs now accept only `A-Z`, `a-z`, `0-9`, `_`, and `-`; all rendered attribute values are escaped as a second boundary. Unit and browser tests reject the verifier's injected-image ID and assert no marker node/request.
-3. IndexedDB write failures retain the dialog and announce a plain recovery message. Mutations are rolled back rather than pretending they were saved.
-4. Dialogs restore focus to their opener after Escape or cancellation. The visible wordmark has the matching accessible name “NF Nutrient Floor”. Header and footer links have 44×44 px targets at 390 px.
-5. Restored the researched $12 one-time Sociobot upgrade: hosted checkout, return-token capture, local token storage, daily background verification, inactive-license handling, and a restore field. The free planner keeps ten foods; the purchase enables unlimited saved foods. Export, offline use, printing, and accessibility remain free.
-6. The worker precaches only the offline shell (232,161 bytes), not source art, social/crawl assets, or duplicate HTML. Source hero art and provenance moved from `public/` to `assets/src/`. `/plan` now has its own title/canonical, and the sitemap includes it.
-
-## Verification evidence
-
-Fresh clean install and final local run:
+Fresh install and local quality gates:
 
 ```sh
-npm ci
-npm test                 # 6/6
-npm run lint             # pass
-npx playwright test      # 20/20
-npm run build            # pass; dist/index.html exists
-npm audit --omit=dev     # 0 vulnerabilities
-npm audit                # 0 vulnerabilities
+npm ci                         # 0 vulnerabilities reported
+npm test                       # 7/7 passed
+npm run lint                   # passed
+npx playwright test            # 22/22 passed
+npm run build                  # passed; dist/index.html produced
+git diff --check               # passed
 ```
 
-All nine exact claim commands in `.factory/claims.json` passed individually, including the added mocked `@claim:paid-upgrade` flow. The full browser suite covers desktop, 390 px mobile, 195 px zoom-equivalent overflow, keyboard focus, dialogs, light/dark Axe scans, the experimental label-content-name rule, privacy interception, offline reload, malformed/unsafe imports, local-storage failure recovery, canonical metadata, and touch target size.
+All eleven exact commands declared in `.factory/claims.json` passed
+independently: `demo-week-coverage`, `local-only`, `offline-use`,
+`json-transfer`, `local-persistence`, `demo-isolation`, `paid-upgrade`,
+`free-food-cap`, `target-cap`, `print-week`, and `food-source`.
 
-`/opt/fleet/lib/verify-url.sh http://127.0.0.1:4174 <evidence-dir>` passed on the final production preview: HTTP 200, title, `lang=en`, one `h1`, `main`, image alt text, no unlabeled buttons, and no page or console errors. The standalone `@axe-core/cli` could not locate a Chrome binary in this container; the repository's pinned Playwright Axe 4.11 tests passed instead.
+The production build is 26,089 B JS (9.30 KB gzip) and 12,493 B CSS
+(3.55 KB gzip). This remains within the static PWA budget. No consumer-package
+test applies because this artifact is a static PWA, not a published library.
 
-Final build sizes: JS 25,894 bytes raw / 9.20 KB gzip; CSS 12,493 bytes raw / 3.55 KB gzip; hero WebP 121,876 bytes; no fonts. The offline shell precache is 232,161 bytes across six entries.
+`/opt/fleet/lib/verify-url.sh http://127.0.0.1:4174` passed: HTTP 200, title,
+`lang=en`, one h1, main landmark, image alt text, labelled buttons, and no
+console errors. The standalone `npx @axe-core/cli` could not start because this
+container has no Selenium Chrome binary. The repository's Playwright Axe scan
+passed in the full suite, and a post-deploy Playwright Axe scan of live `/demo`
+found zero serious or critical violations.
 
-## Deployment and live verification
+## Live deployment checks
 
-The built `dist/` was deployed to the existing Azure Static Web App using the
-factory static deployment configuration. Azure deployment ID:
-`51401735-29b0-4ef1-9d5f-d0d156699007`; custom-domain status: `Ready`.
+- The deployed `index-Cv9C-JMs.js` SHA-256 exactly matches local `dist`:
+  `e3bffd6a5b1871066b70832581a4190bd91809d71731217e48ac85372c8152a4`.
+- `/`, `/demo`, `/plan`, `/privacy`, `/terms`, manifest, robots, and sitemap
+  return 200; an unknown route returns 404.
+- Production sends CSP limited to self plus the documented Sociobot license
+  endpoint, HSTS, `nosniff`, and strict-origin referrer policy.
+- Live desktop keyboard smoke test made the skip link the first Tab stop.
+  Live Axe found zero serious/critical issues. At 390 px in dark/reduced-motion
+  mode, page width was exactly 390 px and transition duration was `0s`.
+- After service-worker control, live `/demo` reloaded offline and **Add a
+  meal** opened successfully.
 
-Live `/`, `/demo`, `/plan`, `/privacy`, `/terms`, manifest, robots, and sitemap
-return 200; a nonexistent route returns 404. The live headers include HSTS,
-`nosniff`, strict-origin referrer policy, and a CSP allowing only self plus the
-Sociobot license-verification origin. A live 390 px Playwright run confirmed
-that Privacy → Demo starts a fresh seven-food sample, touch targets are 44×44,
-the app reloads offline under the service worker, and no page errors or
-cross-origin normal-flow requests occur.
+## Known gap
 
-Live identity hashes match the deployed local artifact exactly:
-
-| File | SHA-256 |
-| --- | --- |
-| `index.html` | `77447f145229f68916a22b8cfd4909908ddc7822d1d65892b4057b46e9778bc6` |
-| JS | `2da0e976afd27ab112bc06724deb9993cd57f8c62e89ed6b701aa7c27dbc6742` |
-| CSS | `640da7549bdc50f69077541c2abe00e7339d8624068121a2a2e7d7937da150e0` |
-| Normalized service worker | `9b83afd26e94a3913761070e1af7960ef068c0be0ba1b1aac7f58f114534efc9` |
-
-The repository retains the static deployment class and
-`staticwebapp.config.json`. The pre-existing dirty `graphify-out/` files are
-not part of this repair and were deliberately left untouched.
+There are no remaining product defects known from the verifier report. The
+only tool limitation is the unavailable Selenium Chrome binary for the
+standalone Axe CLI; equivalent pinned Playwright/axe coverage passed locally
+and against production.
