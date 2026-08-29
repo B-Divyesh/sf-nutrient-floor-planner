@@ -1,0 +1,79 @@
+{
+  "origin": "https://nutrient-floor-planner.sociobot.in",
+  "cold": {
+    "title": "Nutrient Floor — Plan meals around nutrient targets",
+    "h1": "Plan meals that meet your nutrient targets.",
+    "overflow": false
+  },
+  "demo": {
+    "open": {
+      "foods": 7,
+      "targets": 3,
+      "meals": 3
+    },
+    "resetAndReload": true,
+    "startForReal": true,
+    "foodEditTouchTarget": [
+      44,
+      44
+    ],
+    "targetEditTouchTarget": [
+      44,
+      44
+    ],
+    "sameOriginOnly": true
+  },
+  "planner": {
+    "short": true,
+    "onPlan": true,
+    "withinLimit": true,
+    "overLimit": true,
+    "jsonRoundTrip": true,
+    "foodTargetMealPersistence": true
+  },
+  "routes": {
+    "/": {
+      "title": "Nutrient Floor — Plan meals around nutrient targets",
+      "h1": 1,
+      "main": 1
+    },
+    "/demo": {
+      "title": "Demo — Nutrient Floor",
+      "h1": 1,
+      "main": 1
+    },
+    "/plan": {
+      "title": "Planner — Nutrient Floor",
+      "h1": 1,
+      "main": 1
+    },
+    "/privacy": {
+      "title": "Privacy — Nutrient Floor",
+      "h1": 1,
+      "main": 1
+    },
+    "/terms": {
+      "title": "Terms — Nutrient Floor",
+      "h1": 1,
+      "main": 1
+    },
+    "/404.html": {
+      "title": "Page not found — Nutrient Floor",
+      "h1": 1,
+      "main": 1
+    }
+  },
+  "axe": {
+    "/": [],
+    "/demo": [],
+    "/plan": [],
+    "/privacy": [],
+    "/terms": [],
+    "/404.html": []
+  },
+  "ok": true,
+  "notFound": {
+    "status": 404,
+    "fullShell": true
+  }
+}
