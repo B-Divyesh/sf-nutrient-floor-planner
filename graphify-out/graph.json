@@ -143,6 +143,17 @@
       "source_location": "L21"
     },
     {
+      "id": "src_main_foodlist",
+      "label": "foodList()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "foodlist()",
+      "source_file": "src/main.ts",
+      "source_location": "L61"
+    },
+    {
       "id": "src_main_footer",
       "label": "footer()",
       "_callable": true,
@@ -187,6 +198,17 @@
       "source_location": "L33"
     },
     {
+      "id": "src_main_mealcard",
+      "label": "mealCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "mealcard()",
+      "source_file": "src/main.ts",
+      "source_location": "L65"
+    },
+    {
       "id": "src_main_notfound",
       "label": "notFound()",
       "_callable": true,
@@ -218,6 +240,17 @@
       "norm_label": "page()",
       "source_file": "src/main.ts",
       "source_location": "L92"
+    },
+    {
+      "id": "src_main_planner",
+      "label": "planner()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "planner()",
+      "source_file": "src/main.ts",
+      "source_location": "L69"
     },
     {
       "id": "src_main_rememberdialogopener",
@@ -264,6 +297,17 @@
       "source_location": "L25"
     },
     {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "targetrows()",
+      "source_file": "src/main.ts",
+      "source_location": "L48"
+    },
+    {
       "id": "src_main_toastmarkup",
       "label": "toastMarkup()",
       "_callable": true,
@@ -275,6 +319,17 @@
       "source_location": "L91"
     },
     {
+      "id": "src_model_formatnutrient",
+      "label": "formatNutrient()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "formatnutrient()",
+      "source_file": "src/model.ts",
+      "source_location": "L47"
+    },
+    {
       "id": "src_model_cansavetarget",
       "label": "canSaveTarget()",
       "_callable": true,
@@ -284,6 +339,17 @@
       "norm_label": "cansavetarget()",
       "source_file": "src/model.ts",
       "source_location": "L39"
+    },
+    {
+      "id": "src_model_coverage",
+      "label": "coverage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "coverage()",
+      "source_file": "src/model.ts",
+      "source_location": "L77"
     },
     {
       "id": "src_model_isfood",
@@ -352,6 +418,39 @@
       "source_location": "L15"
     },
     {
+      "id": "src_model_nutrientvalue",
+      "label": "nutrientValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "nutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L46"
+    },
+    {
+      "id": "src_model_status",
+      "label": "status()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "status()",
+      "source_file": "src/model.ts",
+      "source_location": "L78"
+    },
+    {
+      "id": "src_model_totals",
+      "label": "totals()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "totals()",
+      "source_file": "src/model.ts",
+      "source_location": "L71"
+    },
+    {
       "id": "src_model_uid",
       "label": "uid()",
       "_callable": true,
@@ -361,6 +460,50 @@
       "norm_label": "uid()",
       "source_file": "src/model.ts",
       "source_location": "L12"
+    },
+    {
+      "id": "tests_claims_spec_addfood",
+      "label": "addFood()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "addfood()",
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "tests_claims_spec_addtarget",
+      "label": "addTarget()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "addtarget()",
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L16"
+    },
+    {
+      "id": "tests_claims_spec_importplan",
+      "label": "importPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "importplan()",
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L40"
+    },
+    {
+      "id": "tests_claims_spec_planwithfoods",
+      "label": "planWithFoods()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "file_type": "code",
+      "norm_label": "planwithfoods()",
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L25"
     },
     {
       "id": "src_update_applywaitingserviceworkerupdate",
@@ -517,158 +660,48 @@
       "source_location": "L13"
     },
     {
-      "id": "src_main_foodlist",
-      "label": "foodList()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "foodlist()",
-      "source_file": "src/main.ts",
-      "source_location": "L61"
-    },
-    {
-      "id": "src_main_mealcard",
-      "label": "mealCard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "mealcard()",
-      "source_file": "src/main.ts",
-      "source_location": "L65"
-    },
-    {
-      "id": "src_main_planner",
-      "label": "planner()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "planner()",
-      "source_file": "src/main.ts",
-      "source_location": "L69"
-    },
-    {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "targetrows()",
-      "source_file": "src/main.ts",
-      "source_location": "L48"
-    },
-    {
-      "id": "src_model_coverage",
-      "label": "coverage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "coverage()",
-      "source_file": "src/model.ts",
-      "source_location": "L77"
-    },
-    {
-      "id": "src_model_formatnutrient",
-      "label": "formatNutrient()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "formatnutrient()",
-      "source_file": "src/model.ts",
-      "source_location": "L47"
-    },
-    {
-      "id": "src_model_nutrientvalue",
-      "label": "nutrientValue()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "nutrientvalue()",
-      "source_file": "src/model.ts",
-      "source_location": "L46"
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "status()",
-      "source_file": "src/model.ts",
-      "source_location": "L78"
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "totals()",
-      "source_file": "src/model.ts",
-      "source_location": "L71"
-    },
-    {
       "id": "scripts_generate_sw_files",
       "label": "files()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "files()",
       "source_file": "scripts/generate-sw.mjs",
       "source_location": "L6"
     },
     {
-      "id": "tests_claims_spec_addfood",
-      "label": "addFood()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "code",
-      "norm_label": "addfood()",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L6"
-    },
-    {
-      "id": "tests_claims_spec_addtarget",
-      "label": "addTarget()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "code",
-      "norm_label": "addtarget()",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L16"
-    },
-    {
-      "id": "tests_claims_spec_importplan",
+      "id": "factory_evidence_verification_9_live_qa_importplan",
       "label": "importPlan()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
       "norm_label": "importplan()",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L40"
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L30"
     },
     {
-      "id": "tests_claims_spec_planwithfoods",
-      "label": "planWithFoods()",
+      "id": "factory_evidence_verification_9_live_qa_scan",
+      "label": "scan()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
       "file_type": "code",
-      "norm_label": "planwithfoods()",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L25"
+      "norm_label": "scan()",
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L23"
+    },
+    {
+      "id": "factory_evidence_verification_9_live_qa_watch",
+      "label": "watch()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "watch()",
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L10"
     },
     {
       "id": "src_main",
@@ -781,54 +814,14 @@
       "source_location": "L1"
     },
     {
-      "id": "scripts_check_copy_audit",
-      "label": "check-copy-audit.mjs",
+      "id": "tests_claims_spec",
+      "label": "claims.spec.ts",
       "_origin": "ast",
       "community": 10,
       "file_type": "code",
-      "norm_label": "check-copy-audit.mjs",
-      "source_file": "scripts/check-copy-audit.mjs",
+      "norm_label": "claims.spec.ts",
+      "source_file": "tests/claims.spec.ts",
       "source_location": "L1"
-    },
-    {
-      "id": "scripts_check_copy_audit_landingcopy",
-      "label": "landingCopy",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "landingcopy",
-      "source_file": "scripts/check-copy-audit.mjs",
-      "source_location": "L12"
-    },
-    {
-      "id": "scripts_check_copy_audit_missingfromaudit",
-      "label": "missingFromAudit",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "missingfromaudit",
-      "source_file": "scripts/check-copy-audit.mjs",
-      "source_location": "L45"
-    },
-    {
-      "id": "scripts_check_copy_audit_missingfromsource",
-      "label": "missingFromSource",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "missingfromsource",
-      "source_file": "scripts/check-copy-audit.mjs",
-      "source_location": "L44"
-    },
-    {
-      "id": "scripts_check_copy_audit_root",
-      "label": "root",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "root",
-      "source_file": "scripts/check-copy-audit.mjs",
-      "source_location": "L4"
     },
     {
       "id": "src_update",
@@ -1284,7 +1277,7 @@
       "id": "scripts_generate_sw",
       "label": "generate-sw.mjs",
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "generate-sw.mjs",
       "source_file": "scripts/generate-sw.mjs",
@@ -1294,7 +1287,7 @@
       "id": "scripts_generate_sw_dist",
       "label": "dist",
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "dist",
       "source_file": "scripts/generate-sw.mjs",
@@ -1304,7 +1297,7 @@
       "id": "scripts_generate_sw_paths",
       "label": "paths",
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "paths",
       "source_file": "scripts/generate-sw.mjs",
@@ -1314,7 +1307,7 @@
       "id": "scripts_generate_sw_precache",
       "label": "precache",
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "precache",
       "source_file": "scripts/generate-sw.mjs",
@@ -1324,37 +1317,17 @@
       "id": "scripts_generate_sw_shellassets",
       "label": "shellAssets",
       "_origin": "ast",
-      "community": 7,
+      "community": 6,
       "file_type": "code",
       "norm_label": "shellassets",
       "source_file": "scripts/generate-sw.mjs",
       "source_location": "L14"
     },
     {
-      "id": "test",
-      "label": "@playwright/test",
-      "_origin": "ast",
-      "community": 8,
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "@playwright/test",
-      "source_file": "@playwright/test"
-    },
-    {
-      "id": "tests_claims_spec",
-      "label": "claims.spec.ts",
-      "_origin": "ast",
-      "community": 8,
-      "file_type": "code",
-      "norm_label": "claims.spec.ts",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "factory_evidence_repair_6_live_qa",
       "label": "repair-6-live-qa.mjs",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "file_type": "code",
       "norm_label": "repair-6-live-qa.mjs",
       "source_file": ".factory/evidence/repair-6-live-qa.mjs",
@@ -1364,7 +1337,7 @@
       "id": "factory_evidence_repair_6_live_qa_consoleerrors",
       "label": "consoleErrors",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "file_type": "code",
       "norm_label": "consoleerrors",
       "source_file": ".factory/evidence/repair-6-live-qa.mjs",
@@ -1374,7 +1347,7 @@
       "id": "factory_evidence_repair_6_live_qa_datarequests",
       "label": "dataRequests",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "file_type": "code",
       "norm_label": "datarequests",
       "source_file": ".factory/evidence/repair-6-live-qa.mjs",
@@ -1384,7 +1357,7 @@
       "id": "factory_evidence_repair_6_live_qa_foreignrequests",
       "label": "foreignRequests",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "file_type": "code",
       "norm_label": "foreignrequests",
       "source_file": ".factory/evidence/repair-6-live-qa.mjs",
@@ -1394,11 +1367,81 @@
       "id": "factory_evidence_repair_6_live_qa_results",
       "label": "results",
       "_origin": "ast",
-      "community": 9,
+      "community": 7,
       "file_type": "code",
       "norm_label": "results",
       "source_file": ".factory/evidence/repair-6-live-qa.mjs",
       "source_location": "L19"
+    },
+    {
+      "id": "factory_evidence_verification_9_live_qa",
+      "label": "verification-9-live-qa.mjs",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "verification-9-live-qa.mjs",
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "factory_evidence_verification_9_live_qa_results",
+      "label": "results",
+      "_origin": "ast",
+      "community": 8,
+      "file_type": "code",
+      "norm_label": "results",
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L7"
+    },
+    {
+      "id": "scripts_check_copy_audit",
+      "label": "check-copy-audit.mjs",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "check-copy-audit.mjs",
+      "source_file": "scripts/check-copy-audit.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_check_copy_audit_landingcopy",
+      "label": "landingCopy",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "landingcopy",
+      "source_file": "scripts/check-copy-audit.mjs",
+      "source_location": "L12"
+    },
+    {
+      "id": "scripts_check_copy_audit_missingfromaudit",
+      "label": "missingFromAudit",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "missingfromaudit",
+      "source_file": "scripts/check-copy-audit.mjs",
+      "source_location": "L45"
+    },
+    {
+      "id": "scripts_check_copy_audit_missingfromsource",
+      "label": "missingFromSource",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "missingfromsource",
+      "source_file": "scripts/check-copy-audit.mjs",
+      "source_location": "L44"
+    },
+    {
+      "id": "scripts_check_copy_audit_root",
+      "label": "root",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "root",
+      "source_file": "scripts/check-copy-audit.mjs",
+      "source_location": "L4"
     }
   ],
   "links": [
@@ -2659,6 +2702,50 @@
       "weight": 1.0
     },
     {
+      "source": "factory_evidence_verification_9_live_qa",
+      "target": "factory_evidence_verification_9_live_qa_watch",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "factory_evidence_verification_9_live_qa",
+      "target": "factory_evidence_verification_9_live_qa_scan",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "factory_evidence_verification_9_live_qa",
+      "target": "factory_evidence_verification_9_live_qa_importplan",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "factory_evidence_verification_9_live_qa",
+      "target": "factory_evidence_verification_9_live_qa_results",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".factory/evidence/verification-9-live-qa.mjs",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "package",
       "target": "package_devdependencies",
       "relation": "contains",
@@ -3803,15 +3890,6 @@
       "weight": 1.0
     },
     {
-      "source": "tests_claims_spec",
-      "target": "test",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/claims.spec.ts"
-    },
-    {
       "source": "src_main_planner",
       "target": "src_main_mealcard",
       "relation": "indirect_call",
@@ -3837,5 +3915,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "88ecfe026dbdc38a08786db029c50e75a000813f"
+  "built_at_commit": "872931c97f506b32b78575b4048a8ad69b204545"
 }
