@@ -200,6 +200,25 @@ test('dialog focus, escape, and meal cancellation do not leak data', async ({ pa
   await expect(page.locator('.meal')).toHaveCount(3);
 });
 
+test('skip link moves keyboard focus into the planner on desktop and 390px mobile', async ({ browser }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage();
+    await page.goto('/demo');
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('link', { name: 'Skip to planner' })).toBeFocused();
+
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(/#main$/);
+    await expect(page.locator('main#main')).toBeFocused();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'Export plan' })).toBeFocused();
+    await context.close();
+  }
+});
+
 test('unsafe imported IDs do not create nodes or requests', async ({ page }) => {
   const requests: string[] = [];
   page.on('request', request => requests.push(request.url()));
