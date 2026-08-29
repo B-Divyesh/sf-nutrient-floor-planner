@@ -189,8 +189,8 @@
       "degree": 7
     },
     {
-      "id": "src_main_render",
-      "label": "render()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
@@ -199,8 +199,8 @@
       "degree": 6
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
+      "id": "src_main_render",
+      "label": "render()",
       "degree": 6
     },
     {
@@ -209,17 +209,17 @@
       "degree": 6
     },
     {
-      "id": "src_main_save",
-      "label": "save()",
+      "id": "src_model_coverage",
+      "label": "coverage()",
       "degree": 5
     }
   ],
   "surprises": [
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "readPlan()",
+      "target": "isPlan()",
       "source_files": [
-        "src/main.ts",
+        "src/store.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -227,10 +227,10 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "readPlan()",
-      "target": "isPlan()",
+      "source": "load()",
+      "target": "samplePlan()",
       "source_files": [
-        "src/store.ts",
+        "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -249,22 +249,22 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "discardDemo()",
-      "target": "clearPlan()",
+      "source": "targetRows()",
+      "target": "coverage()",
       "source_files": [
         "src/main.ts",
-        "src/store.ts"
+        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "cross-file semantic connection"
     },
     {
-      "source": "load()",
-      "target": "readPlan()",
+      "source": "targetRows()",
+      "target": "status()",
       "source_files": [
         "src/main.ts",
-        "src/store.ts"
+        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
