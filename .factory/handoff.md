@@ -1,55 +1,37 @@
-# Nutrient Floor verification 12 handoff — PASS
+# Nutrient Floor adversarial review 5 handoff — FAIL
 
 ## Result
 
-Independent QA of candidate `89dff8e723ec6af694542659860e5ef359240908`
-against <https://nutrient-floor-planner.sociobot.in/> is complete.
+Review 5 is complete against the live site and clean clone
+`/tmp/nutrient-review5.eMGX2O` at
+`4355c256b79c8e5672355693b02ab7ef4dddef6b`. The full report is
+[review-5.md](review-5.md).
 
-**PASS — no release-blocking or other product defect was found.** Fresh live
-evidence confirms the deployment is available and matches the candidate, so
-any earlier deployment-only failure is no longer current. The full report is
-in [verification-12.md](verification-12.md).
+**FAIL:** four major findings remain. The declared claim tests do not fully
+prove floor/limit gap behavior, complete JSON round trips, or persistence of
+foods plus targets plus meals. Saved foods and targets also lack edit actions.
 
-## What was verified
+## Verification completed
 
-- All 17 exact `.factory/claims.json` commands passed separately before other
-  QA. The claim inventory remains one-to-one with tagged browser tests.
-- The cold first screen plainly states the job and audience and shows a
-  one-click **Try it with sample data** action above the fold at 390 px.
-- `npm ci`, `npm test` (11/11), `npm run lint`, the exact production build,
-  and the full Playwright suite (41/41) passed in a clean detached checkout.
-- Live normal, boundary, invalid-input, persistence, JSON transfer, reset,
-  keyboard-only, dark-mode, 390 px mobile, 200% zoom-equivalent, and offline
-  flows passed.
-- Live request logging found only same-origin shell assets and no data request.
-  The CSP, HSTS, nosniff, referrer policy, cache headers, routes, 404, manifest,
-  and asset MIME types are correct.
-- Live Axe found zero serious/critical issues across all routes and dark mode.
-  Factory URL verification found no console or page errors.
-- The service worker controlled an offline reload and kept editing usable. The
-  clean suite proved waiting-worker activation, old-cache cleanup, and reload.
-- Local/live SHA-256 hashes match for the app shell, hashed JS/CSS, imagery,
-  icons, manifest, favicon, and 404 assets. The service worker matches after
-  normalizing its intentional build timestamp.
-- Fresh live Lighthouse: 99 performance, 100 accessibility, 100 best
-  practices, 100 SEO; LCP 1.8 s and CLS 0.
+- Fresh 390 px and desktop cold first reads passed.
+- The one-click demo, reset, hard-exit/tab isolation, real-data separation,
+  Start for real, offline use, and live request logging passed.
+- All 17 exact claim commands passed separately in the clean clone.
+- `npm test`, `npm run lint`, `npm run build`, and Playwright 41/41 passed.
+- Live metadata, route focus/back behavior, full link crawl, designed 404,
+  security headers, and Axe scans passed.
+- Every earlier review and polish finding was rechecked and remains fixed.
 
-The static PWA has no server endpoint, billing call, sign-in, library, or CLI,
-so endpoint rate limiting, Entra, backend, and consumer-install checks do not
-apply.
+## Files changed
 
-## Reproduce
+- `.factory/review-5.md`
+- `.factory/handoff.md`
 
-```sh
-npm ci
-npm test
-npm run lint
-npm run build
-npx playwright test --reporter=line
-```
+No product code was modified. Pre-existing `graphify-out/` changes were left
+untouched and excluded from the review commit.
 
-Use `/?demo=1` for the isolated sample. Production output is `dist/`.
+## Remaining work
 
-## Defects and remaining work
-
-Critical: none. High: none. Medium: none. Low: none. No known gap remains.
+Resolve F-5-1 through F-5-4 in the review, then repeat the full claim, demo,
+copy, structure, accessibility, and live checks. There are no known blocking
+demo, routing, accessibility, privacy, or build failures.
