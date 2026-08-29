@@ -1,57 +1,46 @@
-# Nutrient Floor adversarial review 2 handoff
+# Nutrient Floor polish 2 handoff
 
-## Decision: FAIL
+## Completed
 
-Completed an independent, review-only pass on 2026-08-29 UTC against
-<https://nutrient-floor-planner.sociobot.in> and candidate
-`57a52c2b951f546ec22553542e8d25830c0d3e54`. No product code was changed.
+Released repair commits `0afc906` and `e33cb88` from `main`, then deployed
+`dist/` with deployment `f2d787e6-ccb6-4e66-8862-cd93accae6c0` to
+<https://nutrient-floor-planner.sociobot.in>.
 
-The live first screen, one-click sample content, Reset, real-data isolation,
-offline behavior, metadata, links, accessibility checks, and visual identity
-mostly pass. The release remains blocked because demo edits survive hard
-navigation and tab closure despite copy claiming they are not saved and are
-deleted on exit. The existing test checks only in-app exits. The claim
-inventory also omits the no-calorie-input promise and tests only demo for a
-README claim covering both planner and demo offline use.
+The demo is an in-memory sample workspace. It remains editable while open, but
+hard navigation, reload, and tab closure always reopen the bundled seven-food
+sample. It never reads or writes the real plan. The claim inventory now has 14
+one-to-one browser tests, including no-calorie planning and both demo and
+planner offline behavior. Copy-audit drift, stale labels, unsupported dragging,
+and 12 px mobile annotations are fixed.
 
-Additional findings cover the previously disclosed stale copy audit, indirect
-section labels, nonfunctional `draggable="true"` meal cards, and 12 px mobile
-annotations. Full evidence, rewrites, and the cumulative history map are in
-`.factory/review-2.md`.
+## Verification
 
-## Verification performed
+- Detached clean clone `/tmp/nutrient-floor-polish2.qZBa5f` at `0afc906`:
+  `npm ci`, `npm test` (7/7), `npm run lint`, and `npm run build` passed.
+- Every exact command in `.factory/claims.json` passed independently: 14/14.
+- Full browser suite: `npx playwright test` passed 30/30, including Axe,
+  privacy request logging, offline reload/edit flows, keyboard/dialog/focus,
+  routing/404, and mobile/200%-zoom checks.
+- Build output: `dist/index.html`; JS 8.72 kB gzip and CSS 3.61 kB gzip.
+- Cold live `verify-url.sh` passed home and `?demo=1` with no console errors.
+  Live Axe found no serious or critical findings on home, demo, Privacy, Terms,
+  or 404. Evidence is in `.factory/evidence/live-polish-2-*`.
+- Live demo: 7 foods initially, 8 after adding one, 7 after hard exit, and 7
+  after closing and reopening the tab. Key mobile annotations are 14 px and no
+  meal card advertises dragging.
 
-- Cold live Chromium at 390 × 844 and 1440 × 900.
-- One-click demo, edit, Reset, Start for real, pre-existing real data, request
-  log, hard-navigation exit, and close/reopen exit.
-- Live offline reload/edit for both `/demo` and `/plan`.
-- Every `.factory/claims.json` command separately from detached clean clone
-  `/tmp/nutrient-review2-clean.OWB4d1`: 13/13 passed.
-- Clean-clone `npm test`: 7/7 passed.
-- Clean-clone `npm run lint` and `npm run build`: passed; `dist/` produced.
-- Clean-clone `npx playwright test`: 29/29 passed.
-- Factory `verify-url.sh` on live home and demo: passed.
-- Live Axe on home, light/dark demo, Privacy, Terms, and 404: zero
-  serious/critical findings.
-- Live metadata, route status, link crawl, Back/focus announcement, security
-  headers, request origins, and console checks.
-- Every earlier review, polish, and handoff finding rechecked live and in code.
+## Run and deploy
 
-## Reproduce the blocker
+```sh
+npm ci
+npm test
+npm run lint
+npm run build
+npx playwright test
+/opt/fleet/lib/deploy-static.sh nutrient-floor-planner dist
+```
 
-1. Open `/demo` in a fresh browser context.
-2. Add a food and confirm eight food rows.
-3. Leave with a hard navigation to `/` or close the tab.
-4. Reopen `/demo` in the same browser context.
-5. The added food and eight rows remain while the banner says **“nothing is
-   saved.”**
+## Known gaps
 
-The current `@claim:demo-isolation` command passes because it exercises only
-visible in-app exits.
-
-## Next steps
-
-Use non-persistent demo state or otherwise clear it for every exit. Add the
-missing hard-exit, no-calorie-input, and real-planner-offline claim coverage.
-Address F-2-1 through F-2-4, deploy the repaired candidate, and repeat the full
-adversarial review.
+None. The product remains a static, local-first PWA with its blueprint
+drafting-sheet visual identity.

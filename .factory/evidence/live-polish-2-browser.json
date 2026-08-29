@@ -1,0 +1,53 @@
+{
+  "routes": {
+    "/": {
+      "title": "Nutrient Floor — Plan meals around nutrient targets",
+      "h1": 1,
+      "main": 1,
+      "seriousOrCritical": []
+    },
+    "/?demo=1": {
+      "title": "Demo — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "seriousOrCritical": []
+    },
+    "/privacy": {
+      "title": "Privacy — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "seriousOrCritical": []
+    },
+    "/terms": {
+      "title": "Terms — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "seriousOrCritical": []
+    },
+    "/not-a-real-route": {
+      "title": "Page not found — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "seriousOrCritical": []
+    }
+  },
+  "demo": {
+    "initialFoods": 7,
+    "afterAdd": 8,
+    "afterHardExit": 7,
+    "draggableMeals": 0,
+    "afterTabClose": 7,
+    "banner": 1
+  },
+  "copy": {
+    "redundantEyebrow": 0,
+    "valuesHeading": 1,
+    "firstScreenAction": 1,
+    "commercialText": 0
+  },
+  "axe": {},
+  "mobile": {
+    "mealAnnotationPx": "14px",
+    "foodAnnotationPx": "14px"
+  }
+}

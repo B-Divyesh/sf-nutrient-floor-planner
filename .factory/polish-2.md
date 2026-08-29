@@ -26,3 +26,22 @@ Every command in `.factory/claims.json` was invoked separately and passed.
 - `npx playwright test`: 30/30 passed, including light/dark Axe scans,
   privacy request logging, offline reload/editing, routing/focus/404, dialog
   keyboard behavior, and 390 px / 200% zoom-equivalent layouts.
+
+## Live deployment recheck
+
+Deployment `f2d787e6-ccb6-4e66-8862-cd93accae6c0` completed through the
+static work-order helper. `verify-url.sh` passed cold home and demo loads; its
+reports and screenshots are in `evidence/live-polish-2-home/` and
+`evidence/live-polish-2-demo/`. The live browser report is
+`evidence/live-polish-2-browser.json`.
+
+| Finding IDs | Live URL checked | Result |
+| --- | --- | --- |
+| F-1-1, F-1-5, F-2-1, F-2-2 | <https://nutrient-floor-planner.sociobot.in/> | One h1/main, sample action visible, no paid copy, removed eyebrow absent, direct heading present. |
+| F-1-2 | <https://nutrient-floor-planner.sociobot.in/plan> | Planner loads with no license or capacity-gate UI. |
+| F-1-3 | <https://nutrient-floor-planner.sociobot.in/not-a-real-route> | Page-not-found title, heading, full shell, legal links, and recovery actions load. |
+| F-1-4, F-2-3, F-2-4 | <https://nutrient-floor-planner.sociobot.in/?demo=1> | Demo counted 7 → 8 → 7 after hard exit, 7 after tab closure, no draggable meals, and 14 px annotations. |
+| F-1-6 | <https://nutrient-floor-planner.sociobot.in/privacy> | Plain-language in-memory demo privacy copy loads with no errors. |
+
+Live Axe found no serious or critical findings on home, demo, Privacy, Terms,
+or 404.
