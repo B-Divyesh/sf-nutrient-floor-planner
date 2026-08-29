@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -43,6 +43,19 @@ async function importPlan(page: import('@playwright/test').Page, plan: object) {
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(plan))
   });
+}
+
+async function createPersistedBaselinePlan(page: Page) {
+  await page.goto('/plan');
+  await addFood(page, 'Baseline food');
+  await addTarget(page, 'Baseline target');
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await page.getByLabel('Meal name').fill('Baseline meal');
+  await page.getByLabel('Baseline food per 1 cup').fill('1');
+  await page.getByRole('button', { name: 'Save meal' }).click();
+  await expect(page.locator('.food')).toHaveCount(1);
+  await expect(page.locator('.target')).toHaveCount(1);
+  await expect(page.locator('.meal')).toHaveCount(1);
 }
 
 test('@claim:demo-week-coverage loads a seven-food plan with three placed meals', async ({ page }) => {
@@ -206,7 +219,7 @@ test('@claim:demo-reset restores the bundled sample without touching real data',
   await expect(page.getByText('Real-plan beans')).toBeVisible();
 });
 
-test('removed paid path ignores a legacy forged token and does not gate foods', async ({ page }) => {
+test('@claim:free-to-use ignores a legacy forged token and does not gate foods', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('sb_license:nutrient-floor-planner', 'forged-review-token'));
   await page.goto('/plan');
   await importPlan(page, planWithFoods(11));
@@ -345,6 +358,54 @@ test('rejects invalid imports before storage and remains recoverable after reloa
   await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
 });
 
+for (const invalidCase of [
+  { name: 'food name', kind: 'food', field: 'name', message: 'Enter a food name. It cannot be blank.' },
+  { name: 'serving', kind: 'food', field: 'serving', message: 'Enter a serving. It cannot be blank.' },
+  { name: 'source', kind: 'food', field: 'source', message: 'Enter a source or label. It cannot be blank.' },
+  { name: 'target label', kind: 'target', field: 'label', message: 'Enter a target name. It cannot be blank.' },
+  { name: 'meal name', kind: 'meal', field: 'name', message: 'Enter a meal name. It cannot be blank.' }
+] as const) {
+  test(`rejects whitespace-only ${invalidCase.name} without corrupting the saved plan`, async ({ page }) => {
+    await createPersistedBaselinePlan(page);
+
+    if (invalidCase.kind === 'food') {
+      await page.getByRole('button', { name: 'Add food' }).click();
+      await page.getByLabel('Food name').fill(invalidCase.field === 'name' ? '   ' : 'Rejected food');
+      await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill(invalidCase.field === 'serving' ? '   ' : '1 cup');
+      await page.getByLabel('Source or label').fill(invalidCase.field === 'source' ? '   ' : 'Package label');
+      await page.getByRole('button', { name: 'Save food' }).click();
+    } else if (invalidCase.kind === 'target') {
+      await page.getByRole('button', { name: 'Add target' }).click();
+      await page.getByLabel('Target name').fill('   ');
+      await page.getByLabel('Grams per week').fill('30');
+      await page.getByRole('button', { name: 'Save target' }).click();
+    } else {
+      await page.getByRole('button', { name: 'Add a meal' }).first().click();
+      await page.getByLabel('Meal name').fill('   ');
+      await page.getByLabel('Baseline food per 1 cup').fill('1');
+      await page.getByRole('button', { name: 'Save meal' }).click();
+    }
+
+    const dialog = page.getByRole('dialog');
+    const invalidInput = dialog.locator(`input[name="${invalidCase.field}"]`);
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('alert')).toHaveText(invalidCase.message);
+    await expect(invalidInput).toHaveValue('   ');
+    await expect(invalidInput).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('.food')).toHaveCount(1);
+    await expect(page.locator('.target')).toHaveCount(1);
+    await expect(page.locator('.meal')).toHaveCount(1);
+
+    await page.reload();
+    await expect(page.getByText('Baseline food', { exact: true })).toBeVisible();
+    await expect(page.getByText('Baseline target', { exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Baseline meal', exact: true })).toBeVisible();
+    await expect(page.locator('.food')).toHaveCount(1);
+    await expect(page.locator('.target')).toHaveCount(1);
+    await expect(page.locator('.meal')).toHaveCount(1);
+  });
+}
+
 test('dialog focus, escape, and meal cancellation do not leak data', async ({ page }) => {
   await page.goto('/demo');
   await page.getByRole('button', { name: 'Add a meal' }).first().click();
@@ -428,6 +489,19 @@ test('route metadata, direct demo query, and touch targets are specific and usab
     expect(box?.width).toBeGreaterThanOrEqual(44);
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
+  await context.close();
+});
+
+test('privacy contact link has a 44px mobile target and no serious or critical axe issues', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('/privacy');
+  const contact = page.getByRole('link', { name: 'hello@sociobot.in' });
+  const box = await contact.boundingBox();
+  expect(box?.width).toBeGreaterThanOrEqual(44);
+  expect(box?.height).toBeGreaterThanOrEqual(44);
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
   await context.close();
 });
 

@@ -13,9 +13,9 @@ words, and no banned marketing word appears. `npm test` runs
 | For home cooks who want enough fibre or protein without logging every calorie. | 13 | pass |
 | Try it with sample data | 5 | pass |
 | Loads seven foods, three meals, and three targets. | 8 | pass |
+| Free to use | 3 | pass |
 | Stored on this device | 4 | pass |
 | Works offline after setup | 4 | pass |
-| Export or import your plan | 5 | pass |
 | Ingredients arranged across a blue kitchen planning sheet. | 8 | pass |
 | Foods arranged on a kitchen planning illustration. | 7 | pass |
 | Sample weekly nutrient totals | 4 | pass |

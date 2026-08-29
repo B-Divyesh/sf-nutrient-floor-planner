@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TARGET_LIMIT, canSaveTarget, coverage, isPlan, samplePlan, status, totals } from './model';
+import { TARGET_LIMIT, canSaveTarget, coverage, isPlan, normalizeRequiredText, samplePlan, status, totals } from './model';
 describe('nutrient math', () => {
   it('adds portions by amount', () => { const p = samplePlan(); expect(totals([{ foodId: 'lentils', amount: 2 }], p.foods).fibre).toBe(32); });
   it('identifies sample fibre coverage', () => { const p = samplePlan(); expect(coverage(p).fibre).toBeGreaterThan(30); });
@@ -13,6 +13,14 @@ describe('nutrient math', () => {
     expect(status(minimum, 0.1 * 0.75)).toMatchObject({ passes: false, difference: 0.025 });
   });
   it('rejects incomplete plan records before they can be stored', () => { expect(isPlan({ foods: [{}], targets: [], meals: [], updatedAt: 'x' })).toBe(false); expect(isPlan(samplePlan())).toBe(true); });
+  it('normalizes required text once for forms and stored plans', () => {
+    expect(normalizeRequiredText('  Fibre floor  ', 45)).toBe('Fibre floor');
+    expect(normalizeRequiredText('   ', 45)).toBeNull();
+    expect(normalizeRequiredText('x'.repeat(46), 45)).toBeNull();
+    const plan = samplePlan();
+    plan.foods[0].name = '   ';
+    expect(isPlan(plan)).toBe(false);
+  });
   it('rejects IDs that could alter rendered HTML attributes', () => {
     const plan = samplePlan();
     plan.foods[0].id = 'x\"><img src="/qa-injected" alt="marker';

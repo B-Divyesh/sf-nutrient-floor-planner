@@ -12,7 +12,17 @@ export const blankPlan = (): Plan => ({ targets: [], foods: [], meals: [], updat
 const uid = () => Math.random().toString(36).slice(2, 9);
 const nutrientKeys: NutrientKey[] = ['fibre', 'protein', 'sugar', 'saturatedFat'];
 const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-const isText = (value: unknown, max: number) => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
+/**
+ * Required text is stored in its trimmed form. Keep this rule shared by the
+ * form submitters and the storage validator so a value accepted by the UI can
+ * always be read back safely after a reload.
+ */
+export function normalizeRequiredText(value: unknown, max: number): string | null {
+  if (typeof value !== 'string' || value.length > max) return null;
+  const normalized = value.trim();
+  return normalized.length > 0 ? normalized : null;
+}
+const isText = (value: unknown, max: number) => normalizeRequiredText(value, max) !== null;
 /** IDs are rendered into DOM attributes. Keep their grammar deliberately narrow. */
 const isId = (value: unknown) => typeof value === 'string' && /^[A-Za-z0-9_-]{1,80}$/.test(value);
 const isNumber = (value: unknown, min = 0) => typeof value === 'number' && Number.isFinite(value) && value >= min;

@@ -35,7 +35,7 @@ static single-page application. Keep the included `staticwebapp.config.json`.
 
 Foods, targets, and meals stay in browser storage on your device. The planner
 uses no analytics and sends no meal data elsewhere. You can export or import
-the complete plan as JSON.
+the complete plan as JSON. Nutrient Floor is free to use.
 
 The planner and demo work offline after setup. You can also print the weekly
 plan. Read `/privacy` and `/terms` for details.
@@ -50,6 +50,7 @@ Check labels before relying on a total.
 
 - The sample opens with seven foods, three placed meals, and three targets.
 - The sample week totals 40 g fibre and 75.5 g protein.
+- Nutrient Floor is free to use with no payment gate.
 - The planner uses no analytics and sends no meal data elsewhere.
 - The planner and demo work offline after setup.
 - You can export or import your complete plan.

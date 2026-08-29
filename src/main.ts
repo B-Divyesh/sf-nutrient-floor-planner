@@ -1,5 +1,5 @@
 import './style.css';
-import { TARGET_LIMIT, blankPlan, canSaveTarget, coverage, formatNutrient, isPlan, makeId, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
+import { TARGET_LIMIT, blankPlan, canSaveTarget, coverage, formatNutrient, isPlan, makeId, normalizeRequiredText, nutrientLabels, samplePlan, status, totals, type Food, type NutrientKey, type Plan, type Target } from './model';
 import { clearPlan, readPlan, writePlan } from './store';
 import { applyWaitingServiceWorkerUpdate } from './update';
 
@@ -16,6 +16,7 @@ let activeRoute = location.pathname;
 let focusRouteHeading = false;
 let waitingWorker: ServiceWorker | null = null;
 let dialogReturnSelector: string | null = null;
+let dialogError = '';
 const CANONICAL_ORIGIN = 'https://nutrient-floor-planner.sociobot.in';
 const targetLimitNotice = `You can save up to ${TARGET_LIMIT} targets.`;
 const e = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]!));
@@ -42,7 +43,7 @@ function routeCopy(kind: 'privacy' | 'terms') {
 }
 
 function landing() {
-  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Stored on this device</li><li>Works offline after setup</li><li>Export or import your plan</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /><figcaption>Foods arranged on a kitchen planning illustration.</figcaption></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section></main>`;
+  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Free to use</li><li>Stored on this device</li><li>Works offline after setup</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /><figcaption>Foods arranged on a kitchen planning illustration.</figcaption></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section></main>`;
 }
 
 function targetRows() {
@@ -73,8 +74,9 @@ function planner() {
 function dialogMarkup() {
   const current = dialog;
   if (!current) return '';
-  if (current.kind === 'food') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW SAVED FOOD</p><h2 id="modal-title">Add a food and its serving.</h2><label>Food name<input name="name" required maxlength="60" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" required maxlength="40" /></label><label>Source or label<input name="source" required maxlength="80" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" step="0.1" value="0" required /></label>`).join('')}</div><button class="button primary" type="submit">Save food</button></form></dialog>`;
-  if (current.kind === 'target') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW TARGET</p><h2 id="modal-title">Add a nutrient floor or limit.</h2><label>Target name<input name="label" required maxlength="45" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}">${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min">Minimum floor</option><option value="max">Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" step="0.1" required /></label><button class="button primary" type="submit">Save target</button></form></dialog>`;
+  const error = `<p id="form-error" class="form-error" role="alert"${dialogError ? '' : ' hidden'}>${e(dialogError)}</p>`;
+  if (current.kind === 'food') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="food" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW SAVED FOOD</p><h2 id="modal-title">Add a food and its serving.</h2>${error}<label>Food name<input name="name" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Serving <span class="hint">Example: ½ cup dry</span><input name="serving" required maxlength="40" aria-describedby="form-error" /></label><label>Source or label<input name="source" required maxlength="80" aria-describedby="form-error" placeholder="Label, packet at home" /></label><div class="nutrient-inputs">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<label>${nutrientLabels[k]} (g)<input type="number" name="${k}" min="0" step="0.1" value="0" required /></label>`).join('')}</div><button class="button primary" type="submit">Save food</button></form></dialog>`;
+  if (current.kind === 'target') return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="target" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">NEW TARGET</p><h2 id="modal-title">Add a nutrient floor or limit.</h2>${error}<label>Target name<input name="label" required maxlength="45" aria-describedby="form-error" placeholder="Fibre floor" autofocus /></label><label>Nutrient<select name="key">${(['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => `<option value="${k}">${nutrientLabels[k]}</option>`).join('')}</select></label><label>Type<select name="kind"><option value="min">Minimum floor</option><option value="max">Maximum limit</option></select></label><label>Grams per week<input name="value" type="number" min="0.1" step="0.1" required /></label><button class="button primary" type="submit">Save target</button></form></dialog>`;
   if (current.kind === 'confirm') {
     const name = current.subject === 'food' ? plan.foods.find(f => f.id === current.id)?.name || 'this food' : current.subject === 'target' ? plan.targets.find(t => t.id === current.id)?.label || 'this target' : plan.meals.find(m => m.id === current.id)?.name || 'this meal';
     const mealsAffected = current.subject === 'food' ? plan.meals.filter(m => m.portions.some(p => p.foodId === current.id)).length : 0;
@@ -84,7 +86,7 @@ function dialogMarkup() {
   const mealDialog = current as Extract<DialogState, { kind: 'meal' }>;
   const existing = mealDialog.id ? plan.meals.find(m => m.id === mealDialog.id) : undefined;
   const meal = existing || { id: '', name: '', day: mealDialog.day, portions: [] };
-  return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="meal"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">MEAL PORTIONS</p><h2 id="modal-title">${existing ? 'Edit this meal.' : 'Add a meal.'}</h2><label>Meal name<input name="name" value="${e(meal.name)}" required maxlength="60" autofocus /></label><label>Day<select name="day">${DAYS.map((d, i) => `<option value="${i}" ${meal.day === i ? 'selected' : ''}>${d}</option>`).join('')}</select></label><fieldset><legend>Portions</legend>${plan.foods.length ? plan.foods.map(f => `<label class="portion"><span>${e(f.name)} <small>per ${e(f.serving)}</small></span><input type="number" name="food:${e(f.id)}" min="0" step="0.25" value="${meal.portions.find(p => p.foodId === f.id)?.amount || 0}" /></label>`).join('') : '<p>Add a food first, then return to this meal.</p>'}</fieldset><button class="button primary" type="submit">Save meal</button></form></dialog>`;
+  return `<dialog class="modal" data-dialog aria-labelledby="modal-title"><form data-form="meal" aria-describedby="form-error"><button type="button" class="close" data-action="close-dialog" aria-label="Close">×</button><p class="eyebrow">MEAL PORTIONS</p><h2 id="modal-title">${existing ? 'Edit this meal.' : 'Add a meal.'}</h2>${error}<label>Meal name<input name="name" value="${e(meal.name)}" required maxlength="60" aria-describedby="form-error" autofocus /></label><label>Day<select name="day">${DAYS.map((d, i) => `<option value="${i}" ${meal.day === i ? 'selected' : ''}>${d}</option>`).join('')}</select></label><fieldset><legend>Portions</legend>${plan.foods.length ? plan.foods.map(f => `<label class="portion"><span>${e(f.name)} <small>per ${e(f.serving)}</small></span><input type="number" name="food:${e(f.id)}" min="0" step="0.25" value="${meal.portions.find(p => p.foodId === f.id)?.amount || 0}" /></label>`).join('') : '<p>Add a food first, then return to this meal.</p>'}</fieldset><button class="button primary" type="submit">Save meal</button></form></dialog>`;
 }
 
 function notFound() { return `<main id="main" class="legal" tabindex="-1"><article><p class="eyebrow">NUTRIENT FLOOR</p><h1 tabindex="-1">Page not found</h1><p>The address does not match a page in this planner.</p><div class="not-found-actions"><a class="button primary" href="/?demo=1" data-route>Open the sample plan</a><a class="button" href="/plan" data-route>Go to the planner</a></div></article></main>`; }
@@ -162,6 +164,7 @@ function rememberDialogOpener(el: HTMLElement) {
 }
 function closeDialog() {
   dialog = null;
+  dialogError = '';
   render();
   const returnSelector = dialogReturnSelector;
   if (returnSelector) window.setTimeout(() => document.querySelector<HTMLElement>(returnSelector)?.focus(), 0);
@@ -198,6 +201,20 @@ document.addEventListener('click', async event => {
 });
 
 document.addEventListener('close', event => { if ((event.target as HTMLElement).matches('dialog[data-dialog]') && dialog) closeDialog(); }, true);
+function showFormError(form: HTMLFormElement, fieldName: string, message: string) {
+  dialogError = message;
+  const error = form.querySelector<HTMLElement>('#form-error');
+  if (error) { error.textContent = message; error.hidden = false; }
+  const field = form.elements.namedItem(fieldName) as HTMLElement | null;
+  field?.setAttribute('aria-invalid', 'true');
+  field?.focus();
+}
+function formText(data: FormData, form: HTMLFormElement, fieldName: string, max: number, label: string) {
+  const value = normalizeRequiredText(data.get(fieldName), max);
+  if (value) return value;
+  showFormError(form, fieldName, `Enter a ${label.toLowerCase()}. It cannot be blank.`);
+  return null;
+}
 document.addEventListener('submit', async event => {
   const form = event.target as HTMLFormElement; const formName = form.dataset.form;
   if (!formName) return;
@@ -213,19 +230,34 @@ document.addEventListener('submit', async event => {
     closeDialog(); return;
   }
   if (formName === 'food') {
+    const name = formText(data, form, 'name', 60, 'Food name');
+    const serving = formText(data, form, 'serving', 40, 'Serving');
+    const source = formText(data, form, 'source', 80, 'Source or label');
+    if (!name || !serving || !source) return;
     const nutrients = Object.fromEntries((['fibre', 'protein', 'sugar', 'saturatedFat'] as NutrientKey[]).map(k => [k, Number(data.get(k))])) as Food['nutrients'];
-    plan.foods.push({ id: makeId(), name: String(data.get('name')).trim(), serving: String(data.get('serving')).trim(), source: String(data.get('source')).trim(), nutrients }); notice = 'Food saved to your pantry.';
+    const nextPlan = { ...plan, foods: [...plan.foods, { id: makeId(), name, serving, source, nutrients }] };
+    if (!isPlan(nextPlan)) { showFormError(form, 'name', 'Check the food values, then try again.'); return; }
+    plan = nextPlan; notice = 'Food saved to your pantry.';
   }
   if (formName === 'target') {
     if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); return; }
-    plan.targets.push({ id: makeId(), label: String(data.get('label')).trim(), key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' }); notice = 'Target saved.';
+    const label = formText(data, form, 'label', 45, 'Target name');
+    if (!label) return;
+    const nextPlan = { ...plan, targets: [...plan.targets, { id: makeId(), label, key: data.get('key') as NutrientKey, kind: data.get('kind') as Target['kind'], value: Number(data.get('value')), unit: 'g' }] };
+    if (!isPlan(nextPlan)) { showFormError(form, 'label', 'Check the target values, then try again.'); return; }
+    plan = nextPlan; notice = 'Target saved.';
   }
   if (formName === 'meal' && dialog?.kind === 'meal') {
     const mealDialog = dialog;
+    const name = formText(data, form, 'name', 60, 'Meal name');
+    if (!name) return;
     const portions = plan.foods.map(f => ({ foodId: f.id, amount: Number(data.get(`food:${f.id}`)) })).filter(p => p.amount > 0);
-    const result = { id: mealDialog.id || makeId(), name: String(data.get('name')).trim(), day: Number(data.get('day')), portions };
+    const result = { id: mealDialog.id || makeId(), name, day: Number(data.get('day')), portions };
     const index = plan.meals.findIndex(m => m.id === mealDialog.id);
-    if (index >= 0) plan.meals[index] = result; else plan.meals.push(result);
+    const meals = index >= 0 ? plan.meals.map((meal, mealIndex) => mealIndex === index ? result : meal) : [...plan.meals, result];
+    const nextPlan = { ...plan, meals };
+    if (!isPlan(nextPlan)) { showFormError(form, 'name', 'Check the meal values, then try again.'); return; }
+    plan = nextPlan;
     notice = 'Meal saved to your week.';
   }
   if (!await save()) { plan = previousPlan; render(); return; }
