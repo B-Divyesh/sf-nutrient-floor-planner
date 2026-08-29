@@ -1,28 +1,54 @@
 {
   "communities": {
     "0": [
+      "axe_core_playwright",
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_playwright_test",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitest",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_type",
+      "package_version",
+      "playwright_test",
+      "typescript",
+      "vite",
+      "vitest"
+    ],
+    "1": [
+      "src_main_targetrows",
       "src_model",
+      "src_model_canimportfoods",
+      "src_model_cansavefood",
+      "src_model_cansavetarget",
       "src_model_coverage",
-      "src_model_food",
+      "src_model_free_food_limit",
       "src_model_isfood",
       "src_model_isid",
       "src_model_isnumber",
       "src_model_isplan",
       "src_model_isrecord",
       "src_model_istext",
-      "src_model_makeid",
       "src_model_meal",
-      "src_model_nutrientkey",
       "src_model_nutrientkeys",
-      "src_model_nutrientlabels",
       "src_model_portion",
       "src_model_sampleplan",
-      "src_model_target",
+      "src_model_status",
+      "src_model_target_limit",
       "src_model_test",
       "src_model_totals",
       "src_model_uid"
     ],
-    "1": [
+    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -40,7 +66,22 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_include"
     ],
-    "2": [
+    "3": [
+      "src_main",
+      "src_main_days",
+      "src_main_dialogstate",
+      "src_main_download",
+      "src_main_isdemolocation",
+      "src_main_knownroutes",
+      "src_main_licenseverdict",
+      "src_main_plan",
+      "src_model_food",
+      "src_model_makeid",
+      "src_model_nutrientkey",
+      "src_model_nutrientlabels",
+      "src_model_target"
+    ],
+    "4": [
       "src_main_discarddemo",
       "src_main_load",
       "src_main_namespace",
@@ -55,59 +96,7 @@
       "src_store_readplan",
       "src_store_writeplan"
     ],
-    "3": [
-      "src_main",
-      "src_main_closedialog",
-      "src_main_days",
-      "src_main_dialogstate",
-      "src_main_download",
-      "src_main_isdemolocation",
-      "src_main_knownroutes",
-      "src_main_licenseverdict",
-      "src_main_opendialog",
-      "src_main_plan",
-      "src_main_render",
-      "src_main_titlefor"
-    ],
-    "4": [
-      "axe_core_playwright",
-      "package_devdependencies",
-      "package_devdependencies_axe_core_playwright",
-      "package_devdependencies_playwright_test",
-      "package_devdependencies_typescript",
-      "package_devdependencies_vite",
-      "package_devdependencies_vitest",
-      "playwright_test",
-      "typescript",
-      "vite",
-      "vitest"
-    ],
     "5": [
-      "package",
-      "package_name",
-      "package_private",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_dev",
-      "package_scripts_lint",
-      "package_scripts_preview",
-      "package_scripts_test",
-      "package_type",
-      "package_version"
-    ],
-    "6": [
-      "src_main_dialogmarkup",
-      "src_main_e",
-      "src_main_foodlist",
-      "src_main_mealcard",
-      "src_main_n",
-      "src_main_planner",
-      "src_main_rememberdialogopener",
-      "src_main_targetrows",
-      "src_main_toastmarkup",
-      "src_model_status"
-    ],
-    "7": [
       "src_main_demobanner",
       "src_main_footer",
       "src_main_header",
@@ -117,7 +106,17 @@
       "src_main_page",
       "src_main_routecopy"
     ],
-    "8": [
+    "6": [
+      "src_main_dialogmarkup",
+      "src_main_e",
+      "src_main_foodlist",
+      "src_main_mealcard",
+      "src_main_n",
+      "src_main_planner",
+      "src_main_rememberdialogopener",
+      "src_main_toastmarkup"
+    ],
+    "7": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
@@ -125,7 +124,7 @@
       "scripts_generate_sw_precache",
       "scripts_generate_sw_shellassets"
     ],
-    "9": [
+    "8": [
       "src_main_cachedverdict",
       "src_main_collectlicense",
       "src_main_safeget",
@@ -133,13 +132,23 @@
       "src_main_safeset",
       "src_main_verifylicense"
     ],
+    "9": [
+      "test",
+      "tests_claims_spec",
+      "tests_claims_spec_addfood",
+      "tests_claims_spec_addtarget",
+      "tests_claims_spec_importplan",
+      "tests_claims_spec_planwithfoods"
+    ],
     "10": [
-      "public_sw",
-      "public_sw_shell"
+      "src_main_closedialog",
+      "src_main_opendialog",
+      "src_main_render",
+      "src_main_titlefor"
     ],
     "11": [
-      "tests_claims_spec",
-      "tests_claims_spec_addfood"
+      "public_sw",
+      "public_sw_shell"
     ],
     "12": [
       "playwright_config"
@@ -149,17 +158,17 @@
     ]
   },
   "cohesion": {
-    "0": 0.1736842105263158,
-    "1": 0.125,
-    "2": 0.21794871794871795,
-    "3": 0.21212121212121213,
-    "4": 0.18181818181818182,
-    "5": 0.18181818181818182,
-    "6": 0.26666666666666666,
-    "7": 0.2857142857142857,
-    "8": 0.3333333333333333,
-    "9": 0.4666666666666667,
-    "10": 1.0,
+    "0": 0.09090909090909091,
+    "1": 0.18181818181818182,
+    "2": 0.125,
+    "3": 0.15384615384615385,
+    "4": 0.21794871794871795,
+    "5": 0.2857142857142857,
+    "6": 0.2857142857142857,
+    "7": 0.3333333333333333,
+    "8": 0.4666666666666667,
+    "9": 0.3333333333333333,
+    "10": 0.5,
     "11": 1.0,
     "12": 1.0,
     "13": 1.0
@@ -171,13 +180,13 @@
       "degree": 11
     },
     {
-      "id": "src_model_isplan",
-      "label": "isPlan()",
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
       "degree": 10
     },
     {
-      "id": "tsconfig_compileroptions",
-      "label": "compilerOptions",
+      "id": "src_model_isplan",
+      "label": "isPlan()",
       "degree": 10
     },
     {
@@ -191,6 +200,16 @@
       "degree": 7
     },
     {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 6
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
+      "degree": 6
+    },
+    {
       "id": "src_main_render",
       "label": "render()",
       "degree": 6
@@ -201,18 +220,8 @@
       "degree": 6
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
-      "degree": 6
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 6
-    },
-    {
-      "id": "src_main_planner",
-      "label": "planner()",
+      "id": "src_store_readplan",
+      "label": "readPlan()",
       "degree": 5
     }
   ],
@@ -222,17 +231,6 @@
       "target": "isPlan()",
       "source_files": [
         "src/store.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "load()",
-      "target": "samplePlan()",
-      "source_files": [
-        "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -251,8 +249,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "coverage()",
+      "source": "load()",
+      "target": "samplePlan()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
@@ -264,6 +262,17 @@
     {
       "source": "discardDemo()",
       "target": "clearPlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "load()",
+      "target": "readPlan()",
       "source_files": [
         "src/main.ts",
         "src/store.ts"
