@@ -45,10 +45,21 @@ async function importPlan(page: import('@playwright/test').Page, plan: object) {
 
 test('@claim:demo-week-coverage loads a seven-food plan with three placed meals', async ({ page }) => {
   await page.goto('/demo');
-  await expect(page.getByRole('heading', { name: 'Build a week that clears your targets.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
   await expect(page.locator('.food')).toHaveCount(7);
   await expect(page.locator('.meal')).toHaveCount(3);
+  await expect(page.locator('.target')).toHaveCount(3);
   await expect(page.getByText('Fibre floor')).toBeVisible();
+});
+
+test('@claim:sample-totals shows the calculated fibre and protein totals', async ({ page }) => {
+  await page.goto('/');
+  const preview = page.locator('.mini-board');
+  await expect(preview).toContainText('40 g');
+  await expect(preview).toContainText('75.5 g');
+  await page.goto('/?demo=1');
+  await expect(page.getByText('40 g', { exact: true })).toBeVisible();
+  await expect(page.getByText('75.5 g', { exact: true })).toBeVisible();
 });
 
 test('@claim:local-only demo sends no data off this origin', async ({ page }) => {
@@ -66,7 +77,7 @@ test('@claim:offline-use reloads and stays usable offline after setup', async ({
   await page.reload();
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Build a week that clears your targets.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
   await page.getByRole('button', { name: 'Add a meal' }).first().click();
   await expect(page.getByRole('dialog', { name: 'Add a meal.' })).toBeVisible();
 });
@@ -112,35 +123,28 @@ test('@claim:demo-isolation discards demo edits through every visible exit', asy
   }
 });
 
-test('@claim:paid-upgrade restores a valid one-time license and shows its checkout', async ({ page }) => {
-  await page.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=returned-token', route => route.fulfill({ json: { valid: true, reason: 'ok' } }));
-  await page.goto('/');
-  await expect(page.getByRole('link', { name: 'Buy the $12 upgrade' })).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/nutrient-floor-planner/checkout');
-  await page.goto('/?license=returned-token');
-  await expect(page).toHaveURL(/\/$/);
-  await expect(page.getByText('Upgrade active on this device.')).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open your upgraded planner' })).toBeVisible();
-  await expect.poll(() => page.evaluate(() => localStorage.getItem('sb_license:nutrient-floor-planner'))).toBe('returned-token');
+test('@claim:demo-reset restores the bundled sample without touching real data', async ({ page }) => {
+  await page.goto('/plan');
+  await addFood(page, 'Real-plan beans');
+  await page.goto('/?demo=1');
+  await addFood(page, 'Demo-only beans');
+  await expect(page.locator('.food')).toHaveCount(8);
+  await page.getByRole('button', { name: 'Reset demo' }).click();
+  await expect(page.locator('.food')).toHaveCount(7);
+  await expect(page.getByText('Demo-only beans')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page.getByText('Real-plan beans')).toBeVisible();
 });
 
-test('@claim:free-food-cap blocks an eleventh free food, including imports, and permits it after a valid upgrade', async ({ page }) => {
+test('removed paid path ignores a legacy forged token and does not gate foods', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('sb_license:nutrient-floor-planner', 'forged-review-token'));
   await page.goto('/plan');
   await importPlan(page, planWithFoods(11));
-  await expect(page.getByRole('status')).toContainText('That plan has more than 10 foods. Upgrade first, then import it.');
-  await expect(page.locator('.food')).toHaveCount(0);
-
-  await importPlan(page, planWithFoods(10));
-  await expect(page.locator('.food')).toHaveCount(10);
-  await page.getByRole('button', { name: 'Add food' }).click();
-  await expect(page.getByRole('status')).toContainText('The free planner holds 10 foods. Upgrade for unlimited saved foods.');
-  await expect(page.getByRole('dialog', { name: 'Add a food and its serving.' })).toHaveCount(0);
-
-  await page.route('**/verify?license=cap-license', route => route.fulfill({ json: { valid: true, reason: 'ok' } }));
-  await page.goto('/plan?license=cap-license');
-  await expect(page.getByText('Upgrade active on this device.')).toBeVisible();
-  await expect(page.locator('.food')).toHaveCount(10);
-  await addFood(page, 'Eleventh food');
   await expect(page.locator('.food')).toHaveCount(11);
+  await addFood(page, 'Twelfth food');
+  await expect(page.locator('.food')).toHaveCount(12);
+  await expect(page.getByText(/upgrade|license|purchase/i)).toHaveCount(0);
+  await expect(page.locator('a[href*="api.sociobot.in"]')).toHaveCount(0);
 });
 
 test('@claim:target-cap blocks a sixth target after five saves', async ({ page }) => {
@@ -172,6 +176,30 @@ test('@claim:food-source saves user-entered food values with their source', asyn
   await expect(page.getByText('7.5g fibre')).toBeVisible();
 });
 
+test('@claim:target-comparison compares entered values with a chosen target', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await page.getByLabel('Food name').fill('Fibre cereal');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 bowl');
+  await page.getByLabel('Source or label').fill('Box label');
+  await page.locator('input[name="fibre"]').fill('8');
+  await page.getByRole('button', { name: 'Save food' }).click();
+  await addTarget(page, 'Weekly fibre');
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await page.getByLabel('Meal name').fill('Cereal breakfast');
+  await page.getByLabel('Fibre cereal per 1 bowl').fill('2');
+  await page.getByRole('button', { name: 'Save meal' }).click();
+  await expect(page.getByText('16 g', { exact: true })).toBeVisible();
+  await expect(page.getByText('on plan', { exact: true })).toBeVisible();
+});
+
+test('@claim:user-chosen-targets starts without recommended target values', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add your first target' }).click();
+  await expect(page.getByLabel('Grams per week')).toHaveValue('');
+  await expect(page.getByText(/recommended|diagnosis|medical target/i)).toHaveCount(0);
+});
+
 test('empty light planner has no serious or critical axe violations', async ({ page }) => {
   await page.goto('/plan');
   await expect(page.getByRole('button', { name: 'Add your first target' })).toBeVisible();
@@ -185,7 +213,7 @@ test('rejects invalid imports before storage and remains recoverable after reloa
   await page.getByLabel('Import plan').setInputFiles({ name: 'bad.json', mimeType: 'application/json', buffer: Buffer.from('{"foods":[{}],"targets":[],"meals":[],"updatedAt":"x"}') });
   await expect(page.getByText('That file is not a valid Nutrient Floor plan. Choose an exported JSON file.')).toBeVisible();
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Build a week that clears your targets.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
 });
 
 test('dialog focus, escape, and meal cancellation do not leak data', async ({ page }) => {
@@ -245,24 +273,50 @@ test('blocked browser storage keeps the dialog open and explains recovery', asyn
   await context.close();
 });
 
-test('route metadata and touch targets are specific and usable on mobile', async ({ browser }) => {
+test('route metadata, direct demo query, and touch targets are specific and usable on mobile', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   for (const [path, title, canonical] of [
     ['/demo', 'Demo — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/demo'],
-    ['/plan', 'Planner — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/plan']
+    ['/?demo=1', 'Demo — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/demo'],
+    ['/plan', 'Planner — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/plan'],
+    ['/privacy', 'Privacy — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/privacy'],
+    ['/terms', 'Terms — Nutrient Floor', 'https://nutrient-floor-planner.sociobot.in/terms']
   ]) {
     await page.goto(path);
     await expect(page).toHaveTitle(title);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonical);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.+/);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', title);
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', title);
   }
-  await page.goto('/demo');
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Try it with sample data' }).click();
+  await expect(page).toHaveURL(/\?demo=1$/);
+  await expect(page.getByText('Demo — sample data, nothing is saved.')).toBeVisible();
   for (const target of [page.getByRole('link', { name: 'Demo' }), page.getByRole('link', { name: 'Privacy' }).last(), page.getByRole('link', { name: 'Terms' })]) {
     const box = await target.boundingBox();
     expect(box?.width).toBeGreaterThanOrEqual(44);
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
   await context.close();
+});
+
+test('SPA navigation, back, focus, announcements, and unknown routes work', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Privacy' }).first().click();
+  await expect(page).toHaveURL(/\/privacy$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Your meal plan stays on this device.' })).toBeFocused();
+  await expect(page.locator('#route-live')).toContainText('Privacy — Nutrient Floor');
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Plan meals that meet your nutrient targets.' })).toBeFocused();
+  await expect(page.locator('#route-live')).toContainText('Nutrient Floor — Plan meals around nutrient targets');
+  await page.goto('/not-a-real-route');
+  await expect(page).toHaveTitle('Page not found — Nutrient Floor');
+  await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Open the sample plan' })).toHaveAttribute('href', '/?demo=1');
+  await expect(page.getByRole('link', { name: 'Go to the planner' })).toHaveAttribute('href', '/plan');
 });
 
 test('meter uses semantic markup without CSP inline styles and deletions require confirmation', async ({ page }) => {
@@ -281,7 +335,7 @@ test('meter uses semantic markup without CSP inline styles and deletions require
 
 test('demo has no serious or critical axe violations', async ({ page }) => {
   await page.goto('/demo');
-  await page.getByRole('heading', { name: 'Build a week that clears your targets.' }).waitFor();
+  await page.getByRole('heading', { name: 'Build a week that meets your targets.' }).waitFor();
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
 });
@@ -290,7 +344,7 @@ test('dark demo has no serious or critical axe violations', async ({ browser }) 
   const context = await browser.newContext({ colorScheme: 'dark' });
   const page = await context.newPage();
   await page.goto('/demo');
-  await page.getByRole('heading', { name: 'Build a week that clears your targets.' }).waitFor();
+  await page.getByRole('heading', { name: 'Build a week that meets your targets.' }).waitFor();
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
   await context.close();
@@ -307,8 +361,37 @@ test('mobile and 200% zoom-equivalent layouts avoid page overflow', async ({ bro
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
     await page.goto('/demo');
-    await page.getByRole('heading', { name: 'Build a week that clears your targets.' }).waitFor();
+    await page.getByRole('heading', { name: 'Build a week that meets your targets.' }).waitFor();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
     await context.close();
   }
+});
+
+test('the styled 404 has the full shell, legal links, metadata, and recovery actions', async ({ page }) => {
+  await page.goto('/404.html');
+  await expect(page).toHaveTitle('Page not found — Nutrient Floor');
+  await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible();
+  await expect(page.getByRole('banner')).toBeVisible();
+  await expect(page.getByRole('contentinfo')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Open the sample plan' })).toHaveAttribute('href', '/?demo=1');
+  await expect(page.getByRole('link', { name: 'Go to the planner' })).toHaveAttribute('href', '/plan');
+  await expect(page.getByRole('link', { name: 'Privacy' }).last()).toHaveAttribute('href', '/privacy');
+  await expect(page.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', '/terms');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://nutrient-floor-planner.sociobot.in/404.html');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
+});
+
+test('landing first screen remains readable and actionable at 390px', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Plan meals that meet your nutrient targets.' })).toBeVisible();
+  await expect(page.getByText('For home cooks who want enough fibre or protein without logging every calorie.')).toBeVisible();
+  const action = page.getByRole('link', { name: 'Try it with sample data' });
+  await expect(action).toBeVisible();
+  const box = await action.boundingBox();
+  expect(box?.height).toBeGreaterThanOrEqual(44);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  await context.close();
 });

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Nutrient Floor">
+  <rect width="64" height="64" fill="#0b3d66"/>
+  <path d="M8 8h48v38L46 56H8z" fill="none" stroke="#c7eb6e" stroke-width="4"/>
+  <path d="M18 44V20l14 24V20M38 44V20h12M38 31h10" fill="none" stroke="#f8f4e8" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

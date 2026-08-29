@@ -2,27 +2,24 @@
 
 Plan meals that meet your nutrient targets.
 
-Nutrient Floor is for home cooks who want to clear a fibre or protein floor,
-or keep sugar below a limit, without keeping a calorie diary. It stores a small
-trusted food list and weekly meal plan in the browser on your device.
+For home cooks who want more fibre or protein, or less sugar, without a calorie diary.
+Save your foods, choose weekly floors or limits, and place meals on a week.
 
-Try the isolated sample plan at `/demo` or `/?demo=1`. It loads seven foods,
-three meals, and three targets. Demo changes use a separate IndexedDB namespace
-and never touch your real plan. Leaving demo through any app link discards its
-sample changes.
+Try the sample plan at `/?demo=1` or `/demo`. It opens with seven foods, three
+meals, and three targets. Demo changes use separate browser storage. They never
+touch your real plan. Leaving the demo deletes its changes.
 
-## Run
+## Run locally
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open `http://localhost:5173`. Use **Start for real** in the demo, or open
-`/plan`, to create a private plan. Values are user-entered and include a source
-field; check labels before relying on a value.
+Open `http://localhost:5173`. Use **Start for real**, or open `/plan`, to create
+your plan.
 
-## Verify
+## Run checks
 
 ```sh
 npm test
@@ -32,37 +29,36 @@ npm run build
 ```
 
 The build output is `dist/`, with `index.html` at its root. Deploy it as a
-static single-page application and preserve the included `staticwebapp.config.json`.
+static single-page application. Keep the included `staticwebapp.config.json`.
 
 ## Data and privacy
 
-Food values, targets, and meals are stored in IndexedDB on your device. Export
-or import the full plan as JSON. Nutrient Floor has no analytics or food
-catalogue network calls. The demo and normal planner work offline after setup.
+Foods, targets, and meals stay in browser storage on your device. The planner
+uses no analytics and sends no meal data elsewhere. You can export or import
+the complete plan as JSON.
 
-You can print the weekly sheet. See `/privacy` and `/terms`.
+The planner and demo work offline after setup. You can also print the weekly
+plan. Read `/privacy` and `/terms` for details.
 
-## Optional one-time upgrade
+## How totals work
 
-The free planner saves up to 10 foods. A $12 one-time Sociobot purchase adds
-unlimited saved foods. Checkout is hosted by Sociobot, the merchant of record.
-After checkout, the returned license token is stored only in this browser and
-verified with Sociobot when online; nutrition data is never sent with it. Use
-the **Have a license?** field on the home page to restore a purchase on another
-device.
+You enter each food value and its source. The planner compares those values
+with the targets you choose. It does not supply recommended target values.
+Check labels before relying on a total.
 
 ## Claims verified in the demo
 
-- Loads a seven-food plan with three placed meals.
-- No meal data leaves this device.
-- Works offline after setup.
-- Export or import your plan.
+- The sample opens with seven foods, three placed meals, and three targets.
+- The sample week totals 40 g fibre and 75.5 g protein.
+- The planner uses no analytics and sends no meal data elsewhere.
+- The planner works offline after setup.
+- You can export or import your complete plan.
 - Your plan stays on this device.
-- Demo data uses a separate local space and is discarded when you leave.
-- $12 is a one-time purchase for unlimited saved foods.
-- The free planner saves up to 10 foods; a valid upgrade allows more.
-- Saves up to five targets.
-- Prints a weekly sheet.
-- Food values are entered by you and include a source field.
+- Demo changes stay separate and are deleted when you leave.
+- The planner saves up to five targets.
+- The planner prints a weekly plan.
+- Food values are entered by you and saved with a source.
+- The planner compares entered food values with targets you choose.
+- The planner does not supply recommended target values.
 
-Each claim and its Playwright command are recorded in `.factory/claims.json`.
+Every claim and its exact Playwright command is in `.factory/claims.json`.

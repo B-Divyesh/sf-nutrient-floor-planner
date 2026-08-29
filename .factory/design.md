@@ -37,10 +37,11 @@ Lines and tick marks group information before panels do.
 
 ## Interaction and motion
 
-Changing a portion redraws its measuring bar in 180ms; saving a meal briefly
-stamps its date. The weekly board is the visual centre and takes priority on
-phones. `prefers-reduced-motion: reduce` removes all transitions and transforms.
-Focus uses a thick lime-and-blue outline.
+The weekly board is the visual centre and takes priority on phones. Changes
+redraw totals immediately, without decorative or continuous motion. Horizontal
+day columns snap gently on narrow screens. `prefers-reduced-motion: reduce`
+removes all transitions and transforms. Focus uses a thick lime-and-blue
+outline.
 
 ## Original art plan and provenance
 
@@ -60,3 +61,6 @@ only atmosphere; no critical information appears in it. Prompt sheet:
 Generated with the factory Azure image deployment on 2026-08-28. It will be
 optimised to WebP and used with meaningful alt text. All remaining graphics are
 hand-authored SVG/CSS drafting marks.
+
+The NF favicon is a hand-authored SVG added on 2026-08-29. Its clipped outline,
+cream initials, blueprint field, and lime rule use only the product tokens.

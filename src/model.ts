@@ -4,7 +4,6 @@ export type Food = { id: string; name: string; serving: string; nutrients: Recor
 export type Portion = { foodId: string; amount: number };
 export type Meal = { id: string; name: string; day: number; portions: Portion[] };
 export type Plan = { targets: Target[]; foods: Food[]; meals: Meal[]; updatedAt: string };
-export const FREE_FOOD_LIMIT = 10;
 export const TARGET_LIMIT = 5;
 
 export const nutrientLabels: Record<NutrientKey, string> = { fibre: 'Fibre', protein: 'Protein', sugar: 'Sugar', saturatedFat: 'Saturated fat' };
@@ -36,8 +35,6 @@ export function isPlan(value: unknown): value is Plan {
   return mealIds.size === value.meals.length;
 }
 
-export const canSaveFood = (foodCount: number, hasUnlimitedFoods: boolean) => hasUnlimitedFoods || foodCount < FREE_FOOD_LIMIT;
-export const canImportFoods = (foodCount: number, hasUnlimitedFoods: boolean) => hasUnlimitedFoods || foodCount <= FREE_FOOD_LIMIT;
 export const canSaveTarget = (targetCount: number) => targetCount < TARGET_LIMIT;
 
 export const samplePlan = (): Plan => ({
