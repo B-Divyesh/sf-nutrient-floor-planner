@@ -43,10 +43,19 @@ Fresh install and local quality gates:
   ChromeDriver was used only for this local QA command; it is not part of the
   repository or shipped artifact.
 
-Pre-publish live identity/header check of the prior candidate found the
-expected existing static deployment, including CSP, nosniff, HSTS, strict
-referrer policy, and the previous hash `index-Cv9C-JMs.js`. The post-publish
-check will confirm the new `index-B9xERDek.js` asset and keyboard repair.
+## Deployment evidence
+
+`dist/` was deployed to the production Azure Static Web App
+`sf-nutrient-floor-planner` in resource group `sociobot`. Both
+`https://nutrient-floor-planner.sociobot.in/demo` and
+`https://lemon-ocean-082ae1810.7.azurestaticapps.net/demo` now serve
+`/assets/index-B9xERDek.js`, the hash from this production build.
+
+A fresh live Playwright keyboard replay passed at 1440px and 390px: the first
+Tab focused **Skip to planner**; Enter produced `#main`, focused `main#main`,
+and scrolled it (137px desktop; 177px mobile); the next Tab focused
+**Export plan**. There were no console or page errors. Live response headers
+still include the expected CSP, HSTS, nosniff, and strict referrer policy.
 
 ## Deployment and known gaps
 
