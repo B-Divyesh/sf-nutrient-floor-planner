@@ -50,6 +50,7 @@ Check labels before relying on a total.
 
 - The sample opens with seven foods, three placed meals, and three targets.
 - The sample week totals 40 g fibre and 75.5 g protein.
+- The sample shows 40 g fibre above a 30 g floor and 75.5 g protein above a 75 g floor.
 - Nutrient Floor is free to use with no payment gate.
 - The planner uses no analytics and sends no meal data elsewhere.
 - The planner and demo work offline after setup.

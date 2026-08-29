@@ -77,6 +77,30 @@ test('@claim:sample-totals shows the calculated fibre and protein totals', async
   await expect(page.getByText('75.5 g', { exact: true })).toBeVisible();
 });
 
+test('@claim:sample-floor-status shows both sample floors and their passing results', async ({ page }) => {
+  await page.goto('/');
+  const preview = page.locator('.mini-board');
+  await expect(preview).toContainText('40 g');
+  await expect(preview).toContainText('above the 30 g floor');
+  await expect(preview).toContainText('75.5 g');
+  await expect(preview).toContainText('above the 75 g floor');
+
+  await page.goto('/demo');
+  const fibre = page.locator('.target', { hasText: 'Fibre floor' });
+  await expect(fibre).toHaveClass(/pass/);
+  await expect(fibre.getByText('floor · 30 g', { exact: true })).toBeVisible();
+  await expect(fibre.getByText('40 g', { exact: true })).toBeVisible();
+  await expect(fibre.getByText('on plan', { exact: true })).toBeVisible();
+  await expect(fibre.getByRole('meter')).toHaveAccessibleName('Fibre floor: 40 grams against a 30 gram floor, on plan');
+
+  const protein = page.locator('.target', { hasText: 'Protein floor' });
+  await expect(protein).toHaveClass(/pass/);
+  await expect(protein.getByText('floor · 75 g', { exact: true })).toBeVisible();
+  await expect(protein.getByText('75.5 g', { exact: true })).toBeVisible();
+  await expect(protein.getByText('on plan', { exact: true })).toBeVisible();
+  await expect(protein.getByRole('meter')).toHaveAccessibleName('Protein floor: 75.5 grams against a 75 gram floor, on plan');
+});
+
 test('@claim:local-only demo sends no data off this origin', async ({ page }) => {
   const foreign: string[] = [];
   const dataTransfers: string[] = [];

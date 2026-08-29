@@ -39,7 +39,7 @@ words, and no banned marketing word appears. `npm test` runs
 
 Navigation, footer link labels, the factory credit, and version are short
 labels rather than sentences. They use direct names: Demo, Planner, Privacy,
-Terms, Built by Param Factory, and v1.4.
+Terms, Built by Param Factory, and v1.5.
 
 ## Terminology
 

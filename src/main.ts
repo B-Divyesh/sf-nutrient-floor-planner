@@ -33,7 +33,7 @@ function routeMeta(route: string) {
 }
 function link(path: string, label: string) { const current = activeRoute === path || (path === '/demo' && demo); return `<a href="${path}" data-route ${current ? 'aria-current="page"' : ''}>${label}</a>`; }
 function header() { return `<header class="site-header"><a class="wordmark" href="/" data-route aria-label="NF Nutrient Floor"><span aria-hidden="true">NF</span>Nutrient Floor</a><nav aria-label="Main navigation">${link('/demo', 'Demo')}${link('/plan', 'Planner')}${link('/privacy', 'Privacy')}</nav></header>`; }
-function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.4</p></footer>`; }
+function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.5</p></footer>`; }
 function demoBanner() { return demo ? `<aside class="demo-banner" aria-label="Demo mode"><span><strong>Demo</strong> — sample data, nothing is saved.</span><span><button class="text-button" data-action="reset-demo">Reset demo</button><button class="text-button" data-action="start-real">Start for real</button></span></aside>` : ''; }
 
 function routeCopy(kind: 'privacy' | 'terms') {
