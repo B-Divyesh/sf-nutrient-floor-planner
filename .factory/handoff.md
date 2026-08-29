@@ -66,6 +66,9 @@ found zero serious or critical violations.
   mode, page width was exactly 390 px and transition duration was `0s`.
 - After service-worker control, live `/demo` reloaded offline and **Add a
   meal** opened successfully.
+- Local update smoke changed the built worker, displayed **An update is ready**,
+  and invoked **Update now**. A fresh controlled context then reported an
+  activated worker with no waiting worker.
 
 ## Known gap
 
