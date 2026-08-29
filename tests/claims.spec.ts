@@ -342,6 +342,13 @@ test('@claim:no-calorie-input plans a meal with supported nutrient values and no
   await expect(page.getByText('8 g', { exact: true })).toBeVisible();
 });
 
+test('@claim:build-output produces a complete dist/index.html app shell', async () => {
+  const builtHtml = await readFile(resolve('dist/index.html'), 'utf8');
+  expect(builtHtml).toContain('<!doctype html>');
+  expect(builtHtml).toContain('<div id="app"></div>');
+  expect(builtHtml).toMatch(/<script type="module" crossorigin src="\/assets\/index-[^"]+\.js"><\/script>/);
+});
+
 test('empty light planner has no serious or critical axe violations', async ({ page }) => {
   await page.goto('/plan');
   await expect(page.getByRole('button', { name: 'Add your first target' })).toBeVisible();
@@ -595,6 +602,8 @@ test('landing first screen remains readable and actionable at 390px', async ({ b
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Plan meals that meet your nutrient targets.' })).toBeVisible();
   await expect(page.getByText('For home cooks who want enough fibre or protein without logging every calorie.')).toBeVisible();
+  await expect(page.locator('.hero-art img')).toHaveAttribute('alt', 'Ingredients arranged across a blue kitchen planning sheet.');
+  await expect(page.locator('.hero-art figcaption')).toHaveCount(0);
   const action = page.getByRole('link', { name: 'Try it with sample data' });
   await expect(action).toBeVisible();
   const box = await action.boundingBox();

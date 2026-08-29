@@ -19,7 +19,6 @@ const landingCopy = [
   'Stored on this device',
   'Works offline after setup',
   'Ingredients arranged across a blue kitchen planning sheet.',
-  'Foods arranged on a kitchen planning illustration.',
   'Sample weekly nutrient totals',
   'Save familiar foods, choose targets, and place meal portions on a week.',
   'Fibre',
@@ -53,4 +52,8 @@ if (missingFromSource.length || missingFromAudit.length) {
 
 if (source.includes('draggable=')) {
   throw new Error('Meal cards advertise browser dragging without a supported drop interaction.');
+}
+
+if (source.includes('<figcaption')) {
+  throw new Error('The decorative hero caption must remain absent.');
 }

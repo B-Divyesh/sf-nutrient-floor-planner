@@ -17,7 +17,6 @@ words, and no banned marketing word appears. `npm test` runs
 | Stored on this device | 4 | pass |
 | Works offline after setup | 4 | pass |
 | Ingredients arranged across a blue kitchen planning sheet. | 8 | pass |
-| Foods arranged on a kitchen planning illustration. | 7 | pass |
 | Sample weekly nutrient totals | 4 | pass |
 | Save familiar foods, choose targets, and place meal portions on a week. | 12 | pass |
 | Fibre | 1 | pass |
@@ -40,7 +39,7 @@ words, and no banned marketing word appears. `npm test` runs
 
 Navigation, footer link labels, the factory credit, and version are short
 labels rather than sentences. They use direct names: Demo, Planner, Privacy,
-Terms, Built by Param Factory, and v1.3.
+Terms, Built by Param Factory, and v1.4.
 
 ## Terminology
 

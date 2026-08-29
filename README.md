@@ -28,8 +28,8 @@ npx playwright test
 npm run build
 ```
 
-The build output is `dist/`, with `index.html` at its root. Deploy it as a
-static single-page application. Keep the included `staticwebapp.config.json`.
+The production build contains `dist/index.html`. Deploy it as a static
+single-page application. Keep the included `staticwebapp.config.json`.
 
 ## Data and privacy
 
@@ -62,5 +62,6 @@ Check labels before relying on a total.
 - The planner compares entered food values with targets you choose.
 - The planner does not supply recommended target values.
 - You can plan meals without entering calories.
+- The production build contains `dist/index.html`.
 
 Every claim and its exact Playwright command is in `.factory/claims.json`.
