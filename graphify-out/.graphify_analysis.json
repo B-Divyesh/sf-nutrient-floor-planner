@@ -5,29 +5,30 @@
       "src_main_closedialog",
       "src_main_days",
       "src_main_demobanner",
-      "src_main_dialogmarkup",
       "src_main_dialogstate",
+      "src_main_discarddemo",
       "src_main_download",
-      "src_main_e",
-      "src_main_foodlist",
       "src_main_footer",
       "src_main_header",
+      "src_main_isdemolocation",
       "src_main_knownroutes",
       "src_main_landing",
       "src_main_link",
-      "src_main_mealcard",
+      "src_main_load",
+      "src_main_namespace",
+      "src_main_navigate",
       "src_main_notfound",
       "src_main_opendialog",
       "src_main_page",
       "src_main_plan",
-      "src_main_planner",
-      "src_main_rememberdialogopener",
       "src_main_render",
       "src_main_routecopy",
       "src_main_routemeta",
-      "src_main_targetrows",
-      "src_main_toastmarkup",
-      "src_model_formatnutrient",
+      "src_main_save",
+      "src_main_storagefailure",
+      "src_model_sampleplan",
+      "src_store_clearplan",
+      "src_store_writeplan",
       "src_update",
       "src_update_applywaitingserviceworkerupdate",
       "src_update_test"
@@ -36,8 +37,8 @@
       "src_main_formtext",
       "src_main_showformerror",
       "src_model",
+      "src_model_blankplan",
       "src_model_cansavetarget",
-      "src_model_coverage",
       "src_model_food",
       "src_model_isfood",
       "src_model_isid",
@@ -52,14 +53,15 @@
       "src_model_nutrientkey",
       "src_model_nutrientkeys",
       "src_model_nutrientlabels",
-      "src_model_nutrientvalue",
+      "src_model_plan",
       "src_model_portion",
-      "src_model_status",
       "src_model_target",
       "src_model_target_limit",
       "src_model_test",
-      "src_model_totals",
-      "src_model_uid"
+      "src_model_uid",
+      "src_store",
+      "src_store_open",
+      "src_store_readplan"
     ],
     "2": [
       "axe_core_playwright",
@@ -104,24 +106,21 @@
       "tsconfig_include"
     ],
     "4": [
-      "src_main_discarddemo",
-      "src_main_isdemolocation",
-      "src_main_load",
-      "src_main_namespace",
-      "src_main_navigate",
-      "src_main_save",
-      "src_main_storagefailure",
-      "src_model_blankplan",
-      "src_model_plan",
-      "src_model_sampleplan",
-      "src_store",
-      "src_store_clearplan",
-      "src_store_open",
-      "src_store_readplan",
-      "src_store_writeplan"
+      "src_main_dialogmarkup",
+      "src_main_e",
+      "src_main_foodlist",
+      "src_main_mealcard",
+      "src_main_planner",
+      "src_main_rememberdialogopener",
+      "src_main_targetrows",
+      "src_main_toastmarkup",
+      "src_model_coverage",
+      "src_model_formatnutrient",
+      "src_model_nutrientvalue",
+      "src_model_status",
+      "src_model_totals"
     ],
     "5": [
-      "test",
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
@@ -193,12 +192,12 @@
     ]
   },
   "cohesion": {
-    "0": 0.13333333333333333,
-    "1": 0.13105413105413105,
+    "0": 0.12043010752688173,
+    "1": 0.12169312169312169,
     "2": 0.09090909090909091,
     "3": 0.125,
-    "4": 0.18095238095238095,
-    "5": 0.32142857142857145,
+    "4": 0.24358974358974358,
+    "5": 0.38095238095238093,
     "6": 0.3333333333333333,
     "7": 0.3333333333333333,
     "8": 0.4,
@@ -237,8 +236,13 @@
       "degree": 7
     },
     {
-      "id": "src_model_isfood",
-      "label": "isFood()",
+      "id": "src_main_render",
+      "label": "render()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
@@ -247,54 +251,49 @@
       "degree": 6
     },
     {
+      "id": "src_model_isfood",
+      "label": "isFood()",
+      "degree": 6
+    },
+    {
       "id": "src_model_totals",
       "label": "totals()",
-      "degree": 6
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 6
-    },
-    {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
       "degree": 6
     }
   ],
   "surprises": [
     {
-      "source": "readPlan()",
-      "target": "isPlan()",
+      "source": "load()",
+      "target": "readPlan()",
       "source_files": [
-        "src/store.ts",
-        "src/model.ts"
+        "src/main.ts",
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "coverage()",
+      "source": "foodList()",
+      "target": "formatNutrient()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities"
+      "why": "cross-file semantic connection"
     },
     {
-      "source": "targetRows()",
-      "target": "status()",
+      "source": "mealCard()",
+      "target": "formatNutrient()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities"
+      "why": "cross-file semantic connection"
     },
     {
       "source": "mealCard()",
@@ -305,11 +304,11 @@
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
-      "why": "bridges separate communities"
+      "why": "cross-file semantic connection"
     },
     {
-      "source": "formText()",
-      "target": "normalizeRequiredText()",
+      "source": "targetRows()",
+      "target": "coverage()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"

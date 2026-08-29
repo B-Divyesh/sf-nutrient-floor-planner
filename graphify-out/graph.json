@@ -52,6 +52,18 @@
       "source_location": "L1"
     },
     {
+      "id": "src_model_plan",
+      "label": "Plan",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "plan",
+      "source_file": "src/model.ts",
+      "source_location": "L6"
+    },
+    {
       "id": "src_model_portion",
       "label": "Portion",
       "_callable": true,
@@ -76,18 +88,6 @@
       "source_location": "L2"
     },
     {
-      "id": "src_model_plan",
-      "label": "Plan",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "plan",
-      "source_file": "src/model.ts",
-      "source_location": "L6"
-    },
-    {
       "id": "src_main_closedialog",
       "label": "closeDialog()",
       "_callable": true,
@@ -110,15 +110,15 @@
       "source_location": "L37"
     },
     {
-      "id": "src_main_dialogmarkup",
-      "label": "dialogMarkup()",
+      "id": "src_main_discarddemo",
+      "label": "discardDemo()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "dialogmarkup()",
+      "norm_label": "discarddemo()",
       "source_file": "src/main.ts",
-      "source_location": "L74"
+      "source_location": "L153"
     },
     {
       "id": "src_main_download",
@@ -130,28 +130,6 @@
       "norm_label": "download()",
       "source_file": "src/main.ts",
       "source_location": "L165"
-    },
-    {
-      "id": "src_main_e",
-      "label": "e()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "e()",
-      "source_file": "src/main.ts",
-      "source_location": "L22"
-    },
-    {
-      "id": "src_main_foodlist",
-      "label": "foodList()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "foodlist()",
-      "source_file": "src/main.ts",
-      "source_location": "L62"
     },
     {
       "id": "src_main_footer",
@@ -176,6 +154,17 @@
       "source_location": "L35"
     },
     {
+      "id": "src_main_isdemolocation",
+      "label": "isDemoLocation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "isdemolocation()",
+      "source_file": "src/main.ts",
+      "source_location": "L25"
+    },
+    {
       "id": "src_main_landing",
       "label": "landing()",
       "_callable": true,
@@ -198,15 +187,37 @@
       "source_location": "L34"
     },
     {
-      "id": "src_main_mealcard",
-      "label": "mealCard()",
+      "id": "src_main_load",
+      "label": "load()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "mealcard()",
+      "norm_label": "load()",
       "source_file": "src/main.ts",
-      "source_location": "L66"
+      "source_location": "L144"
+    },
+    {
+      "id": "src_main_namespace",
+      "label": "namespace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "namespace()",
+      "source_file": "src/main.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_main_navigate",
+      "label": "navigate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "navigate()",
+      "source_file": "src/main.ts",
+      "source_location": "L157"
     },
     {
       "id": "src_main_notfound",
@@ -242,28 +253,6 @@
       "source_location": "L102"
     },
     {
-      "id": "src_main_planner",
-      "label": "planner()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "planner()",
-      "source_file": "src/main.ts",
-      "source_location": "L70"
-    },
-    {
-      "id": "src_main_rememberdialogopener",
-      "label": "rememberDialogOpener()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "rememberdialogopener()",
-      "source_file": "src/main.ts",
-      "source_location": "L166"
-    },
-    {
       "id": "src_main_render",
       "label": "render()",
       "_callable": true,
@@ -297,37 +286,59 @@
       "source_location": "L26"
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
+      "id": "src_main_save",
+      "label": "save()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "targetrows()",
+      "norm_label": "save()",
       "source_file": "src/main.ts",
-      "source_location": "L49"
+      "source_location": "L139"
     },
     {
-      "id": "src_main_toastmarkup",
-      "label": "toastMarkup()",
+      "id": "src_main_storagefailure",
+      "label": "storageFailure()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "toastmarkup()",
+      "norm_label": "storagefailure()",
       "source_file": "src/main.ts",
-      "source_location": "L101"
+      "source_location": "L136"
     },
     {
-      "id": "src_model_formatnutrient",
-      "label": "formatNutrient()",
+      "id": "src_model_sampleplan",
+      "label": "samplePlan()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "formatnutrient()",
+      "norm_label": "sampleplan()",
       "source_file": "src/model.ts",
-      "source_location": "L57"
+      "source_location": "L59"
+    },
+    {
+      "id": "src_store_clearplan",
+      "label": "clearPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "clearplan()",
+      "source_file": "src/store.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_store_writeplan",
+      "label": "writePlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "writeplan()",
+      "source_file": "src/store.ts",
+      "source_location": "L13"
     },
     {
       "id": "src_update_applywaitingserviceworkerupdate",
@@ -363,6 +374,17 @@
       "source_location": "L214"
     },
     {
+      "id": "src_model_blankplan",
+      "label": "blankPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "blankplan()",
+      "source_file": "src/model.ts",
+      "source_location": "L11"
+    },
+    {
       "id": "src_model_cansavetarget",
       "label": "canSaveTarget()",
       "_callable": true,
@@ -372,17 +394,6 @@
       "norm_label": "cansavetarget()",
       "source_file": "src/model.ts",
       "source_location": "L49"
-    },
-    {
-      "id": "src_model_coverage",
-      "label": "coverage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "coverage()",
-      "source_file": "src/model.ts",
-      "source_location": "L87"
     },
     {
       "id": "src_model_isfood",
@@ -462,39 +473,6 @@
       "source_location": "L20"
     },
     {
-      "id": "src_model_nutrientvalue",
-      "label": "nutrientValue()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "nutrientvalue()",
-      "source_file": "src/model.ts",
-      "source_location": "L56"
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "status()",
-      "source_file": "src/model.ts",
-      "source_location": "L88"
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "totals()",
-      "source_file": "src/model.ts",
-      "source_location": "L81"
-    },
-    {
       "id": "src_model_uid",
       "label": "uid()",
       "_callable": true,
@@ -503,6 +481,28 @@
       "file_type": "code",
       "norm_label": "uid()",
       "source_file": "src/model.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_store_open",
+      "label": "open()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "open()",
+      "source_file": "src/store.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "src_store_readplan",
+      "label": "readPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "readplan()",
+      "source_file": "src/store.ts",
       "source_location": "L12"
     },
     {
@@ -572,147 +572,147 @@
       "source_location": "L10"
     },
     {
-      "id": "src_main_discarddemo",
-      "label": "discardDemo()",
+      "id": "src_main_dialogmarkup",
+      "label": "dialogMarkup()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "discarddemo()",
+      "norm_label": "dialogmarkup()",
       "source_file": "src/main.ts",
-      "source_location": "L153"
+      "source_location": "L74"
     },
     {
-      "id": "src_main_isdemolocation",
-      "label": "isDemoLocation()",
+      "id": "src_main_e",
+      "label": "e()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "isdemolocation()",
+      "norm_label": "e()",
       "source_file": "src/main.ts",
-      "source_location": "L25"
+      "source_location": "L22"
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
+      "id": "src_main_foodlist",
+      "label": "foodList()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "load()",
+      "norm_label": "foodlist()",
       "source_file": "src/main.ts",
-      "source_location": "L144"
+      "source_location": "L62"
     },
     {
-      "id": "src_main_namespace",
-      "label": "namespace()",
+      "id": "src_main_mealcard",
+      "label": "mealCard()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "namespace()",
+      "norm_label": "mealcard()",
       "source_file": "src/main.ts",
-      "source_location": "L23"
+      "source_location": "L66"
     },
     {
-      "id": "src_main_navigate",
-      "label": "navigate()",
+      "id": "src_main_planner",
+      "label": "planner()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "navigate()",
+      "norm_label": "planner()",
       "source_file": "src/main.ts",
-      "source_location": "L157"
+      "source_location": "L70"
     },
     {
-      "id": "src_main_save",
-      "label": "save()",
+      "id": "src_main_rememberdialogopener",
+      "label": "rememberDialogOpener()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "save()",
+      "norm_label": "rememberdialogopener()",
       "source_file": "src/main.ts",
-      "source_location": "L139"
+      "source_location": "L166"
     },
     {
-      "id": "src_main_storagefailure",
-      "label": "storageFailure()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "storagefailure()",
+      "norm_label": "targetrows()",
       "source_file": "src/main.ts",
-      "source_location": "L136"
+      "source_location": "L49"
     },
     {
-      "id": "src_model_blankplan",
-      "label": "blankPlan()",
+      "id": "src_main_toastmarkup",
+      "label": "toastMarkup()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "blankplan()",
+      "norm_label": "toastmarkup()",
+      "source_file": "src/main.ts",
+      "source_location": "L101"
+    },
+    {
+      "id": "src_model_coverage",
+      "label": "coverage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "coverage()",
       "source_file": "src/model.ts",
-      "source_location": "L11"
+      "source_location": "L87"
     },
     {
-      "id": "src_model_sampleplan",
-      "label": "samplePlan()",
+      "id": "src_model_formatnutrient",
+      "label": "formatNutrient()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "sampleplan()",
+      "norm_label": "formatnutrient()",
       "source_file": "src/model.ts",
-      "source_location": "L59"
+      "source_location": "L57"
     },
     {
-      "id": "src_store_clearplan",
-      "label": "clearPlan()",
+      "id": "src_model_nutrientvalue",
+      "label": "nutrientValue()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "clearplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L14"
+      "norm_label": "nutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L56"
     },
     {
-      "id": "src_store_open",
-      "label": "open()",
+      "id": "src_model_status",
+      "label": "status()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "open()",
-      "source_file": "src/store.ts",
-      "source_location": "L3"
+      "norm_label": "status()",
+      "source_file": "src/model.ts",
+      "source_location": "L88"
     },
     {
-      "id": "src_store_readplan",
-      "label": "readPlan()",
+      "id": "src_model_totals",
+      "label": "totals()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "readplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_store_writeplan",
-      "label": "writePlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "writeplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L13"
+      "norm_label": "totals()",
+      "source_file": "src/model.ts",
+      "source_location": "L81"
     },
     {
       "id": "tests_claims_spec_addfood",
@@ -952,6 +952,16 @@
       "file_type": "code",
       "norm_label": "model.test.ts",
       "source_file": "src/model.test.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_store",
+      "label": "store.ts",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "store.ts",
+      "source_file": "src/store.ts",
       "source_location": "L1"
     },
     {
@@ -1463,26 +1473,6 @@
       "norm_label": "src",
       "source_file": "tsconfig.json",
       "source_location": "L3"
-    },
-    {
-      "id": "src_store",
-      "label": "store.ts",
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "store.ts",
-      "source_file": "src/store.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "test",
-      "label": "@playwright/test",
-      "_origin": "ast",
-      "community": 5,
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "@playwright/test",
-      "source_file": "@playwright/test"
     },
     {
       "id": "tests_claims_spec",
@@ -4403,15 +4393,6 @@
       "weight": 1.0
     },
     {
-      "source": "tests_claims_spec",
-      "target": "test",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/claims.spec.ts"
-    },
-    {
       "source": "src_main_planner",
       "target": "src_main_mealcard",
       "relation": "indirect_call",
@@ -4437,5 +4418,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "566f107d3328c2921500ea2c32a175634bd8a9d1"
+  "built_at_commit": "233dbf236374197df30d8e54002b18d9f9148898"
 }
