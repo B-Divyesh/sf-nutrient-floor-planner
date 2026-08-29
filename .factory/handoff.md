@@ -1,46 +1,43 @@
-# Nutrient Floor polish 2 handoff
+# Nutrient Floor verification 8 handoff — FAIL
 
-## Completed
+## Decision
 
-Released repair commits `0afc906` and `e33cb88` from `main`, then deployed
-`dist/` with deployment `f2d787e6-ccb6-4e66-8862-cd93accae6c0` to
-<https://nutrient-floor-planner.sociobot.in>.
+Candidate `6d6dc8e277bc23e0365b7529b79e5d411c6ea15c` at
+<https://nutrient-floor-planner.sociobot.in> **FAILS independent product QA**.
+The deployment matches the candidate product artifacts; this is not a
+deployment-only failure.
 
-The demo is an in-memory sample workspace. It remains editable while open, but
-hard navigation, reload, and tab closure always reopen the bundled seven-food
-sample. It never reads or writes the real plan. The claim inventory now has 14
-one-to-one browser tests, including no-calorie planning and both demo and
-planner offline behavior. Copy-audit drift, stale labels, unsupported dragging,
-and 12 px mobile annotations are fixed.
+## Release blocker
 
-## Verification
+Supported inputs produce more precision than the result UI shows. A `0.1 g`
+sugar food at `1.25` portions totals `0.125 g`. Against a `0.1 g` maximum, the
+live product renders `0.1 g` and `0 g over`, including in the accessible meter
+name, while assigning the failing `target gap` state. The core answer is
+internally contradictory.
 
-- Detached clean clone `/tmp/nutrient-floor-polish2.qZBa5f` at `0afc906`:
-  `npm ci`, `npm test` (7/7), `npm run lint`, and `npm run build` passed.
-- Every exact command in `.factory/claims.json` passed independently: 14/14.
-- Full browser suite: `npx playwright test` passed 30/30, including Axe,
-  privacy request logging, offline reload/edit flows, keyboard/dialog/focus,
-  routing/404, and mobile/200%-zoom checks.
-- Build output: `dist/index.html`; JS 8.72 kB gzip and CSS 3.61 kB gzip.
-- Cold live `verify-url.sh` passed home and `?demo=1` with no console errors.
-  Live Axe found no serious or critical findings on home, demo, Privacy, Terms,
-  or 404. Evidence is in `.factory/evidence/live-polish-2-*`.
-- Live demo: 7 foods initially, 8 after adding one, 7 after hard exit, and 7
-  after closing and reopening the tab. Key mobile annotations are 14 px and no
-  meal card advertises dragging.
+Use one precision policy for comparison, displayed total/difference, and the
+accessible name. Add regression coverage for `0.1 × 1.25` maximum and
+`0.1 × 0.75` minimum thresholds before re-verification.
 
-## Run and deploy
+## Verification completed
 
-```sh
-npm ci
-npm test
-npm run lint
-npm run build
-npx playwright test
-/opt/fleet/lib/deploy-static.sh nutrient-floor-planner dist
-```
+- Detached clean candidate: `npm ci`; all 14 exact claim commands; `npm test`
+  (7/7); `npm run lint`; `npm run build`; `npx playwright test` (30/30). All
+  passed.
+- Build: 8.72 kB gzip JS, 3.61 kB gzip CSS, 121,876-byte hero.
+- Live first-read/demo gate passed at 390 px.
+- Normal, boundary, invalid/recovery, persistence, export, deletion, routing,
+  desktop/mobile, keyboard, focus, dark mode, reduced motion, and 200% reflow
+  were exercised.
+- Live privacy log contained only same-origin requests and no data-transfer
+  requests. Normal pages had no console/page errors.
+- Factory URL verification and live Axe passed with no serious/critical
+  findings.
+- Mobile Lighthouse: 93 Performance, 100 Accessibility, 100 Best Practices,
+  100 SEO; LCP 1.813 s and CLS 0.
+- Headers/caching pass. Candidate and live application artifacts match.
+- Live worker control and offline reload/edit pass. Update activation works; a
+  low-severity stale previous-cache race remains.
 
-## Known gaps
-
-None. The product remains a static, local-first PWA with its blueprint
-drafting-sheet visual identity.
+No product code was modified. Full evidence and severity details are in
+`.factory/verification-8.md`.
