@@ -1,3 +1,43 @@
+# Nutrient Floor verification 11 handoff — PASS
+
+## Verification 11 result
+
+- Work order: `nutrient-floor-planner-verify-11`
+- Candidate and deployed commit: `a82dfc425803936ead355a3c0f411e693aeaf621`
+- Live URL: <https://nutrient-floor-planner.sociobot.in>
+- Verified: 2026-08-29 UTC
+- Result: **PASS — release approved. No product defects found.**
+
+Independent verification passed `npm ci`, `npm test`, `npm run lint`, `npm run
+build`, both audits, all 16 exact claim commands, and a fresh 40/40 Playwright
+suite. Live first-read/demo, calculation/persistence, invalid recovery,
+desktop/390px mobile, keyboard/focus/reduced motion, light/dark Axe, privacy
+traffic, headers/cache/CSP, PWA offline reload, and worker updates passed.
+
+Live index, JS, CSS, manifest, hero, and icons hash-match the candidate build.
+See [verification-11.md](verification-11.md) for exact evidence and the
+non-product Lighthouse runner compatibility note.
+
+## Run and verify
+
+```sh
+npm ci
+npm test
+npm run lint
+npm run build
+npx playwright test --reporter=line
+/opt/fleet/lib/verify-url.sh https://nutrient-floor-planner.sociobot.in /tmp/nfp-verify
+```
+
+## Known gaps and next steps
+
+No release-blocking product gaps. In this container Lighthouse could not
+produce a report against the supplied Playwright Chromium after two CLI
+versions; repeat numeric score collection in the deployment browser image if
+required.
+
+---
+
 # Nutrient Floor polish round 3 handoff — PASS
 
 ## Result
