@@ -64,10 +64,20 @@ test('@claim:sample-totals shows the calculated fibre and protein totals', async
 
 test('@claim:local-only demo sends no data off this origin', async ({ page }) => {
   const foreign: string[] = [];
-  page.on('request', request => { if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') foreign.push(request.url()); });
+  const dataTransfers: string[] = [];
+  const requestsAfterLoad: string[] = [];
+  let loaded = false;
+  page.on('request', request => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') foreign.push(request.url());
+    if (['fetch', 'xhr', 'eventsource', 'websocket', 'ping'].includes(request.resourceType())) dataTransfers.push(request.url());
+    if (loaded) requestsAfterLoad.push(request.url());
+  });
   await page.goto('/demo');
+  loaded = true;
   await addFood(page);
   expect(foreign).toEqual([]);
+  expect(dataTransfers).toEqual([]);
+  expect(requestsAfterLoad).toEqual([]);
 });
 
 test('@claim:offline-use reloads and stays usable offline after setup', async ({ page, context }) => {
