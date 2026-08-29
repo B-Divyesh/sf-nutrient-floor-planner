@@ -143,17 +143,6 @@
       "source_location": "L36"
     },
     {
-      "id": "src_main_formnumber",
-      "label": "formNumber()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "formnumber()",
-      "source_file": "src/main.ts",
-      "source_location": "L230"
-    },
-    {
       "id": "src_main_header",
       "label": "header()",
       "_callable": true,
@@ -308,17 +297,6 @@
       "source_location": "L141"
     },
     {
-      "id": "src_main_showformerror",
-      "label": "showFormError()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "showformerror()",
-      "source_file": "src/main.ts",
-      "source_location": "L216"
-    },
-    {
       "id": "src_main_storagefailure",
       "label": "storageFailure()",
       "_callable": true,
@@ -396,15 +374,15 @@
       "source_location": "L13"
     },
     {
-      "id": "src_main_formtext",
-      "label": "formText()",
+      "id": "src_update_applywaitingserviceworkerupdate",
+      "label": "applyWaitingServiceWorkerUpdate()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
+      "community": 0,
       "file_type": "code",
-      "norm_label": "formtext()",
-      "source_file": "src/main.ts",
-      "source_location": "L224"
+      "norm_label": "applywaitingserviceworkerupdate()",
+      "source_file": "src/update.ts",
+      "source_location": "L2"
     },
     {
       "id": "src_model_calculatedtotals",
@@ -539,28 +517,6 @@
       "source_location": "L34"
     },
     {
-      "id": "src_model_normalizerequiredtext",
-      "label": "normalizeRequiredText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "normalizerequiredtext()",
-      "source_file": "src/model.ts",
-      "source_location": "L29"
-    },
-    {
-      "id": "src_model_nutrientvalue",
-      "label": "nutrientValue()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "nutrientvalue()",
-      "source_file": "src/model.ts",
-      "source_location": "L93"
-    },
-    {
       "id": "src_model_planhassafecalculatedtotals",
       "label": "planHasSafeCalculatedTotals()",
       "_callable": true,
@@ -660,15 +616,48 @@
       "source_location": "L10"
     },
     {
-      "id": "src_update_applywaitingserviceworkerupdate",
-      "label": "applyWaitingServiceWorkerUpdate()",
+      "id": "src_main_formnumber",
+      "label": "formNumber()",
       "_callable": true,
       "_origin": "ast",
       "community": 13,
       "file_type": "code",
-      "norm_label": "applywaitingserviceworkerupdate()",
-      "source_file": "src/update.ts",
-      "source_location": "L2"
+      "norm_label": "formnumber()",
+      "source_file": "src/main.ts",
+      "source_location": "L230"
+    },
+    {
+      "id": "src_main_formtext",
+      "label": "formText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "formtext()",
+      "source_file": "src/main.ts",
+      "source_location": "L224"
+    },
+    {
+      "id": "src_main_showformerror",
+      "label": "showFormError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "showformerror()",
+      "source_file": "src/main.ts",
+      "source_location": "L216"
+    },
+    {
+      "id": "src_model_normalizerequiredtext",
+      "label": "normalizeRequiredText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "normalizerequiredtext()",
+      "source_file": "src/model.ts",
+      "source_location": "L29"
     },
     {
       "id": "src_main_dialogmarkup",
@@ -779,6 +768,17 @@
       "norm_label": "formatnutrient()",
       "source_file": "src/model.ts",
       "source_location": "L94"
+    },
+    {
+      "id": "src_model_nutrientvalue",
+      "label": "nutrientValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "nutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L93"
     },
     {
       "id": "src_model_totals",
@@ -949,6 +949,26 @@
       "file_type": "code",
       "norm_label": "store.ts",
       "source_file": "src/store.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_update",
+      "label": "update.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "update.ts",
+      "source_file": "src/update.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_update_test",
+      "label": "update.test.ts",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "update.test.ts",
+      "source_file": "src/update.test.ts",
       "source_location": "L1"
     },
     {
@@ -1140,26 +1160,6 @@
       "norm_label": "root",
       "source_file": "scripts/check-copy-audit.mjs",
       "source_location": "L4"
-    },
-    {
-      "id": "src_update",
-      "label": "update.ts",
-      "_origin": "ast",
-      "community": 13,
-      "file_type": "code",
-      "norm_label": "update.ts",
-      "source_file": "src/update.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_update_test",
-      "label": "update.test.ts",
-      "_origin": "ast",
-      "community": 13,
-      "file_type": "code",
-      "norm_label": "update.test.ts",
-      "source_file": "src/update.test.ts",
-      "source_location": "L1"
     },
     {
       "id": "public_sw",
@@ -1580,16 +1580,6 @@
       "norm_label": "src",
       "source_file": "tsconfig.json",
       "source_location": "L3"
-    },
-    {
-      "id": "test",
-      "label": "@playwright/test",
-      "_origin": "ast",
-      "community": 5,
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "@playwright/test",
-      "source_file": "@playwright/test"
     },
     {
       "id": "tests_claims_spec",
@@ -4848,15 +4838,6 @@
       "weight": 1.0
     },
     {
-      "source": "tests_claims_spec",
-      "target": "test",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/claims.spec.ts"
-    },
-    {
       "source": "src_main_planner",
       "target": "src_main_mealcard",
       "relation": "indirect_call",
@@ -4882,5 +4863,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "9f7e27d6181cc622e5697303489f5884af5b2866"
+  "built_at_commit": "66bb3c60631c9f4d6ba77b79eb6053d48dda11d5"
 }
