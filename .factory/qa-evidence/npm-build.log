@@ -1,0 +1,13 @@
+
+> nutrient-floor-planner@1.0.0 build
+> tsc -b && vite build && node scripts/generate-sw.mjs
+
+vite v6.4.3 building for production...
+transforming...
+✓ 6 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.84 kB │ gzip: 0.64 kB
+dist/assets/index-BpIr-Ov0.css  12.65 kB │ gzip: 3.61 kB
+dist/assets/index-C11OjgpS.js   25.48 kB │ gzip: 8.74 kB
+✓ built in 292ms

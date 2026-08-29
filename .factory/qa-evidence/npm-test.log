@@ -1,0 +1,14 @@
+
+> nutrient-floor-planner@1.0.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /work/repo
+
+ ✓ src/model.test.ts (7 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  07:13:57
+   Duration  1.04s (transform 191ms, setup 0ms, collect 117ms, tests 5ms, environment 0ms, prepare 204ms)
+

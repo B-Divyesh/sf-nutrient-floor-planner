@@ -1,0 +1,19 @@
+{
+  "firstCache": "nutrient-floor-v1787988184903",
+  "secondCache": "nutrient-floor-v1787988189120",
+  "beforeCaches": [
+    "nutrient-floor-v1787988184903"
+  ],
+  "waitingBeforeClick": true,
+  "afterCaches": [
+    "nutrient-floor-v1787988189120"
+  ],
+  "controlledAfter": true,
+  "headingAfter": true,
+  "registrationAfter": {
+    "active": "activated",
+    "waiting": false,
+    "installing": false
+  },
+  "staleOldCache": false
+}

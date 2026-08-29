@@ -1,0 +1,314 @@
+{
+  "checks": [
+    {
+      "name": "landing HTTP 200",
+      "pass": true,
+      "detail": "200"
+    },
+    {
+      "name": "CSP header",
+      "pass": true,
+      "detail": "default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    },
+    {
+      "name": "nosniff header",
+      "pass": true,
+      "detail": "nosniff"
+    },
+    {
+      "name": "referrer policy",
+      "pass": true,
+      "detail": "strict-origin-when-cross-origin"
+    },
+    {
+      "name": "HSTS header",
+      "pass": true,
+      "detail": "max-age=10886400; includeSubDomains; preload"
+    },
+    {
+      "name": "one h1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "main landmark",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "English language",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "first-screen headline",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "first-screen audience",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "one-click demo action",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "demo banner",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "seven sample foods",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "three sample meals",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "three sample targets",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "sample fibre total",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "sample protein total",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop axe serious/critical",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "blank food rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "negative nutrient rejected",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "invalid food recovery",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "source shown",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "invalid import recovery message",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "invalid import preserved plan",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "demo reset to seven foods",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "real plan begins blank",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "target has no supplied recommendation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "normal calculation 12g",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "normal calculation passes",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "real plan persists",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "delete consequence stated",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "cancel deletion recovers",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all live requests same-origin",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "no failed requests",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "no console errors",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "no page errors",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "first tab reaches skip link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "visible designed focus",
+      "pass": true,
+      "detail": "{\"outlineStyle\":\"solid\",\"outlineWidth\":\"3px\",\"outlineColor\":\"rgb(11, 61, 102)\"}"
+    },
+    {
+      "name": "skip moves focus to main",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "next tab reaches first planner action",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dialog keyboard-opened",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dialog autofocus",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "escape closes dialog",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px no horizontal page overflow",
+      "pass": true,
+      "detail": "390"
+    },
+    {
+      "name": "mobile demo banner",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile action >=44px",
+      "pass": true,
+      "detail": "{\"x\":16,\"y\":360.921875,\"width\":110.828125,\"height\":44}"
+    },
+    {
+      "name": "reduced motion disables transitions/animations",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "mobile dark axe serious/critical",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "mobile no console errors",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "offline reload renders planner",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "offline app remains interactive",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "requestCount": 7,
+  "requests": [
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-C11OjgpS.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BpIr-Ov0.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/hero.webp",
+      "method": "GET",
+      "type": "image"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/plan",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-C11OjgpS.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "https://nutrient-floor-planner.sociobot.in/assets/index-BpIr-Ov0.css",
+      "method": "GET",
+      "type": "stylesheet"
+    }
+  ],
+  "headers": {
+    "cache-control": "public, must-revalidate, max-age=30",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "content-type": "text/html",
+    "date": "Sat, 29 Aug 2026 07:17:23 GMT",
+    "etag": "\"79508863\"",
+    "last-modified": "Sat, 29 Aug 2026 06:54:34 GMT",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-dns-prefetch-control": "off",
+    "x-xss-protection": "1; mode=block"
+  },
+  "consoleErrors": [],
+  "pageErrors": []
+}

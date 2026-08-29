@@ -1,0 +1,70 @@
+CONSOLE warning Service Worker registration blocked by Playwright
+STATUS 200
+URL https://nutrient-floor-planner.sociobot.in/
+TITLE Nutrient Floor — Plan meals around nutrient targets
+H1 [ 'Plan meals that meet your nutrient targets.' ]
+FIRST_SCREEN_TEXT_START
+Skip to planner
+NF
+Nutrient Floor
+Demo
+Planner
+Privacy
+
+PRIVATE MEAL PLANNER
+
+Plan meals that meet your nutrient targets.
+
+For home cooks who want enough fibre or protein without logging every calorie.
+
+Try it with sample data
+Loads seven foods, three meals, and three targets.
+Stored on this device
+Works offline after setup
+Export or import your plan
+Foods arranged on a kitchen planning illustration.
+
+SEE A SAMPLE WEEK MEET NUTRIENT TARGETS
+
+Sample weekly nutrient totals
+
+Save familiar foods, choose targets, and place meal portions on a week.
+
+FIBRE
+40 g
+above the 30 g floor
+PROTEIN
+75.5 g
+above the 75 g floor
+Plan a week in three steps
+01 / Set a target
+Choose a floor or limit in grams.
+02 / Save your foods
+Enter values and a source from the label.
+03 / Place meals
+See gaps before you cook.
+Use only the values you choose
+
+The planner compares your food values with your targets. Check labels before relying on the totals.
+
+Private meal planning around your nutrient targets.
+
+Privacy · Terms · Built by Param Factory · v1.2
+FIRST_SCREEN_TEXT_END
+BUTTONS []
+LINKS [
+  'Skip to planner',
+  'NFNutrient Floor',
+  'Demo',
+  'Planner',
+  'Privacy',
+  'Try it with sample data',
+  'Privacy',
+  'Terms'
+]
+REQUESTS [
+  'https://nutrient-floor-planner.sociobot.in/',
+  'https://nutrient-floor-planner.sociobot.in/assets/index-C11OjgpS.js',
+  'https://nutrient-floor-planner.sociobot.in/assets/index-BpIr-Ov0.css',
+  'https://nutrient-floor-planner.sociobot.in/assets/hero.webp'
+]
