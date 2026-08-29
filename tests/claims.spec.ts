@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 async function addFood(page: import('@playwright/test').Page, name = 'Test beans') {
   await page.getByRole('button', { name: 'Add food' }).click();
@@ -99,6 +101,40 @@ test('@claim:offline-use reloads and stays usable offline after setup in the dem
   await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
   await page.getByRole('button', { name: 'Add a meal' }).first().click();
   await expect(page.getByRole('dialog', { name: 'Add a meal.' })).toBeVisible();
+});
+
+test('an activated service worker removes the previous cache before reloading', async ({ browser }) => {
+  const workerPath = resolve('dist/sw.js');
+  const originalWorker = await readFile(workerPath, 'utf8');
+  const initialCache = originalWorker.match(/const CACHE = '([^']+)'/)?.[1];
+  expect(initialCache).toBeTruthy();
+  const updatedCache = `${initialCache}-update-test`;
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  try {
+    await page.goto('/demo');
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    if (!await page.evaluate(() => Boolean(navigator.serviceWorker.controller))) await page.reload();
+    await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+    await expect.poll(() => page.evaluate(() => caches.keys())).toEqual([initialCache]);
+
+    await writeFile(workerPath, originalWorker.replace(initialCache!, updatedCache));
+    await page.evaluate(async () => (await navigator.serviceWorker.getRegistration())?.update());
+    const updateButton = page.getByRole('button', { name: 'Update now' });
+    await expect(updateButton).toBeVisible();
+    await Promise.all([
+      page.waitForEvent('framenavigated', frame => frame === page.mainFrame()),
+      updateButton.click()
+    ]);
+
+    await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+    await expect.poll(() => page.evaluate(() => caches.keys())).toEqual([updatedCache]);
+    await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
+  } finally {
+    await writeFile(workerPath, originalWorker);
+    await context.close();
+  }
 });
 
 test('@claim:json-transfer exports complete JSON and imports it', async ({ page }) => {
