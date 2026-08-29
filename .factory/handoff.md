@@ -6,6 +6,7 @@
 - Reviewed candidate: `944beed94171c72f9bf5f6a7622343485ebadac5`
 - Review base: `92eb6780253674e37566e0217107c6248d7260a8`
 - Repair implementation: `b97890a`
+- Evidence candidate: `a0096d9`
 - Deployment: `278f5400-c9c6-41c8-a096-94c339150ef9`
 - Live URL: <https://nutrient-floor-planner.sociobot.in>
 - Result: every finding in reviews 1–3 and polish maps 1–2 is resolved.
@@ -26,7 +27,7 @@
 
 ## Clean-clone evidence
 
-Clean clone: `/tmp/nutrient-floor-polish3.jwkkQn` at `b97890a`.
+Final clean clone: `/tmp/nutrient-floor-polish3-final.FTaKrC` at `a0096d9`.
 
 - `npm ci`: passed; 0 vulnerabilities.
 - `npm test`: passed; 11 unit tests plus copy and claim-inventory guards.

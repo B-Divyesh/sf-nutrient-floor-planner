@@ -1,6 +1,6 @@
 # Polish round 3 — cumulative finding map
 
-Implementation commit: `b97890a`. Deployment:
+Implementation commit: `b97890a`. Evidence candidate: `a0096d9`. Deployment:
 `278f5400-c9c6-41c8-a096-94c339150ef9`.
 
 Every earlier review and polish report was reread. Each finding below was
@@ -23,7 +23,7 @@ checked against the current source, a clean clone, and the deployed site.
 
 ## Verification summary
 
-- Clean clone: `/tmp/nutrient-floor-polish3.jwkkQn` at `b97890a`.
+- Final clean clone: `/tmp/nutrient-floor-polish3-final.FTaKrC` at `a0096d9`.
 - `npm ci`: passed, 0 vulnerabilities.
 - `npm test`: 11 unit tests plus copy and 16-claim inventory guards passed.
 - `npm run lint`: passed.
