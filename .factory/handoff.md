@@ -1,72 +1,46 @@
-# Nutrient Floor repair handoff
+# Nutrient Floor verification handoff
 
 ## Release decision: PASS
 
-This repair resolves every finding in independent verification 5 for candidate
-`a240b244be4cc6f5dcda066519f79e6a60d3ecc0`. The implementation is commit
-`281efa3a1ab3a3356499c6dc36840650c2db2b5a` (`fix: make skip link focus planner main`).
+Candidate `287a245befbc7292ddb4bc41ab69030dbeda6a1e` is verified at
+https://nutrient-floor-planner.sociobot.in as of 2026-08-29 UTC. No
+release-blocking or material defects remain. Full evidence is in
+`.factory/verification-6.md`.
 
-## What changed
+## What was verified
 
-Verification 5 found that **Skip to planner** only changed the fragment; its
-`<main id="main">` target was not focusable, so focus stayed on the link and
-the following Tab re-entered the header.
+- The cold first screen plainly states the meal-planning job, names home cooks,
+  and presents a fully visible one-click **Try it with sample data** action.
+- All 11 exact `.factory/claims.json` commands passed after `npm ci` in a clean,
+  detached worktree at the candidate commit.
+- Clean gates passed: 7/7 unit tests, TypeScript lint, 23/23 Playwright tests,
+  and the exact production build.
+- Live HTML, JS, CSS, manifest, 404, hero, icons, and normalized worker match
+  the candidate build.
+- Live normal planning, boundary/invalid input, recovery, deletion, demo
+  isolation, privacy, keyboard, 390 px mobile, dark mode, reduced motion,
+  offline reload, and service-worker replacement passed.
+- Playwright Axe and `@axe-core/cli` found zero violations. Mobile Lighthouse
+  scores are 100 for performance, accessibility, best practices, and SEO.
+- Browser request logging found only same-origin requests during meal planning,
+  with no valid-page console or page errors. Security and cache headers pass.
+- The external Sociobot verification API allowed 30 requests from one client;
+  request 31 returned 429 with `Retry-After: 4`.
 
-- Every application-rendered main landmark now has `tabindex="-1"`.
-- Skip-link activation now preserves `#main`, programmatically focuses the
-  main landmark, and scrolls it into view.
-- A Playwright regression test exercises the exact keyboard path at both
-  1440px desktop and 390px mobile: first Tab reaches the skip link, Enter
-  focuses and scrolls to `main#main`, and the next Tab reaches **Export plan**
-  inside the planner instead of header navigation.
+## Build and performance
 
-## Verification evidence
+`npm run build` creates `dist/`. Production output is 26.38 kB JS (9.38 kB
+gzip), 12.49 kB CSS (3.55 kB gzip), and a 121,876-byte hero. Lighthouse measured
+FCP 0.9 s, LCP 1.8 s, TBT 50 ms, CLS 0, and 204 KiB total transfer.
 
-Fresh install and local quality gates:
+## Known gap
 
-- `npm ci` — passed; 0 vulnerabilities reported.
-- `npm test` — 7/7 passed.
-- `npm run lint` — passed (`tsc --noEmit`).
-- `npm run build` — passed; `dist/` contains its root `index.html`.
-  Production assets: JS 26.38 kB (9.38 kB gzip) and CSS 12.49 kB
-  (3.55 kB gzip), within the static-PWA budgets.
-- `npx playwright test` — 23/23 passed. This includes desktop and 390px
-  mobile layout, keyboard and dialog focus, dark/reduced-motion Axe scans,
-  offline reload, service-worker use, privacy request logging, import/export,
-  invalid-input recovery, local persistence, demo isolation, and all claims.
-- Each exact tagged command in `.factory/claims.json` was run from the clean
-  install and passed: `demo-week-coverage`, `local-only`, `offline-use`,
-  `json-transfer`, `local-persistence`, `demo-isolation`, `paid-upgrade`,
-  `free-food-cap`, `target-cap`, `print-week`, and `food-source`.
-- `npx @axe-core/cli http://127.0.0.1:4174/demo --exit` against the built
-  preview (axe-core 4.11.4) completed with `violations: []`. A matching
-  ChromeDriver was used only for this local QA command; it is not part of the
-  repository or shipped artifact.
+Low severity only: the static 404 page uses the metaphor “This sheet is not in
+the folder” and does not reuse the normal header/footer. It remains accessible,
+returns the correct 404 status, and provides a direct route home. This does not
+block release.
 
-## Deployment evidence
-
-`dist/` was deployed to the production Azure Static Web App
-`sf-nutrient-floor-planner` in resource group `sociobot`. Both
-`https://nutrient-floor-planner.sociobot.in/demo` and
-`https://lemon-ocean-082ae1810.7.azurestaticapps.net/demo` now serve
-`/assets/index-B9xERDek.js`, the hash from this production build.
-
-A fresh live Playwright keyboard replay passed at 1440px and 390px: the first
-Tab focused **Skip to planner**; Enter produced `#main`, focused `main#main`,
-and scrolled it (137px desktop; 177px mobile); the next Tab focused
-**Export plan**. There were no console or page errors. Live response headers
-still include the expected CSP, HSTS, nosniff, and strict referrer policy.
-
-## Deployment and known gaps
-
-The artifact remains a static Vite PWA and preserves all prior product
-behavior, including the separate `demo:plan` namespace, local-first storage,
-offline shell, optional Sociobot license verification, and no analytics.
-
-No product gaps are known. The unrelated pre-existing modified
-`graphify-out/` files were intentionally not staged or changed.
-
-## Run and verify
+## Reproduce
 
 ```sh
 npm ci
@@ -76,5 +50,5 @@ npx playwright test
 npm run build
 ```
 
-Open `/demo`; first Tab then Enter on **Skip to planner** must focus the main
-planner landmark, and the next Tab must focus **Export plan**.
+No product code was modified during verification. Pre-existing modified
+`graphify-out/` files were preserved and excluded from this handoff commit.
