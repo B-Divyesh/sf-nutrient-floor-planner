@@ -6,8 +6,8 @@ For home cooks who want more fibre or protein, or less sugar, without a calorie 
 Save your foods, choose weekly floors or limits, and place meals on a week.
 
 Try the sample plan at `/?demo=1` or `/demo`. It opens with seven foods, three
-meals, and three targets. Demo changes use separate browser storage. They never
-touch your real plan. Leaving the demo deletes its changes.
+meals, and three targets. Sample changes stay only in the open demo. Reloading
+or leaving restores the bundled sample. It never touches your real plan.
 
 ## Run locally
 
@@ -46,19 +46,20 @@ You enter each food value and its source. The planner compares those values
 with the targets you choose. It does not supply recommended target values.
 Check labels before relying on a total.
 
-## Claims verified in the demo
+## Claims covered by browser tests
 
 - The sample opens with seven foods, three placed meals, and three targets.
 - The sample week totals 40 g fibre and 75.5 g protein.
 - The planner uses no analytics and sends no meal data elsewhere.
-- The planner works offline after setup.
+- The planner and demo work offline after setup.
 - You can export or import your complete plan.
 - Your plan stays on this device.
-- Demo changes stay separate and are deleted when you leave.
+- Demo changes stay in the open tab and reset when you leave.
 - The planner saves up to five targets.
 - The planner prints a weekly plan.
 - Food values are entered by you and saved with a source.
 - The planner compares entered food values with targets you choose.
 - The planner does not supply recommended target values.
+- You can plan meals without entering calories.
 
 Every claim and its exact Playwright command is in `.factory/claims.json`.

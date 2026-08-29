@@ -13,4 +13,4 @@ nav a{min-width:44px;justify-content:center}footer a{display:inline-flex;align-i
 .mini-board span{grid-row:1}.mini-board b{grid-row:2}.mini-board i{grid-row:3}
 .mini-board span,.mini-board i{font-size:.78rem}
 .demo-banner>span:first-child{flex:1}.demo-banner>span:last-child{display:flex;gap:4px;flex:0 0 auto}
-@media(max-width:720px){.site-header nav{font-size:.82rem}.facts,.hero-actions{font-size:.84rem}.small{font-size:.82rem}.board-head>span,.muted{font-size:.8rem}.target small,.food small{font-size:.75rem}.day-label,.meal-total,.meal p,.food span,.add-meal{font-size:.75rem}.demo-banner,.text-button,footer{font-size:.78rem}.days{scroll-snap-type:x proximity}.day{scroll-snap-align:start}}
+@media(max-width:720px){.site-header nav{font-size:.82rem}.facts,.hero-actions{font-size:.84rem}.small{font-size:.82rem}.board-head>span,.muted{font-size:.875rem}.target small,.food small,.day-label,.meal-total,.meal p,.food span,.add-meal{font-size:.875rem}.demo-banner,.text-button,footer{font-size:.875rem}.days{scroll-snap-type:x proximity}.day{scroll-snap-align:start}}

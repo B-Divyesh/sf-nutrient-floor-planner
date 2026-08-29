@@ -19,7 +19,7 @@ const CANONICAL_ORIGIN = 'https://nutrient-floor-planner.sociobot.in';
 const targetLimitNotice = `You can save up to ${TARGET_LIMIT} targets.`;
 const e = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]!));
 const n = (value: number) => Math.round(value * 10) / 10;
-const namespace = () => demo ? 'demo:plan' : 'real:plan';
+const namespace = () => 'real:plan';
 const knownRoutes = new Set(['/', '/demo', '/plan', '/privacy', '/terms']);
 const isDemoLocation = () => location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
 function routeMeta(route: string) {
@@ -32,17 +32,17 @@ function routeMeta(route: string) {
 }
 function link(path: string, label: string) { const current = activeRoute === path || (path === '/demo' && demo); return `<a href="${path}" data-route ${current ? 'aria-current="page"' : ''}>${label}</a>`; }
 function header() { return `<header class="site-header"><a class="wordmark" href="/" data-route aria-label="NF Nutrient Floor"><span aria-hidden="true">NF</span>Nutrient Floor</a><nav aria-label="Main navigation">${link('/demo', 'Demo')}${link('/plan', 'Planner')}${link('/privacy', 'Privacy')}</nav></header>`; }
-function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.2</p></footer>`; }
+function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.3</p></footer>`; }
 function demoBanner() { return demo ? `<aside class="demo-banner" aria-label="Demo mode"><span><strong>Demo</strong> — sample data, nothing is saved.</span><span><button class="text-button" data-action="reset-demo">Reset demo</button><button class="text-button" data-action="start-real">Start for real</button></span></aside>` : ''; }
 
 function routeCopy(kind: 'privacy' | 'terms') {
-  const privacy = `<h1 tabindex="-1">Your meal plan stays on this device.</h1><p>Nutrient Floor stores foods, targets, and meals in your browser. It does not use analytics or send your plan elsewhere.</p><h2>What is stored</h2><p>Your plan remains until you import another plan or clear browser data. You can export a copy at any time.</p><h2>How the sample stays separate</h2><p>Sample changes use separate browser storage. Leaving the demo deletes those changes and never alters your real plan.</p><h2>Contact</h2><p>For product questions, email <a href="mailto:hello@sociobot.in">hello@sociobot.in</a>.</p>`;
+  const privacy = `<h1 tabindex="-1">Your meal plan stays on this device.</h1><p>Nutrient Floor stores foods, targets, and meals in your browser. It does not use analytics or send your plan elsewhere.</p><h2>What is stored</h2><p>Your plan remains until you import another plan or clear browser data. You can export a copy at any time.</p><h2>How the sample stays separate</h2><p>Sample changes stay only in the open demo. Reloading or leaving restores the bundled sample and never alters your real plan.</p><h2>Contact</h2><p>For product questions, email <a href="mailto:hello@sociobot.in">hello@sociobot.in</a>.</p>`;
   const terms = `<h1 tabindex="-1">Use Nutrient Floor for personal meal planning.</h1><p>Nutrient Floor compares food values you enter with targets you choose.</p><h2>Choose your targets</h2><p>You choose every target value. The planner does not supply recommended target values.</p><h2>Check your values</h2><p>Check food labels and sources before relying on a value. Ask a qualified professional about personal nutrition needs.</p><h2>Keep a copy</h2><p>Export your plan if you need a backup.</p><h2>No warranty</h2><p>The app is provided as-is, to the extent allowed by law.</p>`;
   return kind === 'privacy' ? privacy : terms;
 }
 
 function landing() {
-  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Stored on this device</li><li>Works offline after setup</li><li>Export or import your plan</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /><figcaption>Foods arranged on a kitchen planning illustration.</figcaption></figure></section><section class="live-preview ruled"><div><p class="eyebrow">SEE A SAMPLE WEEK MEET NUTRIENT TARGETS</p><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>Use only the values you choose</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section></main>`;
+  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Stored on this device</li><li>Works offline after setup</li><li>Export or import your plan</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /><figcaption>Foods arranged on a kitchen planning illustration.</figcaption></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section></main>`;
 }
 
 function targetRows() {
@@ -60,7 +60,7 @@ function foodList() {
 }
 function mealCard(meal: Plan['meals'][number]) {
   const total = totals(meal.portions, plan.foods);
-  return `<article class="meal" draggable="true" data-meal="${e(meal.id)}"><div class="meal-top"><span class="day-label">${DAYS[meal.day]}</span><button class="icon-button" data-action="ask-delete-meal" data-id="${e(meal.id)}" aria-label="Delete ${e(meal.name)}">×</button></div><button class="meal-name" data-action="edit-meal" data-id="${e(meal.id)}">${e(meal.name)}</button><p>${meal.portions.length ? meal.portions.map(p => `${p.amount}× ${e(plan.foods.find(f => f.id === p.foodId)?.name || 'missing food')}`).join(' · ') : 'No portions yet'}</p><div class="meal-total">${plan.targets.slice(0, 2).map(t => `${n(total[t.key])}g ${t.key}`).join(' · ') || 'Add targets'}</div></article>`;
+  return `<article class="meal" data-meal="${e(meal.id)}"><div class="meal-top"><span class="day-label">${DAYS[meal.day]}</span><button class="icon-button" data-action="ask-delete-meal" data-id="${e(meal.id)}" aria-label="Delete ${e(meal.name)}">×</button></div><button class="meal-name" data-action="edit-meal" data-id="${e(meal.id)}">${e(meal.name)}</button><p>${meal.portions.length ? meal.portions.map(p => `${p.amount}× ${e(plan.foods.find(f => f.id === p.foodId)?.name || 'missing food')}`).join(' · ') : 'No portions yet'}</p><div class="meal-total">${plan.targets.slice(0, 2).map(t => `${n(total[t.key])}g ${t.key}`).join(' · ') || 'Add targets'}</div></article>`;
 }
 function planner() {
   return `<main id="main" class="app-main" tabindex="-1"><section class="planner-heading"><div><p class="eyebrow">WEEKLY TOTALS / ${demo ? 'SAMPLE PLAN' : 'YOUR PLAN'}</p><h1 tabindex="-1">Build a week that meets your targets.</h1><p>Each value is per serving. Check your labels before you rely on a plan.</p></div><div class="toolbar"><button class="button small" data-action="export-json">Export plan</button><label class="button small file-button">Import plan<input type="file" accept="application/json" data-action="import-json" /></label><button class="button small" data-action="print-plan">Print week</button></div></section><section class="coverage-board ruled" aria-labelledby="coverage-title"><div class="board-head"><h2 id="coverage-title">Week at a glance</h2><span>${plan.meals.length} meal${plan.meals.length === 1 ? '' : 's'} planned</span></div>${targetRows()}</section><section id="planner" class="week" aria-labelledby="week-title"><div class="board-head"><h2 id="week-title">Place meals on your week</h2><button class="button small" data-action="new-meal">Add a meal</button></div><div class="days">${DAYS.map((day, i) => `<section class="day" data-day="${i}"><h3>${day}</h3>${plan.meals.filter(m => m.day === i).map(mealCard).join('')}<button class="add-meal" data-action="new-meal" data-day="${i}">+ Add meal</button></section>`).join('')}</div></section><section class="two-col"><section class="pantry ruled" aria-labelledby="pantry-title"><div class="board-head"><div><p class="eyebrow">SAVED FOODS</p><h2 id="pantry-title">Your saved foods</h2></div><button class="button small" data-action="show-food">Add food</button></div>${foodList()}</section><section class="targets-panel" aria-labelledby="targets-title"><div class="board-head"><div><p class="eyebrow">UP TO 5 TARGETS</p><h2 id="targets-title">Your nutrient targets</h2></div><button class="button small" data-action="show-target">Add target</button></div>${plan.targets.length ? `<p class="muted">Use a floor for enough of something. Use a limit for less of something.</p>` : ''}</section></section></main>`;
@@ -123,17 +123,22 @@ function storageFailure() {
   notice = 'Browser storage is unavailable. Your changes were not saved. Enable site storage, then try again.';
 }
 async function save() {
+  if (demo) return true;
   try { await writePlan(namespace(), plan); return true; }
   catch { storageFailure(); return false; }
 }
 async function load() {
-  plan = await readPlan(namespace());
-  if (demo && !plan.meals.length && !plan.foods.length && !plan.targets.length) { plan = samplePlan(); await save(); }
+  if (demo) {
+    // The demo is intentionally in-memory. Clearing this legacy key also
+    // removes any sample data saved by earlier versions of the app.
+    await discardDemo(true);
+    plan = samplePlan();
+  } else plan = await readPlan(namespace());
   render();
 }
-async function discardDemo() {
+async function discardDemo(quiet = false) {
   try { await clearPlan('demo:plan'); }
-  catch { storageFailure(); }
+  catch { if (!quiet) storageFailure(); }
 }
 async function navigate(path: string) {
   if (demo && path !== '/demo') await discardDemo();
@@ -182,7 +187,7 @@ document.addEventListener('click', async event => {
   if (action === 'new-meal') { rememberDialogOpener(el); dialog = { kind: 'meal', day: Number(el.dataset.day || 0) }; render(); return; }
   if (action === 'edit-meal') { const meal = plan.meals.find(m => m.id === id); if (meal) { rememberDialogOpener(el); dialog = { kind: 'meal', id, day: meal.day }; render(); } return; }
   if (action?.startsWith('ask-delete-')) { rememberDialogOpener(el); dialog = { kind: 'confirm', subject: action.slice('ask-delete-'.length) as 'food' | 'target' | 'meal', id }; render(); return; }
-  if (action === 'reset-demo') { try { await clearPlan('demo:plan'); plan = samplePlan(); if (await save()) notice = 'Sample plan reset.'; } catch { storageFailure(); } render(); return; }
+  if (action === 'reset-demo') { plan = samplePlan(); notice = 'Sample plan reset.'; render(); return; }
   if (action === 'start-real') { await discardDemo(); demo = false; history.replaceState({}, '', '/plan'); focusRouteHeading = true; notice = 'Your private plan is ready.'; await load(); return; }
   if (action === 'export-json') { download('nutrient-floor-plan.json', JSON.stringify(plan, null, 2)); notice = 'Plan exported as JSON.'; render(); return; }
   if (action === 'print-plan') window.print();

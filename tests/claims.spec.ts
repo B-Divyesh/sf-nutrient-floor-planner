@@ -80,10 +80,19 @@ test('@claim:local-only demo sends no data off this origin', async ({ page }) =>
   expect(requestsAfterLoad).toEqual([]);
 });
 
-test('@claim:offline-use reloads and stays usable offline after setup', async ({ page, context }) => {
+test('@claim:offline-use reloads and stays usable offline after setup in the demo and planner', async ({ page, context }) => {
   await page.goto('/demo');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+  await page.reload();
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await expect(page.getByRole('dialog', { name: 'Add a meal.' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await context.setOffline(false);
+  await page.goto('/plan');
   await page.reload();
   await context.setOffline(true);
   await page.reload();
@@ -114,7 +123,7 @@ test('@claim:local-persistence saved foods survive a reload', async ({ page }) =
   await expect(page.getByText('Persistent beans')).toBeVisible();
 });
 
-test('@claim:demo-isolation discards demo edits through every visible exit', async ({ page }) => {
+test('@claim:demo-isolation resets demo edits after visible exits, hard navigation, and tab closure', async ({ page, browser }) => {
   const exits = [
     async () => page.getByRole('button', { name: 'Start for real' }).click(),
     async () => page.getByRole('link', { name: 'Planner', exact: true }).click(),
@@ -131,6 +140,21 @@ test('@claim:demo-isolation discards demo edits through every visible exit', asy
     await expect(page.locator('.food')).toHaveCount(7);
     await expect(page.getByText('Demo-only beans')).toHaveCount(0);
   }
+  await page.goto('/demo');
+  await addFood(page, 'Hard-navigation beans');
+  await page.goto('/');
+  await page.goto('/demo');
+  await expect(page.locator('.food')).toHaveCount(7);
+  await expect(page.getByText('Hard-navigation beans')).toHaveCount(0);
+
+  await addFood(page, 'Closed-tab beans');
+  const context = page.context();
+  await page.close();
+  const reopened = await context.newPage();
+  await reopened.goto('/demo');
+  await expect(reopened.locator('.food')).toHaveCount(7);
+  await expect(reopened.getByText('Closed-tab beans')).toHaveCount(0);
+  await reopened.close();
 });
 
 test('@claim:demo-reset restores the bundled sample without touching real data', async ({ page }) => {
@@ -208,6 +232,23 @@ test('@claim:user-chosen-targets starts without recommended target values', asyn
   await page.getByRole('button', { name: 'Add your first target' }).click();
   await expect(page.getByLabel('Grams per week')).toHaveValue('');
   await expect(page.getByText(/recommended|diagnosis|medical target/i)).toHaveCount(0);
+});
+
+test('@claim:no-calorie-input plans a meal with supported nutrient values and no calorie field', async ({ page }) => {
+  await page.goto('/plan');
+  await page.getByRole('button', { name: 'Add food' }).click();
+  await expect(page.getByLabel(/calories/i)).toHaveCount(0);
+  await page.getByLabel('Food name').fill('No-calorie lentils');
+  await page.getByRole('textbox', { name: 'Serving Example: ½ cup dry' }).fill('1 cup');
+  await page.getByLabel('Source or label').fill('Tin label');
+  await page.locator('input[name="fibre"]').fill('8');
+  await page.getByRole('button', { name: 'Save food' }).click();
+  await addTarget(page, 'Fibre target');
+  await page.getByRole('button', { name: 'Add a meal' }).first().click();
+  await page.getByLabel('Meal name').fill('Lentil lunch');
+  await page.getByLabel('No-calorie lentils per 1 cup').fill('1');
+  await page.getByRole('button', { name: 'Save meal' }).click();
+  await expect(page.getByText('8 g', { exact: true })).toBeVisible();
 });
 
 test('empty light planner has no serious or critical axe violations', async ({ page }) => {
@@ -373,6 +414,8 @@ test('mobile and 200% zoom-equivalent layouts avoid page overflow', async ({ bro
     await page.goto('/demo');
     await page.getByRole('heading', { name: 'Build a week that meets your targets.' }).waitFor();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
+    expect(await page.locator('.meal p').first().evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(14);
+    expect(await page.locator('.food small').first().evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(14);
     await context.close();
   }
 });
