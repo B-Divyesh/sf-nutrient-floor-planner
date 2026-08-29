@@ -1,67 +1,44 @@
-# Nutrient Floor polish 4 handoff — PASS
+# Nutrient Floor verification 12 handoff — PASS
 
-## Released result
+## Result
 
-Polish round 4 closes every finding from reviews 1–4. The product source was
-released from commit `89dff8e723ec6af694542659860e5ef359240908` through Azure
-deployment `4893ba8f-d69d-4318-9ee3-acca73263ea2`.
+Independent QA of candidate `89dff8e723ec6af694542659860e5ef359240908`
+against <https://nutrient-floor-planner.sociobot.in/> is complete.
 
-Live product: <https://nutrient-floor-planner.sociobot.in/>
+**PASS — no release-blocking or other product defect was found.** Fresh live
+evidence confirms the deployment is available and matches the candidate, so
+any earlier deployment-only failure is no longer current. The full report is
+in [verification-12.md](verification-12.md).
 
-The new `sample-floor-status` claim proves the two statements that caused the
-round-4 failure. It checks the landing preview and the real sample calculation:
-40 g fibre clears a 30 g floor, and 75.5 g protein clears a 75 g floor. The
-test also checks the pass classes, visible “on plan” results, and accessible
-meter names.
+## What was verified
 
-The first screen remains direct and product-specific. One click opens the
-in-memory sample at `/?demo=1`; its banner, Reset demo, and Start for real paths
-remain isolated from the persisted real plan. The blueprint drafting-sheet
-identity, original food illustration, paper/navy palette, ruled weekly board,
-Georgia/monospace type, and square controls are unchanged.
+- All 17 exact `.factory/claims.json` commands passed separately before other
+  QA. The claim inventory remains one-to-one with tagged browser tests.
+- The cold first screen plainly states the job and audience and shows a
+  one-click **Try it with sample data** action above the fold at 390 px.
+- `npm ci`, `npm test` (11/11), `npm run lint`, the exact production build,
+  and the full Playwright suite (41/41) passed in a clean detached checkout.
+- Live normal, boundary, invalid-input, persistence, JSON transfer, reset,
+  keyboard-only, dark-mode, 390 px mobile, 200% zoom-equivalent, and offline
+  flows passed.
+- Live request logging found only same-origin shell assets and no data request.
+  The CSP, HSTS, nosniff, referrer policy, cache headers, routes, 404, manifest,
+  and asset MIME types are correct.
+- Live Axe found zero serious/critical issues across all routes and dark mode.
+  Factory URL verification found no console or page errors.
+- The service worker controlled an offline reload and kept editing usable. The
+  clean suite proved waiting-worker activation, old-cache cleanup, and reload.
+- Local/live SHA-256 hashes match for the app shell, hashed JS/CSS, imagery,
+  icons, manifest, favicon, and 404 assets. The service worker matches after
+  normalizing its intentional build timestamp.
+- Fresh live Lighthouse: 99 performance, 100 accessibility, 100 best
+  practices, 100 SEO; LCP 1.8 s and CLS 0.
 
-## Cumulative acceptance
+The static PWA has no server endpoint, billing call, sign-in, library, or CLI,
+so endpoint rate limiting, Entra, backend, and consumer-install checks do not
+apply.
 
-The complete finding-to-evidence map is in [polish-4.md](polish-4.md). Earlier
-repairs were rechecked, not assumed:
-
-- no unavailable checkout, paid promise, entitlement code, or forged-token path;
-- real in-memory demo isolation across reload, reset, navigation, and tab close;
-- route-specific titles, descriptions, canonicals, focus, Back behavior, and a real HTTP 404;
-- full shell, legal links, metadata, favicon, and recovery actions on the 404;
-- 14 px minimum critical mobile annotations and no 195 px page overflow;
-- no unsupported dragging, decorative hero caption, stale copy, or indirect heading;
-- safe imports, required-text validation, storage failure recovery, confirmed deletion, and consistent threshold precision;
-- offline reload and editing for both demo and real planner routes;
-- 17 declared claims with exactly one tagged browser test each.
-
-The planner remains fully free because the required checkout route was
-unavailable in the original review. Removing the broken paid path is the honest
-scope resolution; there is no dormant payment or license code.
-
-## Exact verification evidence
-
-Clean clone `/tmp/nutrient-floor-polish4.NmsEpg` checked out the pushed commit
-`89dff8e723ec6af694542659860e5ef359240908`.
-
-- `npm ci`: pass, zero vulnerabilities — [log](evidence/polish-4-clean/npm-ci.log)
-- `npm test`: pass, 11/11 unit tests plus copy and 17-claim guards — [log](evidence/polish-4-clean/npm-test.log)
-- `npm run lint`: pass — [log](evidence/polish-4-clean/npm-lint.log)
-- `npm run build`: pass; `dist/index.html`, 9.17 kB gzip JS, 3.74 kB gzip CSS — [log](evidence/polish-4-clean/npm-build.log)
-- all 17 exact claim commands: pass — [individual logs](evidence/polish-4-clean/claims)
-- `npx playwright test --reporter=line`: 41/41 pass — [log](evidence/polish-4-clean/playwright-full.log)
-- `npm audit --omit=dev`: zero vulnerabilities — [log](evidence/polish-4-clean/npm-audit-production.log)
-- cold live factory verification: home and demo pass with no console errors — [home](evidence/polish-4-live-home/verify.json), [demo](evidence/polish-4-live-demo/verify.json)
-- live cumulative audit: routes, claims, reset/exits, privacy traffic, offline use, focus, mobile, forged token, and 404 pass — [report](evidence/polish-4-live-qa.json)
-- live Axe: zero serious/critical findings on all checked routes — [report](evidence/polish-4-live-qa.json)
-- live Lighthouse: 100 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.083 s, CLS 0, TBT 0 — [report](evidence/polish-4-lighthouse-live.json)
-- live HTTP checks: valid routes/assets 200, unknown route 404, manifest MIME correct, CSP present, hashed assets immutable — [log](evidence/polish-4-live-http.log)
-
-Cold live screenshots: [home at 390 px](evidence/polish-4-live-home-mobile.png),
-[demo at 390 px](evidence/polish-4-live-demo-mobile.png), and
-[404 at 390 px](evidence/polish-4-live-404-mobile.png).
-
-## Run and verify
+## Reproduce
 
 ```sh
 npm ci
@@ -71,9 +48,8 @@ npm run build
 npx playwright test --reporter=line
 ```
 
-Open `/?demo=1` to verify the isolated sample. Build output is `dist/` with
-`index.html` at its root.
+Use `/?demo=1` for the isolated sample. Production output is `dist/`.
 
-## Known gaps
+## Defects and remaining work
 
-None. No finding of any recorded severity remains unresolved.
+Critical: none. High: none. Medium: none. Low: none. No known gap remains.
