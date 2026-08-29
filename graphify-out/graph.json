@@ -21,7 +21,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "file_type": "code",
       "norm_label": "food",
       "source_file": "src/model.ts",
@@ -33,7 +33,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "file_type": "code",
       "norm_label": "meal",
       "source_file": "src/model.ts",
@@ -45,23 +45,11 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "file_type": "code",
       "norm_label": "nutrientkey",
       "source_file": "src/model.ts",
       "source_location": "L1"
-    },
-    {
-      "id": "src_model_plan",
-      "label": "Plan",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "plan",
-      "source_file": "src/model.ts",
-      "source_location": "L6"
     },
     {
       "id": "src_model_portion",
@@ -69,7 +57,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "file_type": "code",
       "norm_label": "portion",
       "source_file": "src/model.ts",
@@ -81,11 +69,23 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 1,
       "file_type": "code",
       "norm_label": "target",
       "source_file": "src/model.ts",
       "source_location": "L2"
+    },
+    {
+      "id": "src_model_plan",
+      "label": "Plan",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "plan",
+      "source_file": "src/model.ts",
+      "source_location": "L6"
     },
     {
       "id": "src_main_closedialog",
@@ -96,7 +96,7 @@
       "file_type": "code",
       "norm_label": "closedialog()",
       "source_file": "src/main.ts",
-      "source_location": "L165"
+      "source_location": "L173"
     },
     {
       "id": "src_main_demobanner",
@@ -121,17 +121,6 @@
       "source_location": "L74"
     },
     {
-      "id": "src_main_discarddemo",
-      "label": "discardDemo()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "discarddemo()",
-      "source_file": "src/main.ts",
-      "source_location": "L145"
-    },
-    {
       "id": "src_main_download",
       "label": "download()",
       "_callable": true,
@@ -140,7 +129,7 @@
       "file_type": "code",
       "norm_label": "download()",
       "source_file": "src/main.ts",
-      "source_location": "L157"
+      "source_location": "L165"
     },
     {
       "id": "src_main_e",
@@ -154,6 +143,17 @@
       "source_location": "L22"
     },
     {
+      "id": "src_main_foodlist",
+      "label": "foodList()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "foodlist()",
+      "source_file": "src/main.ts",
+      "source_location": "L62"
+    },
+    {
       "id": "src_main_footer",
       "label": "footer()",
       "_callable": true,
@@ -165,17 +165,6 @@
       "source_location": "L36"
     },
     {
-      "id": "src_main_formtext",
-      "label": "formText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "formtext()",
-      "source_file": "src/main.ts",
-      "source_location": "L212"
-    },
-    {
       "id": "src_main_header",
       "label": "header()",
       "_callable": true,
@@ -185,17 +174,6 @@
       "norm_label": "header()",
       "source_file": "src/main.ts",
       "source_location": "L35"
-    },
-    {
-      "id": "src_main_isdemolocation",
-      "label": "isDemoLocation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "isdemolocation()",
-      "source_file": "src/main.ts",
-      "source_location": "L25"
     },
     {
       "id": "src_main_landing",
@@ -220,37 +198,15 @@
       "source_location": "L34"
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
+      "id": "src_main_mealcard",
+      "label": "mealCard()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "load()",
+      "norm_label": "mealcard()",
       "source_file": "src/main.ts",
-      "source_location": "L136"
-    },
-    {
-      "id": "src_main_namespace",
-      "label": "namespace()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "namespace()",
-      "source_file": "src/main.ts",
-      "source_location": "L23"
-    },
-    {
-      "id": "src_main_navigate",
-      "label": "navigate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "navigate()",
-      "source_file": "src/main.ts",
-      "source_location": "L149"
+      "source_location": "L66"
     },
     {
       "id": "src_main_notfound",
@@ -261,7 +217,7 @@
       "file_type": "code",
       "norm_label": "notfound()",
       "source_file": "src/main.ts",
-      "source_location": "L92"
+      "source_location": "L100"
     },
     {
       "id": "src_main_opendialog",
@@ -272,7 +228,7 @@
       "file_type": "code",
       "norm_label": "opendialog()",
       "source_file": "src/main.ts",
-      "source_location": "L102"
+      "source_location": "L110"
     },
     {
       "id": "src_main_page",
@@ -283,7 +239,18 @@
       "file_type": "code",
       "norm_label": "page()",
       "source_file": "src/main.ts",
-      "source_location": "L94"
+      "source_location": "L102"
+    },
+    {
+      "id": "src_main_planner",
+      "label": "planner()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "planner()",
+      "source_file": "src/main.ts",
+      "source_location": "L70"
     },
     {
       "id": "src_main_rememberdialogopener",
@@ -294,7 +261,7 @@
       "file_type": "code",
       "norm_label": "rememberdialogopener()",
       "source_file": "src/main.ts",
-      "source_location": "L158"
+      "source_location": "L166"
     },
     {
       "id": "src_main_render",
@@ -305,7 +272,7 @@
       "file_type": "code",
       "norm_label": "render()",
       "source_file": "src/main.ts",
-      "source_location": "L108"
+      "source_location": "L116"
     },
     {
       "id": "src_main_routecopy",
@@ -330,37 +297,15 @@
       "source_location": "L26"
     },
     {
-      "id": "src_main_save",
-      "label": "save()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "save()",
+      "norm_label": "targetrows()",
       "source_file": "src/main.ts",
-      "source_location": "L131"
-    },
-    {
-      "id": "src_main_showformerror",
-      "label": "showFormError()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "showformerror()",
-      "source_file": "src/main.ts",
-      "source_location": "L204"
-    },
-    {
-      "id": "src_main_storagefailure",
-      "label": "storageFailure()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "storagefailure()",
-      "source_file": "src/main.ts",
-      "source_location": "L128"
+      "source_location": "L49"
     },
     {
       "id": "src_main_toastmarkup",
@@ -371,51 +316,18 @@
       "file_type": "code",
       "norm_label": "toastmarkup()",
       "source_file": "src/main.ts",
-      "source_location": "L93"
+      "source_location": "L101"
     },
     {
-      "id": "src_model_normalizerequiredtext",
-      "label": "normalizeRequiredText()",
+      "id": "src_model_formatnutrient",
+      "label": "formatNutrient()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "normalizerequiredtext()",
+      "norm_label": "formatnutrient()",
       "source_file": "src/model.ts",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_model_sampleplan",
-      "label": "samplePlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "sampleplan()",
-      "source_file": "src/model.ts",
-      "source_location": "L59"
-    },
-    {
-      "id": "src_store_clearplan",
-      "label": "clearPlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "clearplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_store_writeplan",
-      "label": "writePlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "writeplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L13"
+      "source_location": "L57"
     },
     {
       "id": "src_update_applywaitingserviceworkerupdate",
@@ -427,6 +339,171 @@
       "norm_label": "applywaitingserviceworkerupdate()",
       "source_file": "src/update.ts",
       "source_location": "L2"
+    },
+    {
+      "id": "src_main_formtext",
+      "label": "formText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "formtext()",
+      "source_file": "src/main.ts",
+      "source_location": "L222"
+    },
+    {
+      "id": "src_main_showformerror",
+      "label": "showFormError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "showformerror()",
+      "source_file": "src/main.ts",
+      "source_location": "L214"
+    },
+    {
+      "id": "src_model_cansavetarget",
+      "label": "canSaveTarget()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "cansavetarget()",
+      "source_file": "src/model.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "src_model_coverage",
+      "label": "coverage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "coverage()",
+      "source_file": "src/model.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "src_model_isfood",
+      "label": "isFood()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isfood()",
+      "source_file": "src/model.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "src_model_isid",
+      "label": "isId()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isid()",
+      "source_file": "src/model.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "src_model_isnumber",
+      "label": "isNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isnumber()",
+      "source_file": "src/model.ts",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_model_isplan",
+      "label": "isPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isplan()",
+      "source_file": "src/model.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_model_isrecord",
+      "label": "isRecord()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isrecord()",
+      "source_file": "src/model.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_model_istext",
+      "label": "isText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "istext()",
+      "source_file": "src/model.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "src_model_normalizerequiredtext",
+      "label": "normalizeRequiredText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "normalizerequiredtext()",
+      "source_file": "src/model.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_model_nutrientvalue",
+      "label": "nutrientValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "nutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L56"
+    },
+    {
+      "id": "src_model_status",
+      "label": "status()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "status()",
+      "source_file": "src/model.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "src_model_totals",
+      "label": "totals()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "totals()",
+      "source_file": "src/model.ts",
+      "source_location": "L81"
+    },
+    {
+      "id": "src_model_uid",
+      "label": "uid()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "uid()",
+      "source_file": "src/model.ts",
+      "source_location": "L12"
     },
     {
       "id": "factory_evidence_verification_10_live_qa_importplan",
@@ -495,99 +572,121 @@
       "source_location": "L10"
     },
     {
+      "id": "src_main_discarddemo",
+      "label": "discardDemo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "discarddemo()",
+      "source_file": "src/main.ts",
+      "source_location": "L153"
+    },
+    {
+      "id": "src_main_isdemolocation",
+      "label": "isDemoLocation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "isdemolocation()",
+      "source_file": "src/main.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "src_main_load",
+      "label": "load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "load()",
+      "source_file": "src/main.ts",
+      "source_location": "L144"
+    },
+    {
+      "id": "src_main_namespace",
+      "label": "namespace()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "namespace()",
+      "source_file": "src/main.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_main_navigate",
+      "label": "navigate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "navigate()",
+      "source_file": "src/main.ts",
+      "source_location": "L157"
+    },
+    {
+      "id": "src_main_save",
+      "label": "save()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "save()",
+      "source_file": "src/main.ts",
+      "source_location": "L139"
+    },
+    {
+      "id": "src_main_storagefailure",
+      "label": "storageFailure()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 4,
+      "file_type": "code",
+      "norm_label": "storagefailure()",
+      "source_file": "src/main.ts",
+      "source_location": "L136"
+    },
+    {
       "id": "src_model_blankplan",
       "label": "blankPlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 4,
       "file_type": "code",
       "norm_label": "blankplan()",
       "source_file": "src/model.ts",
       "source_location": "L11"
     },
     {
-      "id": "src_model_isfood",
-      "label": "isFood()",
+      "id": "src_model_sampleplan",
+      "label": "samplePlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 4,
       "file_type": "code",
-      "norm_label": "isfood()",
+      "norm_label": "sampleplan()",
       "source_file": "src/model.ts",
-      "source_location": "L29"
+      "source_location": "L59"
     },
     {
-      "id": "src_model_isid",
-      "label": "isId()",
+      "id": "src_store_clearplan",
+      "label": "clearPlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 4,
       "file_type": "code",
-      "norm_label": "isid()",
-      "source_file": "src/model.ts",
-      "source_location": "L27"
-    },
-    {
-      "id": "src_model_isnumber",
-      "label": "isNumber()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "isnumber()",
-      "source_file": "src/model.ts",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_model_isplan",
-      "label": "isPlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "isplan()",
-      "source_file": "src/model.ts",
-      "source_location": "L36"
-    },
-    {
-      "id": "src_model_isrecord",
-      "label": "isRecord()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "isrecord()",
-      "source_file": "src/model.ts",
+      "norm_label": "clearplan()",
+      "source_file": "src/store.ts",
       "source_location": "L14"
-    },
-    {
-      "id": "src_model_istext",
-      "label": "isText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "istext()",
-      "source_file": "src/model.ts",
-      "source_location": "L25"
-    },
-    {
-      "id": "src_model_uid",
-      "label": "uid()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "uid()",
-      "source_file": "src/model.ts",
-      "source_location": "L12"
     },
     {
       "id": "src_store_open",
       "label": "open()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 4,
       "file_type": "code",
       "norm_label": "open()",
       "source_file": "src/store.ts",
@@ -598,139 +697,29 @@
       "label": "readPlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 4,
       "file_type": "code",
       "norm_label": "readplan()",
       "source_file": "src/store.ts",
       "source_location": "L12"
     },
     {
-      "id": "src_main_foodlist",
-      "label": "foodList()",
+      "id": "src_store_writeplan",
+      "label": "writePlan()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "foodlist()",
-      "source_file": "src/main.ts",
-      "source_location": "L62"
-    },
-    {
-      "id": "src_main_mealcard",
-      "label": "mealCard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "mealcard()",
-      "source_file": "src/main.ts",
-      "source_location": "L66"
-    },
-    {
-      "id": "src_main_planner",
-      "label": "planner()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "planner()",
-      "source_file": "src/main.ts",
-      "source_location": "L70"
-    },
-    {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "targetrows()",
-      "source_file": "src/main.ts",
-      "source_location": "L49"
-    },
-    {
-      "id": "src_model_cansavetarget",
-      "label": "canSaveTarget()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "cansavetarget()",
-      "source_file": "src/model.ts",
-      "source_location": "L49"
-    },
-    {
-      "id": "src_model_coverage",
-      "label": "coverage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "coverage()",
-      "source_file": "src/model.ts",
-      "source_location": "L87"
-    },
-    {
-      "id": "src_model_formatnutrient",
-      "label": "formatNutrient()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "formatnutrient()",
-      "source_file": "src/model.ts",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_model_nutrientvalue",
-      "label": "nutrientValue()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "nutrientvalue()",
-      "source_file": "src/model.ts",
-      "source_location": "L56"
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "status()",
-      "source_file": "src/model.ts",
-      "source_location": "L88"
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "totals()",
-      "source_file": "src/model.ts",
-      "source_location": "L81"
-    },
-    {
-      "id": "scripts_generate_sw_files",
-      "label": "files()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "file_type": "code",
-      "norm_label": "files()",
-      "source_file": "scripts/generate-sw.mjs",
-      "source_location": "L6"
+      "norm_label": "writeplan()",
+      "source_file": "src/store.ts",
+      "source_location": "L13"
     },
     {
       "id": "tests_claims_spec_addfood",
       "label": "addFood()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 5,
       "file_type": "code",
       "norm_label": "addfood()",
       "source_file": "tests/claims.spec.ts",
@@ -741,7 +730,7 @@
       "label": "addTarget()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 5,
       "file_type": "code",
       "norm_label": "addtarget()",
       "source_file": "tests/claims.spec.ts",
@@ -752,18 +741,18 @@
       "label": "createPersistedBaselinePlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 5,
       "file_type": "code",
       "norm_label": "createpersistedbaselineplan()",
       "source_file": "tests/claims.spec.ts",
-      "source_location": "L48"
+      "source_location": "L58"
     },
     {
       "id": "tests_claims_spec_importplan",
       "label": "importPlan()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 5,
       "file_type": "code",
       "norm_label": "importplan()",
       "source_file": "tests/claims.spec.ts",
@@ -774,11 +763,33 @@
       "label": "planWithFoods()",
       "_callable": true,
       "_origin": "ast",
-      "community": 7,
+      "community": 5,
       "file_type": "code",
       "norm_label": "planwithfoods()",
       "source_file": "tests/claims.spec.ts",
       "source_location": "L25"
+    },
+    {
+      "id": "tests_claims_spec_readexport",
+      "label": "readExport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "file_type": "code",
+      "norm_label": "readexport()",
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L48"
+    },
+    {
+      "id": "scripts_generate_sw_files",
+      "label": "files()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "file_type": "code",
+      "norm_label": "files()",
+      "source_file": "scripts/generate-sw.mjs",
+      "source_location": "L6"
     },
     {
       "id": "factory_evidence_polish_3_live_qa_addfood",
@@ -874,224 +885,74 @@
       "source_location": "L1"
     },
     {
-      "id": "package",
-      "label": "package.json",
+      "id": "src_model",
+      "label": "model.ts",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "package.json",
-      "source_file": "package.json",
+      "norm_label": "model.ts",
+      "source_file": "src/model.ts",
       "source_location": "L1"
     },
     {
-      "id": "package_devdependencies",
-      "label": "devDependencies",
+      "id": "src_model_makeid",
+      "label": "makeId",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "devdependencies",
-      "source_file": "package.json",
-      "source_location": "L13"
+      "norm_label": "makeid",
+      "source_file": "src/model.ts",
+      "source_location": "L102"
     },
     {
-      "id": "package_devdependencies_axe_core_playwright",
-      "label": "@axe-core/playwright",
+      "id": "src_model_nutrient_decimal_places",
+      "label": "NUTRIENT_DECIMAL_PLACES",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "@axe-core/playwright",
-      "source_file": "package.json",
-      "source_location": "L14"
-    },
-    {
-      "id": "package_devdependencies_playwright_test",
-      "label": "@playwright/test",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "@playwright/test",
-      "source_file": "package.json",
-      "source_location": "L15"
-    },
-    {
-      "id": "package_devdependencies_typescript",
-      "label": "typescript",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "typescript",
-      "source_file": "package.json",
-      "source_location": "L16"
-    },
-    {
-      "id": "package_devdependencies_vite",
-      "label": "vite",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "vite",
-      "source_file": "package.json",
-      "source_location": "L17"
-    },
-    {
-      "id": "package_devdependencies_vitest",
-      "label": "vitest",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "vitest",
-      "source_file": "package.json",
-      "source_location": "L18"
-    },
-    {
-      "id": "package_name",
-      "label": "name",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "name",
-      "source_file": "package.json",
-      "source_location": "L2"
-    },
-    {
-      "id": "package_private",
-      "label": "private",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "private",
-      "source_file": "package.json",
-      "source_location": "L4"
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "scripts",
-      "source_file": "package.json",
-      "source_location": "L6"
-    },
-    {
-      "id": "package_scripts_build",
-      "label": "build",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "build",
-      "source_file": "package.json",
+      "norm_label": "nutrient_decimal_places",
+      "source_file": "src/model.ts",
       "source_location": "L8"
     },
     {
-      "id": "package_scripts_dev",
-      "label": "dev",
+      "id": "src_model_nutrientkeys",
+      "label": "nutrientKeys",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "dev",
-      "source_file": "package.json",
-      "source_location": "L7"
+      "norm_label": "nutrientkeys",
+      "source_file": "src/model.ts",
+      "source_location": "L13"
     },
     {
-      "id": "package_scripts_lint",
-      "label": "lint",
+      "id": "src_model_nutrientlabels",
+      "label": "nutrientLabels",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "lint",
-      "source_file": "package.json",
-      "source_location": "L11"
-    },
-    {
-      "id": "package_scripts_preview",
-      "label": "preview",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "preview",
-      "source_file": "package.json",
-      "source_location": "L9"
-    },
-    {
-      "id": "package_scripts_test",
-      "label": "test",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "test",
-      "source_file": "package.json",
+      "norm_label": "nutrientlabels",
+      "source_file": "src/model.ts",
       "source_location": "L10"
     },
     {
-      "id": "package_type",
-      "label": "type",
+      "id": "src_model_target_limit",
+      "label": "TARGET_LIMIT",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "type",
-      "source_file": "package.json",
-      "source_location": "L5"
+      "norm_label": "target_limit",
+      "source_file": "src/model.ts",
+      "source_location": "L7"
     },
     {
-      "id": "package_version",
-      "label": "version",
+      "id": "src_model_test",
+      "label": "model.test.ts",
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "version",
-      "source_file": "package.json",
-      "source_location": "L3"
-    },
-    {
-      "id": "axe_core_playwright",
-      "label": "@axe-core/playwright",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "concept",
-      "norm_label": "@axe-core/playwright",
-      "source_file": "package.json",
-      "source_location": "L14"
-    },
-    {
-      "id": "playwright_test",
-      "label": "@playwright/test",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "concept",
-      "norm_label": "@playwright/test",
-      "source_file": "package.json",
-      "source_location": "L15"
-    },
-    {
-      "id": "typescript",
-      "label": "typescript",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "concept",
-      "norm_label": "typescript",
-      "source_file": "package.json",
-      "source_location": "L16"
-    },
-    {
-      "id": "vite",
-      "label": "vite",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "concept",
-      "norm_label": "vite",
-      "source_file": "package.json",
-      "source_location": "L17"
-    },
-    {
-      "id": "vitest",
-      "label": "vitest",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "concept",
-      "norm_label": "vitest",
-      "source_file": "package.json",
-      "source_location": "L18"
+      "norm_label": "model.test.ts",
+      "source_file": "src/model.test.ts",
+      "source_location": "L1"
     },
     {
       "id": "factory_evidence_verification_10_live_qa",
@@ -1224,64 +1085,224 @@
       "source_location": "L1"
     },
     {
-      "id": "src_model",
-      "label": "model.ts",
+      "id": "package",
+      "label": "package.json",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "model.ts",
-      "source_file": "src/model.ts",
+      "norm_label": "package.json",
+      "source_file": "package.json",
       "source_location": "L1"
     },
     {
-      "id": "src_model_makeid",
-      "label": "makeId",
+      "id": "package_devdependencies",
+      "label": "devDependencies",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "makeid",
-      "source_file": "src/model.ts",
-      "source_location": "L102"
-    },
-    {
-      "id": "src_model_nutrient_decimal_places",
-      "label": "NUTRIENT_DECIMAL_PLACES",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "nutrient_decimal_places",
-      "source_file": "src/model.ts",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_model_nutrientkeys",
-      "label": "nutrientKeys",
-      "_origin": "ast",
-      "community": 2,
-      "file_type": "code",
-      "norm_label": "nutrientkeys",
-      "source_file": "src/model.ts",
+      "norm_label": "devdependencies",
+      "source_file": "package.json",
       "source_location": "L13"
     },
     {
-      "id": "src_model_nutrientlabels",
-      "label": "nutrientLabels",
+      "id": "package_devdependencies_axe_core_playwright",
+      "label": "@axe-core/playwright",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "nutrientlabels",
-      "source_file": "src/model.ts",
+      "norm_label": "@axe-core/playwright",
+      "source_file": "package.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "package_devdependencies_playwright_test",
+      "label": "@playwright/test",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "@playwright/test",
+      "source_file": "package.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "package_devdependencies_typescript",
+      "label": "typescript",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "typescript",
+      "source_file": "package.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "package_devdependencies_vite",
+      "label": "vite",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "vite",
+      "source_file": "package.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "package_devdependencies_vitest",
+      "label": "vitest",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "vitest",
+      "source_file": "package.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "package_name",
+      "label": "name",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "name",
+      "source_file": "package.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "package_private",
+      "label": "private",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "private",
+      "source_file": "package.json",
+      "source_location": "L4"
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "scripts",
+      "source_file": "package.json",
+      "source_location": "L6"
+    },
+    {
+      "id": "package_scripts_build",
+      "label": "build",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "package.json",
+      "source_location": "L8"
+    },
+    {
+      "id": "package_scripts_dev",
+      "label": "dev",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "dev",
+      "source_file": "package.json",
+      "source_location": "L7"
+    },
+    {
+      "id": "package_scripts_lint",
+      "label": "lint",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "lint",
+      "source_file": "package.json",
+      "source_location": "L11"
+    },
+    {
+      "id": "package_scripts_preview",
+      "label": "preview",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "preview",
+      "source_file": "package.json",
+      "source_location": "L9"
+    },
+    {
+      "id": "package_scripts_test",
+      "label": "test",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "test",
+      "source_file": "package.json",
       "source_location": "L10"
     },
     {
-      "id": "src_store",
-      "label": "store.ts",
+      "id": "package_type",
+      "label": "type",
       "_origin": "ast",
       "community": 2,
       "file_type": "code",
-      "norm_label": "store.ts",
-      "source_file": "src/store.ts",
-      "source_location": "L1"
+      "norm_label": "type",
+      "source_file": "package.json",
+      "source_location": "L5"
+    },
+    {
+      "id": "package_version",
+      "label": "version",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "code",
+      "norm_label": "version",
+      "source_file": "package.json",
+      "source_location": "L3"
+    },
+    {
+      "id": "axe_core_playwright",
+      "label": "@axe-core/playwright",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "concept",
+      "norm_label": "@axe-core/playwright",
+      "source_file": "package.json",
+      "source_location": "L14"
+    },
+    {
+      "id": "playwright_test",
+      "label": "@playwright/test",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "concept",
+      "norm_label": "@playwright/test",
+      "source_file": "package.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "typescript",
+      "label": "typescript",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "concept",
+      "norm_label": "typescript",
+      "source_file": "package.json",
+      "source_location": "L16"
+    },
+    {
+      "id": "vite",
+      "label": "vite",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "concept",
+      "norm_label": "vite",
+      "source_file": "package.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "vitest",
+      "label": "vitest",
+      "_origin": "ast",
+      "community": 2,
+      "file_type": "concept",
+      "norm_label": "vitest",
+      "source_file": "package.json",
+      "source_location": "L18"
     },
     {
       "id": "tsconfig",
@@ -1444,30 +1465,40 @@
       "source_location": "L3"
     },
     {
-      "id": "src_model_target_limit",
-      "label": "TARGET_LIMIT",
+      "id": "src_store",
+      "label": "store.ts",
       "_origin": "ast",
       "community": 4,
       "file_type": "code",
-      "norm_label": "target_limit",
-      "source_file": "src/model.ts",
-      "source_location": "L7"
+      "norm_label": "store.ts",
+      "source_file": "src/store.ts",
+      "source_location": "L1"
     },
     {
-      "id": "src_model_test",
-      "label": "model.test.ts",
+      "id": "test",
+      "label": "@playwright/test",
       "_origin": "ast",
-      "community": 4,
+      "community": 5,
+      "confidence": "EXTRACTED",
       "file_type": "code",
-      "norm_label": "model.test.ts",
-      "source_file": "src/model.test.ts",
+      "norm_label": "@playwright/test",
+      "source_file": "@playwright/test"
+    },
+    {
+      "id": "tests_claims_spec",
+      "label": "claims.spec.ts",
+      "_origin": "ast",
+      "community": 5,
+      "file_type": "code",
+      "norm_label": "claims.spec.ts",
+      "source_file": "tests/claims.spec.ts",
       "source_location": "L1"
     },
     {
       "id": "scripts_check_claims",
       "label": "check-claims.mjs",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "check-claims.mjs",
       "source_file": "scripts/check-claims.mjs",
@@ -1477,7 +1508,7 @@
       "id": "scripts_check_claims_claims",
       "label": "claims",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "claims",
       "source_file": "scripts/check-claims.mjs",
@@ -1487,7 +1518,7 @@
       "id": "scripts_check_claims_declaredtags",
       "label": "declaredTags",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "declaredtags",
       "source_file": "scripts/check-claims.mjs",
@@ -1497,7 +1528,7 @@
       "id": "scripts_check_claims_ids",
       "label": "ids",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "ids",
       "source_file": "scripts/check-claims.mjs",
@@ -1507,7 +1538,7 @@
       "id": "scripts_check_claims_root",
       "label": "root",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "root",
       "source_file": "scripts/check-claims.mjs",
@@ -1517,7 +1548,7 @@
       "id": "scripts_check_claims_undeclared",
       "label": "undeclared",
       "_origin": "ast",
-      "community": 5,
+      "community": 6,
       "file_type": "code",
       "norm_label": "undeclared",
       "source_file": "scripts/check-claims.mjs",
@@ -1527,7 +1558,7 @@
       "id": "scripts_generate_sw",
       "label": "generate-sw.mjs",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
       "norm_label": "generate-sw.mjs",
       "source_file": "scripts/generate-sw.mjs",
@@ -1537,7 +1568,7 @@
       "id": "scripts_generate_sw_dist",
       "label": "dist",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
       "norm_label": "dist",
       "source_file": "scripts/generate-sw.mjs",
@@ -1547,7 +1578,7 @@
       "id": "scripts_generate_sw_paths",
       "label": "paths",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
       "norm_label": "paths",
       "source_file": "scripts/generate-sw.mjs",
@@ -1557,7 +1588,7 @@
       "id": "scripts_generate_sw_precache",
       "label": "precache",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
       "norm_label": "precache",
       "source_file": "scripts/generate-sw.mjs",
@@ -1567,21 +1598,11 @@
       "id": "scripts_generate_sw_shellassets",
       "label": "shellAssets",
       "_origin": "ast",
-      "community": 6,
+      "community": 7,
       "file_type": "code",
       "norm_label": "shellassets",
       "source_file": "scripts/generate-sw.mjs",
       "source_location": "L14"
-    },
-    {
-      "id": "tests_claims_spec",
-      "label": "claims.spec.ts",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "claims.spec.ts",
-      "source_file": "tests/claims.spec.ts",
-      "source_location": "L1"
     },
     {
       "id": "factory_evidence_polish_3_live_qa",
@@ -1664,7 +1685,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L168",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -1688,7 +1709,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L146",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -1700,7 +1721,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L147",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -1748,7 +1769,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L213",
+      "source_location": "L223",
       "weight": 1.0
     },
     {
@@ -1760,7 +1781,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L215",
+      "source_location": "L225",
       "weight": 1.0
     },
     {
@@ -1784,7 +1805,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L140",
+      "source_location": "L148",
       "weight": 1.0
     },
     {
@@ -1796,7 +1817,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L141",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -1808,7 +1829,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L142",
+      "source_location": "L150",
       "weight": 1.0
     },
     {
@@ -1820,7 +1841,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L142",
+      "source_location": "L150",
       "weight": 1.0
     },
     {
@@ -1832,7 +1853,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L143",
+      "source_location": "L151",
       "weight": 1.0
     },
     {
@@ -1880,7 +1901,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L150",
+      "source_location": "L158",
       "weight": 1.0
     },
     {
@@ -1892,7 +1913,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L152",
+      "source_location": "L160",
       "weight": 1.0
     },
     {
@@ -1904,19 +1925,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L155",
-      "weight": 1.0
-    },
-    {
-      "source": "src_main_page",
-      "target": "src_main_toastmarkup",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/main.ts",
-      "source_location": "L100",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -1928,7 +1937,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L96",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -1940,7 +1949,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L96",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -1952,7 +1961,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L96",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -1964,7 +1973,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L97",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -1976,7 +1985,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L98",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -1988,7 +1997,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L99",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -2000,7 +2009,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L99",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -2012,7 +2021,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L99",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main_page",
+      "target": "src_main_toastmarkup",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/main.ts",
+      "source_location": "L108",
       "weight": 1.0
     },
     {
@@ -2048,7 +2069,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L161",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
@@ -2060,7 +2081,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L110",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -2072,7 +2093,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L120",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -2084,7 +2105,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L121",
+      "source_location": "L129",
       "weight": 1.0
     },
     {
@@ -2096,7 +2117,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L133",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -2108,7 +2129,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L133",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -2120,7 +2141,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L134",
+      "source_location": "L142",
       "weight": 1.0
     },
     {
@@ -2180,7 +2201,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L93",
+      "source_location": "L101",
       "weight": 1.0
     },
     {
@@ -2372,7 +2393,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/claims.spec.ts",
-      "source_location": "L50",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -2384,7 +2405,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/claims.spec.ts",
-      "source_location": "L51",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -3470,7 +3491,29 @@
     },
     {
       "source": "src_main",
-      "target": "src_main_opendialog",
+      "target": "src_main_notfound",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.ts",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_toastmarkup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.ts",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_page",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3481,13 +3524,24 @@
     },
     {
       "source": "src_main",
+      "target": "src_main_opendialog",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.ts",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
       "target": "src_main_render",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L108",
+      "source_location": "L116",
       "weight": 1.0
     },
     {
@@ -3509,7 +3563,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L128",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -3520,7 +3574,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L131",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
@@ -3531,7 +3585,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L136",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -3542,7 +3596,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L145",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -3553,7 +3607,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L149",
+      "source_location": "L157",
       "weight": 1.0
     },
     {
@@ -3564,7 +3618,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L157",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -3575,7 +3629,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L158",
+      "source_location": "L166",
       "weight": 1.0
     },
     {
@@ -3586,7 +3640,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L165",
+      "source_location": "L173",
       "weight": 1.0
     },
     {
@@ -3597,18 +3651,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L204",
-      "weight": 1.0
-    },
-    {
-      "source": "src_main",
-      "target": "src_main_formtext",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/main.ts",
-      "source_location": "L212",
+      "source_location": "L214",
       "weight": 1.0
     },
     {
@@ -3620,6 +3663,17 @@
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
       "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_formtext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.ts",
+      "source_location": "L222",
       "weight": 1.0
     },
     {
@@ -3807,39 +3861,6 @@
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
       "source_location": "L9",
-      "weight": 1.0
-    },
-    {
-      "source": "src_main",
-      "target": "src_main_notfound",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/main.ts",
-      "source_location": "L92",
-      "weight": 1.0
-    },
-    {
-      "source": "src_main",
-      "target": "src_main_toastmarkup",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/main.ts",
-      "source_location": "L93",
-      "weight": 1.0
-    },
-    {
-      "source": "src_main",
-      "target": "src_main_page",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/main.ts",
-      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -4229,13 +4250,24 @@
     },
     {
       "source": "tests_claims_spec",
-      "target": "tests_claims_spec_createpersistedbaselineplan",
+      "target": "tests_claims_spec_readexport",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/claims.spec.ts",
       "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_claims_spec",
+      "target": "tests_claims_spec_createpersistedbaselineplan",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/claims.spec.ts",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -4371,6 +4403,15 @@
       "weight": 1.0
     },
     {
+      "source": "tests_claims_spec",
+      "target": "test",
+      "relation": "dynamic_import",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/claims.spec.ts"
+    },
+    {
       "source": "src_main_planner",
       "target": "src_main_mealcard",
       "relation": "indirect_call",
@@ -4396,5 +4437,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "68e0275e905e743c024a53d5a7b1ab469eb702c5"
+  "built_at_commit": "566f107d3328c2921500ea2c32a175634bd8a9d1"
 }
