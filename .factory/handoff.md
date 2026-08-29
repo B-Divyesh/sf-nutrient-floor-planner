@@ -1,53 +1,57 @@
-# Nutrient Floor verification 7 handoff
+# Nutrient Floor adversarial review 2 handoff
 
-## Release decision: PASS
+## Decision: FAIL
 
-Candidate `a0c8c9ce0ecbd80330fed296d9c950fdd2eec08e` at
-<https://nutrient-floor-planner.sociobot.in> passed independent product QA on
-2026-08-29 UTC. No product code was changed.
+Completed an independent, review-only pass on 2026-08-29 UTC against
+<https://nutrient-floor-planner.sociobot.in> and candidate
+`57a52c2b951f546ec22553542e8d25830c0d3e54`. No product code was changed.
 
-The deployment matches the candidate build. The prior deployment-only concern
-did not reproduce: HTML, JS, CSS, manifest, 404, imagery, and icons match; the
-service worker matches after normalizing only its generated cache timestamp.
+The live first screen, one-click sample content, Reset, real-data isolation,
+offline behavior, metadata, links, accessibility checks, and visual identity
+mostly pass. The release remains blocked because demo edits survive hard
+navigation and tab closure despite copy claiming they are not saved and are
+deleted on exit. The existing test checks only in-app exits. The claim
+inventory also omits the no-calorie-input promise and tests only demo for a
+README claim covering both planner and demo offline use.
 
-## Verification summary
+Additional findings cover the previously disclosed stale copy audit, indirect
+section labels, nonfunctional `draggable="true"` meal cards, and 12 px mobile
+annotations. Full evidence, rewrites, and the cumulative history map are in
+`.factory/review-2.md`.
 
-- Mandatory cold first-read and one-click sample-data gate: PASS.
-- Every `.factory/claims.json` command: PASS, 13/13 after `npm ci`.
-- Detached clean-worktree gates: `npm ci`, 7/7 unit tests, TypeScript lint,
-  production build, and 29/29 Playwright tests all PASS.
-- Live end-to-end normal, boundary, invalid-input, recovery, persistence,
-  demo-isolation, and deletion-cancellation flows: PASS.
-- Live requests: seven, all same-origin; zero failed requests, console errors,
-  or page errors.
-- Live Axe: zero serious/critical findings on desktop, 390 px dark/reduced
-  motion, and 404.
-- Factory `verify-url.sh`: PASS on landing and demo.
-- Offline reload and two-version service-worker update: PASS.
-- Mobile Lighthouse: 97 Performance, 100 Accessibility, 100 Best Practices,
-  100 SEO; LCP 0.91 s, CLS 0.
-- Build budgets: 8.74 kB gzip JS, 3.61 kB gzip CSS, 121,876-byte hero; PASS.
-- Security/caching headers, manifest MIME/icons, route status, and internal
-  links: PASS.
-- No server endpoint, sign-in, runtime AI, paid unlock, library, or CLI exists,
-  so their specialized checks are not applicable.
+## Verification performed
 
-## Known low-severity follow-up
+- Cold live Chromium at 390 × 844 and 1440 × 900.
+- One-click demo, edit, Reset, Start for real, pre-existing real data, request
+  log, hard-navigation exit, and close/reopen exit.
+- Live offline reload/edit for both `/demo` and `/plan`.
+- Every `.factory/claims.json` command separately from detached clean clone
+  `/tmp/nutrient-review2-clean.OWB4d1`: 13/13 passed.
+- Clean-clone `npm test`: 7/7 passed.
+- Clean-clone `npm run lint` and `npm run build`: passed; `dist/` produced.
+- Clean-clone `npx playwright test`: 29/29 passed.
+- Factory `verify-url.sh` on live home and demo: passed.
+- Live Axe on home, light/dark demo, Privacy, Terms, and 404: zero
+  serious/critical findings.
+- Live metadata, route status, link crawl, Back/focus announcement, security
+  headers, request origins, and console checks.
+- Every earlier review, polish, and handoff finding rechecked live and in code.
 
-- Refresh the stale sample-action sentence in `.factory/copy-audit.md`.
-- Consider increasing 12–13.12 px secondary meal and food annotations on
-  mobile. Reflow, zoom, contrast, and functional accessibility currently pass.
+## Reproduce the blocker
 
-Full evidence and exact hashes are in `.factory/verification-7.md`. Raw logs,
-screenshots, browser results, Lighthouse JSON, and worker-update results are in
-`.factory/qa-evidence/`.
+1. Open `/demo` in a fresh browser context.
+2. Add a food and confirm eight food rows.
+3. Leave with a hard navigation to `/` or close the tab.
+4. Reopen `/demo` in the same browser context.
+5. The added food and eight rows remain while the banner says **“nothing is
+   saved.”**
 
-## Reproduce
+The current `@claim:demo-isolation` command passes because it exercises only
+visible in-app exits.
 
-```sh
-npm ci
-npm test
-npm run lint
-npm run build
-npx playwright test
-```
+## Next steps
+
+Use non-persistent demo state or otherwise clear it for every exit. Add the
+missing hard-exit, no-calorie-input, and real-planner-offline claim coverage.
+Address F-2-1 through F-2-4, deploy the repaired candidate, and repeat the full
+adversarial review.
