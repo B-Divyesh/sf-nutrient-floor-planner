@@ -190,6 +190,12 @@ test('@claim:demo-isolation resets demo edits after visible exits, hard navigati
     await expect(page.getByText('Demo-only beans')).toHaveCount(0);
   }
   await page.goto('/demo');
+  await addFood(page, 'Reloaded-page beans');
+  await page.reload();
+  await expect(page.locator('.food')).toHaveCount(7);
+  await expect(page.getByText('Reloaded-page beans')).toHaveCount(0);
+
+  await page.goto('/demo');
   await addFood(page, 'Hard-navigation beans');
   await page.goto('/');
   await page.goto('/demo');

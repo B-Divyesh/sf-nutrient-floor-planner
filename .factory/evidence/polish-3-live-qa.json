@@ -1,0 +1,110 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "foreignRequests": [],
+  "dataRequests": [],
+  "axe": {
+    "404": [],
+    "home-mobile-reduced": [],
+    "demo-mobile-reduced": [],
+    "/demo": [],
+    "/plan": [],
+    "/privacy": [],
+    "/terms": []
+  },
+  "routes": {
+    "/demo": {
+      "status": 200,
+      "title": "Demo — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://nutrient-floor-planner.sociobot.in/demo",
+      "expectedTitle": "Demo — Nutrient Floor"
+    },
+    "/plan": {
+      "status": 200,
+      "title": "Planner — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://nutrient-floor-planner.sociobot.in/plan",
+      "expectedTitle": "Planner — Nutrient Floor"
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://nutrient-floor-planner.sociobot.in/privacy",
+      "expectedTitle": "Privacy — Nutrient Floor"
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms — Nutrient Floor",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://nutrient-floor-planner.sociobot.in/terms",
+      "expectedTitle": "Terms — Nutrient Floor"
+    }
+  },
+  "home": {
+    "status": 200,
+    "title": "Nutrient Floor — Plan meals around nutrient targets",
+    "h1": "Plan meals that meet your nutrient targets.",
+    "audience": "For home cooks who want enough fibre or protein without logging every calorie.",
+    "facts": [
+      "Free to use",
+      "Stored on this device",
+      "Works offline after setup"
+    ],
+    "actionAboveFold": true,
+    "alt": "Ingredients arranged across a blue kitchen planning sheet.",
+    "visibleHeroCaptions": 0,
+    "disallowedPaidCopy": false,
+    "sectionHeadings": [
+      "Sample weekly nutrient totals",
+      "Plan a week in three steps",
+      "How your food values are used"
+    ],
+    "scrollWidth": 390,
+    "version": "Private meal planning around your nutrient targets.\n\nPrivacy · Terms · Built by Param Factory · v1.4"
+  },
+  "demo": {
+    "url": "https://nutrient-floor-planner.sociobot.in/?demo=1",
+    "foods": 7,
+    "meals": 3,
+    "targets": 3,
+    "draggable": 0,
+    "mealTextPx": 14,
+    "foodSourcePx": 14,
+    "localStorageKeys": [],
+    "afterAdd": 8,
+    "afterReset": 7,
+    "afterReload": 7,
+    "afterHardExit": 7,
+    "afterTabClose": 7
+  },
+  "consoleErrorsBefore404": [],
+  "notFound": {
+    "status": 404,
+    "title": "Page not found — Nutrient Floor",
+    "h1": "Page not found",
+    "header": 1,
+    "footer": 1,
+    "privacy": "/privacy",
+    "terms": "/terms",
+    "demoAction": "/?demo=1",
+    "plannerAction": "/plan"
+  },
+  "notFoundConsoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "freePlan": {
+    "foods": 12,
+    "paidCopy": false,
+    "sociobotLinks": 0
+  },
+  "offline": {
+    "demoAndPlannerReloadedAndEdited": true
+  }
+}
