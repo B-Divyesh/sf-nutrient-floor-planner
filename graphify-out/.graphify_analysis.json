@@ -193,8 +193,8 @@
       "degree": 7
     },
     {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
+      "id": "src_main_render",
+      "label": "render()",
       "degree": 6
     },
     {
@@ -203,8 +203,8 @@
       "degree": 6
     },
     {
-      "id": "src_main_render",
-      "label": "render()",
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
@@ -213,8 +213,8 @@
       "degree": 6
     },
     {
-      "id": "src_model_coverage",
-      "label": "coverage()",
+      "id": "src_main_save",
+      "label": "save()",
       "degree": 5
     }
   ],
@@ -231,22 +231,11 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "coverage()",
+      "source": "discardDemo()",
+      "target": "clearPlan()",
       "source_files": [
         "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "targetRows()",
-      "target": "status()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
@@ -264,11 +253,22 @@
       "why": "cross-file semantic connection"
     },
     {
-      "source": "mealCard()",
-      "target": "totals()",
+      "source": "load()",
+      "target": "readPlan()",
       "source_files": [
         "src/main.ts",
-        "src/model.ts"
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "save()",
+      "target": "writePlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
