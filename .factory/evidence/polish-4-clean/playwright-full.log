@@ -1,0 +1,59 @@
+[1A[2K[WebServer] (node:5480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:5522) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 41 tests using 1 worker
+
+[1A[2K(node:5540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:5540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/41] tests/claims.spec.ts:61:1 › @claim:demo-week-coverage loads a seven-food plan with three placed meals
+[1A[2K[2/41] tests/claims.spec.ts:70:1 › @claim:sample-totals shows the calculated fibre and protein totals
+[1A[2K[3/41] tests/claims.spec.ts:80:1 › @claim:sample-floor-status shows both sample floors and their passing results
+[1A[2K[4/41] tests/claims.spec.ts:104:1 › @claim:local-only demo sends no data off this origin
+[1A[2K[5/41] tests/claims.spec.ts:122:1 › @claim:offline-use reloads and stays usable offline after setup in the demo and planner
+[1A[2K[6/41] tests/claims.spec.ts:143:1 › an activated service worker removes the previous cache before reloading
+[1A[2K[7/41] tests/claims.spec.ts:177:1 › @claim:json-transfer exports complete JSON and imports it
+[1A[2K[8/41] tests/claims.spec.ts:192:1 › @claim:local-persistence saved foods survive a reload
+[1A[2K[9/41] tests/claims.spec.ts:199:1 › @claim:demo-isolation resets demo edits after visible exits, hard navigation, and tab closure
+[1A[2K[10/41] tests/claims.spec.ts:239:1 › @claim:demo-reset restores the bundled sample without touching real data
+[1A[2K[11/41] tests/claims.spec.ts:252:1 › @claim:free-to-use ignores a legacy forged token and does not gate foods
+[1A[2K[12/41] tests/claims.spec.ts:263:1 › @claim:target-cap blocks a sixth target after five saves
+[1A[2K[13/41] tests/claims.spec.ts:273:1 › @claim:print-week invokes the browser print action
+[1A[2K[14/41] tests/claims.spec.ts:280:1 › @claim:food-source saves user-entered food values with their source
+[1A[2K[15/41] tests/claims.spec.ts:292:1 › @claim:target-comparison compares entered values with a chosen target
+[1A[2K[16/41] tests/claims.spec.ts:327:3 › uses one precision policy at the 0.1 times 1.25 maximum threshold
+[1A[2K[17/41] tests/claims.spec.ts:327:3 › uses one precision policy at the 0.1 times 0.75 minimum threshold
+[1A[2K[18/41] tests/claims.spec.ts:351:1 › @claim:user-chosen-targets starts without recommended target values
+[1A[2K[19/41] tests/claims.spec.ts:358:1 › @claim:no-calorie-input plans a meal with supported nutrient values and no calorie field
+[1A[2K[20/41] tests/claims.spec.ts:375:1 › @claim:build-output produces a complete dist/index.html app shell
+[1A[2K[21/41] tests/claims.spec.ts:382:1 › empty light planner has no serious or critical axe violations
+[1A[2K[22/41] tests/claims.spec.ts:390:1 › rejects invalid imports before storage and remains recoverable after reload
+[1A[2K[23/41] tests/claims.spec.ts:405:3 › rejects whitespace-only food name without corrupting the saved plan
+[1A[2K[24/41] tests/claims.spec.ts:405:3 › rejects whitespace-only serving without corrupting the saved plan
+[1A[2K[25/41] tests/claims.spec.ts:405:3 › rejects whitespace-only source without corrupting the saved plan
+[1A[2K[26/41] tests/claims.spec.ts:405:3 › rejects whitespace-only target label without corrupting the saved plan
+[1A[2K[27/41] tests/claims.spec.ts:405:3 › rejects whitespace-only meal name without corrupting the saved plan
+[1A[2K[28/41] tests/claims.spec.ts:446:1 › dialog focus, escape, and meal cancellation do not leak data
+[1A[2K[29/41] tests/claims.spec.ts:458:1 › skip link moves keyboard focus into the planner on desktop and 390px mobile
+[1A[2K[30/41] tests/claims.spec.ts:477:1 › unsafe imported IDs do not create nodes or requests
+[1A[2K[31/41] tests/claims.spec.ts:489:1 › blocked browser storage keeps the dialog open and explains recovery
+[1A[2K[32/41] tests/claims.spec.ts:503:1 › route metadata, direct demo query, and touch targets are specific and usable on mobile
+[1A[2K[33/41] tests/claims.spec.ts:532:1 › privacy contact link has a 44px mobile target and no serious or critical axe issues
+[1A[2K[34/41] tests/claims.spec.ts:545:1 › SPA navigation, back, focus, announcements, and unknown routes work
+[1A[2K[35/41] tests/claims.spec.ts:564:1 › meter uses semantic markup without CSP inline styles and deletions require confirmation
+[1A[2K[36/41] tests/claims.spec.ts:578:1 › demo has no serious or critical axe violations
+[1A[2K[37/41] tests/claims.spec.ts:585:1 › dark demo has no serious or critical axe violations
+[1A[2K[38/41] tests/claims.spec.ts:595:1 › wordmark passes the experimental label-content-name rule
+[1A[2K[39/41] tests/claims.spec.ts:601:1 › mobile and 200% zoom-equivalent layouts avoid page overflow
+[1A[2K[40/41] tests/claims.spec.ts:614:1 › the styled 404 has the full shell, legal links, metadata, and recovery actions
+[1A[2K[41/41] tests/claims.spec.ts:629:1 › landing first screen remains readable and actionable at 390px
+[1A[2K  41 passed (28.4s)
