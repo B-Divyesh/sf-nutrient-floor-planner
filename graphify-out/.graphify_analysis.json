@@ -9,6 +9,7 @@
       "src_main_discarddemo",
       "src_main_download",
       "src_main_footer",
+      "src_main_formnumber",
       "src_main_header",
       "src_main_isdemolocation",
       "src_main_knownroutes",
@@ -25,43 +26,51 @@
       "src_main_routecopy",
       "src_main_routemeta",
       "src_main_save",
+      "src_main_showformerror",
       "src_main_storagefailure",
+      "src_model_blankplan",
+      "src_model_plan",
       "src_model_sampleplan",
+      "src_store",
       "src_store_clearplan",
-      "src_store_writeplan",
-      "src_update",
-      "src_update_applywaitingserviceworkerupdate",
-      "src_update_test"
+      "src_store_open",
+      "src_store_readplan",
+      "src_store_writeplan"
     ],
     "1": [
       "src_main_formtext",
-      "src_main_showformerror",
       "src_model",
-      "src_model_blankplan",
+      "src_model_calculatedtotals",
       "src_model_cansavetarget",
       "src_model_food",
       "src_model_isfood",
       "src_model_isid",
       "src_model_isnumber",
+      "src_model_isnutrientvalue",
       "src_model_isplan",
+      "src_model_isportionamount",
       "src_model_isrecord",
+      "src_model_issafecalculatedtotal",
+      "src_model_istargetvalue",
       "src_model_istext",
       "src_model_makeid",
+      "src_model_max_nutrient_per_serving",
+      "src_model_max_nutrient_total",
+      "src_model_max_portion_amount",
       "src_model_meal",
       "src_model_normalizerequiredtext",
       "src_model_nutrient_decimal_places",
       "src_model_nutrientkey",
       "src_model_nutrientkeys",
       "src_model_nutrientlabels",
-      "src_model_plan",
+      "src_model_nutrientvalue",
+      "src_model_planhassafecalculatedtotals",
       "src_model_portion",
+      "src_model_status",
       "src_model_target",
       "src_model_target_limit",
       "src_model_test",
-      "src_model_uid",
-      "src_store",
-      "src_store_open",
-      "src_store_readplan"
+      "src_model_uid"
     ],
     "2": [
       "axe_core_playwright",
@@ -116,11 +125,10 @@
       "src_main_toastmarkup",
       "src_model_coverage",
       "src_model_formatnutrient",
-      "src_model_nutrientvalue",
-      "src_model_status",
       "src_model_totals"
     ],
     "5": [
+      "test",
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
@@ -181,23 +189,28 @@
       "scripts_check_copy_audit_root"
     ],
     "13": [
+      "src_update",
+      "src_update_applywaitingserviceworkerupdate",
+      "src_update_test"
+    ],
+    "14": [
       "public_sw",
       "public_sw_shell"
     ],
-    "14": [
+    "15": [
       "playwright_config"
     ],
-    "15": [
+    "16": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.12043010752688173,
-    "1": 0.12169312169312169,
+    "0": 0.11092436974789915,
+    "1": 0.11742424242424243,
     "2": 0.09090909090909091,
     "3": 0.125,
-    "4": 0.24358974358974358,
-    "5": 0.38095238095238093,
+    "4": 0.2727272727272727,
+    "5": 0.32142857142857145,
     "6": 0.3333333333333333,
     "7": 0.3333333333333333,
     "8": 0.4,
@@ -207,18 +220,19 @@
     "12": 0.4,
     "13": 1.0,
     "14": 1.0,
-    "15": 1.0
+    "15": 1.0,
+    "16": 1.0
   },
   "gods": [
+    {
+      "id": "src_model_isplan",
+      "label": "isPlan()",
+      "degree": 12
+    },
     {
       "id": "src_main_page",
       "label": "page()",
       "degree": 11
-    },
-    {
-      "id": "src_model_isplan",
-      "label": "isPlan()",
-      "degree": 10
     },
     {
       "id": "tsconfig_compileroptions",
@@ -236,8 +250,18 @@
       "degree": 7
     },
     {
-      "id": "src_main_render",
-      "label": "render()",
+      "id": "src_model_formatnutrient",
+      "label": "formatNutrient()",
+      "degree": 7
+    },
+    {
+      "id": "src_model_status",
+      "label": "status()",
+      "degree": 7
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
       "degree": 6
     },
     {
@@ -246,72 +270,62 @@
       "degree": 6
     },
     {
-      "id": "src_model_formatnutrient",
-      "label": "formatNutrient()",
-      "degree": 6
-    },
-    {
-      "id": "src_model_isfood",
-      "label": "isFood()",
-      "degree": 6
-    },
-    {
-      "id": "src_model_totals",
-      "label": "totals()",
+      "id": "src_main_render",
+      "label": "render()",
       "degree": 6
     }
   ],
   "surprises": [
     {
-      "source": "load()",
-      "target": "readPlan()",
+      "source": "readPlan()",
+      "target": "isPlan()",
       "source_files": [
-        "src/main.ts",
-        "src/store.ts"
+        "src/store.ts",
+        "src/model.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
     },
     {
-      "source": "foodList()",
-      "target": "formatNutrient()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "mealCard()",
-      "target": "formatNutrient()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "mealCard()",
-      "target": "totals()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
       "source": "targetRows()",
-      "target": "coverage()",
+      "target": "status()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "discardDemo()",
+      "target": "clearPlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "save()",
+      "target": "writePlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "load()",
+      "target": "readPlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",

@@ -16,6 +16,18 @@
       "source_location": "L9"
     },
     {
+      "id": "src_model_plan",
+      "label": "Plan",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "plan",
+      "source_file": "src/model.ts",
+      "source_location": "L6"
+    },
+    {
       "id": "src_model_food",
       "label": "Food",
       "_callable": true,
@@ -52,18 +64,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_model_plan",
-      "label": "Plan",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "plan",
-      "source_file": "src/model.ts",
-      "source_location": "L6"
-    },
-    {
       "id": "src_model_portion",
       "label": "Portion",
       "_callable": true,
@@ -96,7 +96,7 @@
       "file_type": "code",
       "norm_label": "closedialog()",
       "source_file": "src/main.ts",
-      "source_location": "L173"
+      "source_location": "L175"
     },
     {
       "id": "src_main_demobanner",
@@ -118,7 +118,7 @@
       "file_type": "code",
       "norm_label": "discarddemo()",
       "source_file": "src/main.ts",
-      "source_location": "L153"
+      "source_location": "L155"
     },
     {
       "id": "src_main_download",
@@ -129,7 +129,7 @@
       "file_type": "code",
       "norm_label": "download()",
       "source_file": "src/main.ts",
-      "source_location": "L165"
+      "source_location": "L167"
     },
     {
       "id": "src_main_footer",
@@ -141,6 +141,17 @@
       "norm_label": "footer()",
       "source_file": "src/main.ts",
       "source_location": "L36"
+    },
+    {
+      "id": "src_main_formnumber",
+      "label": "formNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "formnumber()",
+      "source_file": "src/main.ts",
+      "source_location": "L230"
     },
     {
       "id": "src_main_header",
@@ -195,7 +206,7 @@
       "file_type": "code",
       "norm_label": "load()",
       "source_file": "src/main.ts",
-      "source_location": "L144"
+      "source_location": "L146"
     },
     {
       "id": "src_main_namespace",
@@ -217,7 +228,7 @@
       "file_type": "code",
       "norm_label": "navigate()",
       "source_file": "src/main.ts",
-      "source_location": "L157"
+      "source_location": "L159"
     },
     {
       "id": "src_main_notfound",
@@ -228,7 +239,7 @@
       "file_type": "code",
       "norm_label": "notfound()",
       "source_file": "src/main.ts",
-      "source_location": "L100"
+      "source_location": "L102"
     },
     {
       "id": "src_main_opendialog",
@@ -239,7 +250,7 @@
       "file_type": "code",
       "norm_label": "opendialog()",
       "source_file": "src/main.ts",
-      "source_location": "L110"
+      "source_location": "L112"
     },
     {
       "id": "src_main_page",
@@ -250,7 +261,7 @@
       "file_type": "code",
       "norm_label": "page()",
       "source_file": "src/main.ts",
-      "source_location": "L102"
+      "source_location": "L104"
     },
     {
       "id": "src_main_render",
@@ -261,7 +272,7 @@
       "file_type": "code",
       "norm_label": "render()",
       "source_file": "src/main.ts",
-      "source_location": "L116"
+      "source_location": "L118"
     },
     {
       "id": "src_main_routecopy",
@@ -294,7 +305,18 @@
       "file_type": "code",
       "norm_label": "save()",
       "source_file": "src/main.ts",
-      "source_location": "L139"
+      "source_location": "L141"
+    },
+    {
+      "id": "src_main_showformerror",
+      "label": "showFormError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "showformerror()",
+      "source_file": "src/main.ts",
+      "source_location": "L216"
     },
     {
       "id": "src_main_storagefailure",
@@ -305,7 +327,18 @@
       "file_type": "code",
       "norm_label": "storagefailure()",
       "source_file": "src/main.ts",
-      "source_location": "L136"
+      "source_location": "L138"
+    },
+    {
+      "id": "src_model_blankplan",
+      "label": "blankPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "blankplan()",
+      "source_file": "src/model.ts",
+      "source_location": "L20"
     },
     {
       "id": "src_model_sampleplan",
@@ -316,7 +349,7 @@
       "file_type": "code",
       "norm_label": "sampleplan()",
       "source_file": "src/model.ts",
-      "source_location": "L59"
+      "source_location": "L96"
     },
     {
       "id": "src_store_clearplan",
@@ -330,6 +363,28 @@
       "source_location": "L14"
     },
     {
+      "id": "src_store_open",
+      "label": "open()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "open()",
+      "source_file": "src/store.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "src_store_readplan",
+      "label": "readPlan()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "norm_label": "readplan()",
+      "source_file": "src/store.ts",
+      "source_location": "L12"
+    },
+    {
       "id": "src_store_writeplan",
       "label": "writePlan()",
       "_callable": true,
@@ -341,17 +396,6 @@
       "source_location": "L13"
     },
     {
-      "id": "src_update_applywaitingserviceworkerupdate",
-      "label": "applyWaitingServiceWorkerUpdate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "applywaitingserviceworkerupdate()",
-      "source_file": "src/update.ts",
-      "source_location": "L2"
-    },
-    {
       "id": "src_main_formtext",
       "label": "formText()",
       "_callable": true,
@@ -360,29 +404,18 @@
       "file_type": "code",
       "norm_label": "formtext()",
       "source_file": "src/main.ts",
-      "source_location": "L222"
+      "source_location": "L224"
     },
     {
-      "id": "src_main_showformerror",
-      "label": "showFormError()",
+      "id": "src_model_calculatedtotals",
+      "label": "calculatedTotals()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
       "file_type": "code",
-      "norm_label": "showformerror()",
-      "source_file": "src/main.ts",
-      "source_location": "L214"
-    },
-    {
-      "id": "src_model_blankplan",
-      "label": "blankPlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "blankplan()",
+      "norm_label": "calculatedtotals()",
       "source_file": "src/model.ts",
-      "source_location": "L11"
+      "source_location": "L48"
     },
     {
       "id": "src_model_cansavetarget",
@@ -393,7 +426,7 @@
       "file_type": "code",
       "norm_label": "cansavetarget()",
       "source_file": "src/model.ts",
-      "source_location": "L49"
+      "source_location": "L86"
     },
     {
       "id": "src_model_isfood",
@@ -404,7 +437,7 @@
       "file_type": "code",
       "norm_label": "isfood()",
       "source_file": "src/model.ts",
-      "source_location": "L29"
+      "source_location": "L42"
     },
     {
       "id": "src_model_isid",
@@ -415,7 +448,7 @@
       "file_type": "code",
       "norm_label": "isid()",
       "source_file": "src/model.ts",
-      "source_location": "L27"
+      "source_location": "L36"
     },
     {
       "id": "src_model_isnumber",
@@ -426,7 +459,18 @@
       "file_type": "code",
       "norm_label": "isnumber()",
       "source_file": "src/model.ts",
-      "source_location": "L28"
+      "source_location": "L37"
+    },
+    {
+      "id": "src_model_isnutrientvalue",
+      "label": "isNutrientValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isnutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L38"
     },
     {
       "id": "src_model_isplan",
@@ -437,7 +481,18 @@
       "file_type": "code",
       "norm_label": "isplan()",
       "source_file": "src/model.ts",
-      "source_location": "L36"
+      "source_location": "L73"
+    },
+    {
+      "id": "src_model_isportionamount",
+      "label": "isPortionAmount()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "isportionamount()",
+      "source_file": "src/model.ts",
+      "source_location": "L39"
     },
     {
       "id": "src_model_isrecord",
@@ -448,7 +503,29 @@
       "file_type": "code",
       "norm_label": "isrecord()",
       "source_file": "src/model.ts",
-      "source_location": "L14"
+      "source_location": "L23"
+    },
+    {
+      "id": "src_model_issafecalculatedtotal",
+      "label": "isSafeCalculatedTotal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "issafecalculatedtotal()",
+      "source_file": "src/model.ts",
+      "source_location": "L41"
+    },
+    {
+      "id": "src_model_istargetvalue",
+      "label": "isTargetValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "istargetvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L40"
     },
     {
       "id": "src_model_istext",
@@ -459,7 +536,7 @@
       "file_type": "code",
       "norm_label": "istext()",
       "source_file": "src/model.ts",
-      "source_location": "L25"
+      "source_location": "L34"
     },
     {
       "id": "src_model_normalizerequiredtext",
@@ -470,7 +547,40 @@
       "file_type": "code",
       "norm_label": "normalizerequiredtext()",
       "source_file": "src/model.ts",
-      "source_location": "L20"
+      "source_location": "L29"
+    },
+    {
+      "id": "src_model_nutrientvalue",
+      "label": "nutrientValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "nutrientvalue()",
+      "source_file": "src/model.ts",
+      "source_location": "L93"
+    },
+    {
+      "id": "src_model_planhassafecalculatedtotals",
+      "label": "planHasSafeCalculatedTotals()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "planhassafecalculatedtotals()",
+      "source_file": "src/model.ts",
+      "source_location": "L67"
+    },
+    {
+      "id": "src_model_status",
+      "label": "status()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "status()",
+      "source_file": "src/model.ts",
+      "source_location": "L122"
     },
     {
       "id": "src_model_uid",
@@ -481,29 +591,7 @@
       "file_type": "code",
       "norm_label": "uid()",
       "source_file": "src/model.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_store_open",
-      "label": "open()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "open()",
-      "source_file": "src/store.ts",
-      "source_location": "L3"
-    },
-    {
-      "id": "src_store_readplan",
-      "label": "readPlan()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "readplan()",
-      "source_file": "src/store.ts",
-      "source_location": "L12"
+      "source_location": "L21"
     },
     {
       "id": "factory_evidence_verification_10_live_qa_importplan",
@@ -572,6 +660,17 @@
       "source_location": "L10"
     },
     {
+      "id": "src_update_applywaitingserviceworkerupdate",
+      "label": "applyWaitingServiceWorkerUpdate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "applywaitingserviceworkerupdate()",
+      "source_file": "src/update.ts",
+      "source_location": "L2"
+    },
+    {
       "id": "src_main_dialogmarkup",
       "label": "dialogMarkup()",
       "_callable": true,
@@ -580,7 +679,7 @@
       "file_type": "code",
       "norm_label": "dialogmarkup()",
       "source_file": "src/main.ts",
-      "source_location": "L74"
+      "source_location": "L76"
     },
     {
       "id": "src_main_e",
@@ -602,7 +701,7 @@
       "file_type": "code",
       "norm_label": "foodlist()",
       "source_file": "src/main.ts",
-      "source_location": "L62"
+      "source_location": "L64"
     },
     {
       "id": "src_main_mealcard",
@@ -613,7 +712,7 @@
       "file_type": "code",
       "norm_label": "mealcard()",
       "source_file": "src/main.ts",
-      "source_location": "L66"
+      "source_location": "L68"
     },
     {
       "id": "src_main_planner",
@@ -624,7 +723,7 @@
       "file_type": "code",
       "norm_label": "planner()",
       "source_file": "src/main.ts",
-      "source_location": "L70"
+      "source_location": "L72"
     },
     {
       "id": "src_main_rememberdialogopener",
@@ -635,7 +734,7 @@
       "file_type": "code",
       "norm_label": "rememberdialogopener()",
       "source_file": "src/main.ts",
-      "source_location": "L166"
+      "source_location": "L168"
     },
     {
       "id": "src_main_targetrows",
@@ -657,7 +756,7 @@
       "file_type": "code",
       "norm_label": "toastmarkup()",
       "source_file": "src/main.ts",
-      "source_location": "L101"
+      "source_location": "L103"
     },
     {
       "id": "src_model_coverage",
@@ -668,7 +767,7 @@
       "file_type": "code",
       "norm_label": "coverage()",
       "source_file": "src/model.ts",
-      "source_location": "L87"
+      "source_location": "L121"
     },
     {
       "id": "src_model_formatnutrient",
@@ -679,29 +778,7 @@
       "file_type": "code",
       "norm_label": "formatnutrient()",
       "source_file": "src/model.ts",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_model_nutrientvalue",
-      "label": "nutrientValue()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "nutrientvalue()",
-      "source_file": "src/model.ts",
-      "source_location": "L56"
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "file_type": "code",
-      "norm_label": "status()",
-      "source_file": "src/model.ts",
-      "source_location": "L88"
+      "source_location": "L94"
     },
     {
       "id": "src_model_totals",
@@ -712,7 +789,7 @@
       "file_type": "code",
       "norm_label": "totals()",
       "source_file": "src/model.ts",
-      "source_location": "L81"
+      "source_location": "L118"
     },
     {
       "id": "tests_claims_spec_addfood",
@@ -865,23 +942,13 @@
       "source_location": "L12"
     },
     {
-      "id": "src_update",
-      "label": "update.ts",
+      "id": "src_store",
+      "label": "store.ts",
       "_origin": "ast",
       "community": 0,
       "file_type": "code",
-      "norm_label": "update.ts",
-      "source_file": "src/update.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_update_test",
-      "label": "update.test.ts",
-      "_origin": "ast",
-      "community": 0,
-      "file_type": "code",
-      "norm_label": "update.test.ts",
-      "source_file": "src/update.test.ts",
+      "norm_label": "store.ts",
+      "source_file": "src/store.ts",
       "source_location": "L1"
     },
     {
@@ -902,7 +969,37 @@
       "file_type": "code",
       "norm_label": "makeid",
       "source_file": "src/model.ts",
-      "source_location": "L102"
+      "source_location": "L139"
+    },
+    {
+      "id": "src_model_max_nutrient_per_serving",
+      "label": "MAX_NUTRIENT_PER_SERVING",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "max_nutrient_per_serving",
+      "source_file": "src/model.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_model_max_nutrient_total",
+      "label": "MAX_NUTRIENT_TOTAL",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "max_nutrient_total",
+      "source_file": "src/model.ts",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_model_max_portion_amount",
+      "label": "MAX_PORTION_AMOUNT",
+      "_origin": "ast",
+      "community": 1,
+      "file_type": "code",
+      "norm_label": "max_portion_amount",
+      "source_file": "src/model.ts",
+      "source_location": "L16"
     },
     {
       "id": "src_model_nutrient_decimal_places",
@@ -922,7 +1019,7 @@
       "file_type": "code",
       "norm_label": "nutrientkeys",
       "source_file": "src/model.ts",
-      "source_location": "L13"
+      "source_location": "L22"
     },
     {
       "id": "src_model_nutrientlabels",
@@ -932,7 +1029,7 @@
       "file_type": "code",
       "norm_label": "nutrientlabels",
       "source_file": "src/model.ts",
-      "source_location": "L10"
+      "source_location": "L19"
     },
     {
       "id": "src_model_target_limit",
@@ -952,16 +1049,6 @@
       "file_type": "code",
       "norm_label": "model.test.ts",
       "source_file": "src/model.test.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_store",
-      "label": "store.ts",
-      "_origin": "ast",
-      "community": 1,
-      "file_type": "code",
-      "norm_label": "store.ts",
-      "source_file": "src/store.ts",
       "source_location": "L1"
     },
     {
@@ -1055,10 +1142,30 @@
       "source_location": "L4"
     },
     {
+      "id": "src_update",
+      "label": "update.ts",
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "update.ts",
+      "source_file": "src/update.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_update_test",
+      "label": "update.test.ts",
+      "_origin": "ast",
+      "community": 13,
+      "file_type": "code",
+      "norm_label": "update.test.ts",
+      "source_file": "src/update.test.ts",
+      "source_location": "L1"
+    },
+    {
       "id": "public_sw",
       "label": "sw.js",
       "_origin": "ast",
-      "community": 13,
+      "community": 14,
       "file_type": "code",
       "norm_label": "sw.js",
       "source_file": "public/sw.js",
@@ -1068,7 +1175,7 @@
       "id": "public_sw_shell",
       "label": "SHELL",
       "_origin": "ast",
-      "community": 13,
+      "community": 14,
       "file_type": "code",
       "norm_label": "shell",
       "source_file": "public/sw.js",
@@ -1078,7 +1185,7 @@
       "id": "playwright_config",
       "label": "playwright.config.ts",
       "_origin": "ast",
-      "community": 14,
+      "community": 15,
       "file_type": "code",
       "norm_label": "playwright.config.ts",
       "source_file": "playwright.config.ts",
@@ -1088,7 +1195,7 @@
       "id": "vite_config",
       "label": "vite.config.ts",
       "_origin": "ast",
-      "community": 15,
+      "community": 16,
       "file_type": "code",
       "norm_label": "vite.config.ts",
       "source_file": "vite.config.ts",
@@ -1475,6 +1582,16 @@
       "source_location": "L3"
     },
     {
+      "id": "test",
+      "label": "@playwright/test",
+      "_origin": "ast",
+      "community": 5,
+      "confidence": "EXTRACTED",
+      "file_type": "code",
+      "norm_label": "@playwright/test",
+      "source_file": "@playwright/test"
+    },
+    {
       "id": "tests_claims_spec",
       "label": "claims.spec.ts",
       "_origin": "ast",
@@ -1675,7 +1792,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L176",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -1687,7 +1804,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L77",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -1699,7 +1816,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L154",
+      "source_location": "L156",
       "weight": 1.0
     },
     {
@@ -1711,7 +1828,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L155",
+      "source_location": "L157",
       "weight": 1.0
     },
     {
@@ -1723,7 +1840,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -1735,7 +1852,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -1751,6 +1868,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_main_formnumber",
+      "target": "src_main_showformerror",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/main.ts",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
       "source": "src_main_formtext",
       "target": "src_model_normalizerequiredtext",
       "relation": "calls",
@@ -1759,7 +1888,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L223",
+      "source_location": "L225",
       "weight": 1.0
     },
     {
@@ -1771,7 +1900,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L225",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -1795,7 +1924,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L148",
+      "source_location": "L150",
       "weight": 1.0
     },
     {
@@ -1807,7 +1936,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L149",
+      "source_location": "L151",
       "weight": 1.0
     },
     {
@@ -1819,7 +1948,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L150",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -1831,7 +1960,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L150",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -1843,7 +1972,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L151",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -1855,7 +1984,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L67",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -1867,7 +1996,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L68",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -1879,7 +2008,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L68",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -1891,7 +2020,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L158",
+      "source_location": "L160",
       "weight": 1.0
     },
     {
@@ -1903,7 +2032,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L160",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -1915,7 +2044,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L163",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -1927,7 +2056,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -1939,7 +2068,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -1951,7 +2080,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -1963,7 +2092,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L105",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -1975,7 +2104,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L106",
+      "source_location": "L108",
       "weight": 1.0
     },
     {
@@ -1987,7 +2116,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -1999,7 +2128,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -2011,7 +2140,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -2023,7 +2152,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L108",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -2035,7 +2164,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L71",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -2047,7 +2176,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L71",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -2059,7 +2188,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L169",
+      "source_location": "L171",
       "weight": 1.0
     },
     {
@@ -2071,7 +2200,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L118",
+      "source_location": "L120",
       "weight": 1.0
     },
     {
@@ -2083,7 +2212,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L128",
+      "source_location": "L130",
       "weight": 1.0
     },
     {
@@ -2095,7 +2224,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L129",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -2107,7 +2236,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L141",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -2119,7 +2248,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L141",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -2131,7 +2260,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L142",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -2179,7 +2308,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -2191,7 +2320,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.ts",
-      "source_location": "L101",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_calculatedtotals",
+      "target": "src_model_isportionamount",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_calculatedtotals",
+      "target": "src_model_issafecalculatedtotal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_calculatedtotals",
+      "target": "src_model_nutrientvalue",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -2203,7 +2368,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L87",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -2215,7 +2380,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L57",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -2227,7 +2392,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L30",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -2239,7 +2404,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L30",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -2251,11 +2416,23 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L30",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
       "source": "src_model_isfood",
+      "target": "src_model_isnutrientvalue",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_isnutrientvalue",
       "target": "src_model_isnumber",
       "relation": "calls",
       "_origin": "ast",
@@ -2263,7 +2440,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L32",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -2275,7 +2452,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L37",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -2287,11 +2464,59 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L40",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
       "source": "src_model_isplan",
+      "target": "src_model_istargetvalue",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_isplan",
+      "target": "src_model_istext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_isplan",
+      "target": "src_model_isportionamount",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_isplan",
+      "target": "src_model_planhassafecalculatedtotals",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_isportionamount",
       "target": "src_model_isnumber",
       "relation": "calls",
       "_origin": "ast",
@@ -2299,12 +2524,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
-      "source": "src_model_isplan",
-      "target": "src_model_istext",
+      "source": "src_model_istargetvalue",
+      "target": "src_model_isnumber",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2323,7 +2548,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L25",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_planhassafecalculatedtotals",
+      "target": "src_model_calculatedtotals",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_status",
+      "target": "src_model_issafecalculatedtotal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_status",
+      "target": "src_model_istargetvalue",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/model.ts",
+      "source_location": "L123",
       "weight": 1.0
     },
     {
@@ -2335,19 +2596,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L89",
+      "source_location": "L125",
       "weight": 1.0
     },
     {
       "source": "src_model_totals",
-      "target": "src_model_nutrientvalue",
+      "target": "src_model_calculatedtotals",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/model.ts",
-      "source_location": "L84",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -2592,6 +2853,42 @@
     },
     {
       "source": "src_main",
+      "target": "src_model_max_nutrient_per_serving",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/main.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_model_max_nutrient_total",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/main.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_model_max_portion_amount",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/main.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
       "target": "src_model_normalizerequiredtext",
       "relation": "imports",
       "_origin": "ast",
@@ -2772,7 +3069,55 @@
     },
     {
       "source": "src_model_test",
+      "target": "src_model_formatnutrient",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/model.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_test",
       "target": "src_model_isplan",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/model.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_test",
+      "target": "src_model_max_nutrient_per_serving",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/model.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_test",
+      "target": "src_model_max_nutrient_total",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/model.test.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model_test",
+      "target": "src_model_max_portion_amount",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3487,7 +3832,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L100",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -3498,7 +3843,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L101",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -3509,7 +3854,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L102",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -3520,7 +3865,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1.0
     },
     {
@@ -3531,7 +3876,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L116",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -3553,7 +3898,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L136",
+      "source_location": "L138",
       "weight": 1.0
     },
     {
@@ -3564,7 +3909,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L139",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -3575,7 +3920,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L144",
+      "source_location": "L146",
       "weight": 1.0
     },
     {
@@ -3586,7 +3931,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L153",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -3597,7 +3942,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L157",
+      "source_location": "L159",
       "weight": 1.0
     },
     {
@@ -3608,7 +3953,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L165",
+      "source_location": "L167",
       "weight": 1.0
     },
     {
@@ -3619,7 +3964,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L166",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -3630,7 +3975,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L173",
+      "source_location": "L175",
       "weight": 1.0
     },
     {
@@ -3641,7 +3986,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L214",
+      "source_location": "L216",
       "weight": 1.0
     },
     {
@@ -3663,7 +4008,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L222",
+      "source_location": "L224",
       "weight": 1.0
     },
     {
@@ -3675,6 +4020,17 @@
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
       "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_formnumber",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.ts",
+      "source_location": "L230",
       "weight": 1.0
     },
     {
@@ -3795,7 +4151,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L62",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -3806,7 +4162,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L66",
+      "source_location": "L68",
       "weight": 1.0
     },
     {
@@ -3817,7 +4173,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L70",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -3828,7 +4184,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.ts",
-      "source_location": "L74",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -3866,13 +4222,35 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_nutrientlabels",
+      "target": "src_model_totals",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L10",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_coverage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_status",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L122",
       "weight": 1.0
     },
     {
@@ -3883,51 +4261,51 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L102",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_blankplan",
+      "target": "src_model_max_nutrient_per_serving",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L11",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_uid",
+      "target": "src_model_max_portion_amount",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L12",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_nutrientkeys",
+      "target": "src_model_max_nutrient_total",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L13",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_isrecord",
+      "target": "src_model_nutrientlabels",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L14",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -3943,7 +4321,7 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_normalizerequiredtext",
+      "target": "src_model_blankplan",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3954,40 +4332,40 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_istext",
+      "target": "src_model_uid",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L25",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_isid",
+      "target": "src_model_nutrientkeys",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L27",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_isnumber",
+      "target": "src_model_isrecord",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L28",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_isfood",
+      "target": "src_model_normalizerequiredtext",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4009,13 +4387,57 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_isplan",
+      "target": "src_model_istext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_isid",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
       "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_isnumber",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_isnutrientvalue",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_isportionamount",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -4031,13 +4453,46 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_cansavetarget",
+      "target": "src_model_istargetvalue",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L49",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_issafecalculatedtotal",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_isfood",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_calculatedtotals",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
@@ -4053,39 +4508,6 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_nutrientvalue",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/model.ts",
-      "source_location": "L56",
-      "weight": 1.0
-    },
-    {
-      "source": "src_model",
-      "target": "src_model_formatnutrient",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/model.ts",
-      "source_location": "L57",
-      "weight": 1.0
-    },
-    {
-      "source": "src_model",
-      "target": "src_model_sampleplan",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/model.ts",
-      "source_location": "L59",
-      "weight": 1.0
-    },
-    {
-      "source": "src_model",
       "target": "src_model_plan",
       "relation": "contains",
       "_origin": "ast",
@@ -4093,6 +4515,17 @@
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_planhassafecalculatedtotals",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -4108,6 +4541,17 @@
     },
     {
       "source": "src_model",
+      "target": "src_model_isplan",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
       "target": "src_model_nutrient_decimal_places",
       "relation": "contains",
       "_origin": "ast",
@@ -4119,35 +4563,46 @@
     },
     {
       "source": "src_model",
-      "target": "src_model_totals",
+      "target": "src_model_cansavetarget",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L81",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_coverage",
+      "target": "src_model_nutrientvalue",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L87",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
       "source": "src_model",
-      "target": "src_model_status",
+      "target": "src_model_formatnutrient",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/model.ts",
-      "source_location": "L88",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "src_model",
+      "target": "src_model_sampleplan",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/model.ts",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -4393,6 +4848,15 @@
       "weight": 1.0
     },
     {
+      "source": "tests_claims_spec",
+      "target": "test",
+      "relation": "dynamic_import",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/claims.spec.ts"
+    },
+    {
       "source": "src_main_planner",
       "target": "src_main_mealcard",
       "relation": "indirect_call",
@@ -4401,7 +4865,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/main.ts",
-      "source_location": "L71",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -4413,10 +4877,10 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/model.ts",
-      "source_location": "L39",
+      "source_location": "L76",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "233dbf236374197df30d8e54002b18d9f9148898"
+  "built_at_commit": "9f7e27d6181cc622e5697303489f5884af5b2866"
 }
