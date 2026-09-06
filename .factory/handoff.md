@@ -1,5 +1,96 @@
 # Nutrient Floor handoff
 
+## Repair 10
+
+### Outcome
+
+Repair 10 resolves review-8 finding F-8-1. The `local-only` browser claim
+now subscribes to the exact token-only Sociobot verification request before
+clicking **Restore purchase**, waits for that request, and waits for the
+visible verified-license result before examining the privacy request log.
+This tests the user-visible license outcome and the actual network request,
+rather than synchronously inspecting an asynchronous listener.
+
+- Implementation SHA: `fad08d2adaa0689044d633854d0926188e798fff`
+- Deployed static deployment: `da6cf500-9e54-427e-a6a8-dc1f978c3086`
+- Live URL: <https://nutrient-floor-planner.sociobot.in>
+- Scope: test-only repair; the deployed JavaScript and CSS exactly match the
+  clean build (`index-C0YUIyaN.js` and `index-D4nT9oM7.css`).
+
+### Verification
+
+Detached clean checkout: `/tmp/nutrient-floor-repair10-clean` at the
+implementation SHA.
+
+```sh
+npm ci
+npm test
+npm run lint
+npm run build
+npm audit
+npm audit --omit=dev
+npx playwright test --reporter=line
+```
+
+- `npm ci` installed 58 packages with zero vulnerabilities.
+- All 17 exact commands declared in `.factory/claims.json` passed separately.
+- `npm test` passed the copy/claim guards and 14 unit tests.
+- Type checking, production build, and both audits passed. The build produced
+  `dist/index.html` with 34.09 kB JavaScript raw / 11.55 kB gzip and 14.53 kB
+  CSS raw / 3.99 kB gzip.
+- The fresh full Playwright suite passed 45/45. The repaired `local-only`
+  claim was also repeated 30 times in a separate run: 30/30 passed.
+
+Fresh HTTPS checks used separate desktop (1440 × 900) and phone (390 × 844)
+contexts. Before scrolling, both state the job (plan meals against nutrient
+targets), audience (home cooks avoiding a calorie diary), and first action
+(**Try it with sample data**). The phone flow opened the populated seven-food,
+three-meal, three-target sample, retained the persistent **Demo — sample data,
+nothing is saved** label, reset an eighth demo food back to seven, and returned
+to separately saved real data without carrying demo data over.
+
+`verify-url.sh` passed fresh live home and demo pages with no console errors,
+a title, `lang=en`, one h1, one main landmark, and complete image alt text.
+Fresh Playwright Axe scans found zero serious or critical issues on `/`,
+`/demo`, `/plan`, `/privacy`, `/terms`, and `/404.html`. The live keyboard
+skip path focuses `main`; reduced motion leaves zero animated elements; an
+online service-worker-controlled demo reload stayed usable offline and opened
+**Add a meal**. `/`, `/demo`, `/plan`, `/privacy`, `/terms`, manifest, robots,
+sitemap, and `404.html` return 200; a deliberate unknown route returns 404.
+
+Live Lighthouse mobile scores: Performance 100, Accessibility 100, Best
+Practices 100, SEO 100; LCP 1.06 s, TBT 0 ms, CLS 0. The report is at
+`/work/.evidence/nutrient-floor-repair-10/lighthouse-live.json`.
+
+### Earlier finding disposition
+
+All earlier review and verification findings, including the former minor
+issues, remain covered by the clean 45-test browser suite and fresh live
+checks: offline reload/update cache cleanup; forged-license protection;
+within-limit, decimal, and overflow calculations; invalid import and storage
+recovery; dialog, route, and skip-link focus; cancellation and confirmed
+deletion; food/target limits, editing, persistence, and complete JSON transfer;
+demo isolation/reset; metadata, headers, icons, CSP-safe meters, contrast,
+touch targets, reduced motion, and 195 px 404 reflow. F-8-1 is now fixed by
+the request/outcome wait above.
+
+### Remaining external dependency
+
+The advertised $12 one-time offer is recorded at
+`/work/.evidence/billing-offer.json`. The required Sociobot checkout URL still
+returns the stipulated registration 404, so a real hosted purchase cannot yet
+be completed. This is an external billing-registration dependency, not a
+broken product route; the mocked claim verifies return-token handling,
+verification, forged-token rejection, and license restoration. After
+registration, the billing operator should complete one real purchase and
+confirm that its returned token activates the paid features.
+
+The catalog description remains a verb-first 64-character sentence and is
+copied to `/work/.evidence/catalog-description.txt`. This static local-first
+PWA has no product backend, runtime AI, CLI, library, account, or server data,
+so backend isolation/restart/health/429 and consumer-artifact checks do not
+apply.
+
 ## Strict review 8
 
 **FAIL.** The deployed implementation remains
