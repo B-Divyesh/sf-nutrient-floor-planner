@@ -1,3 +1,19 @@
+# Nutrient Floor verification 15 handoff
+
+## Independent verification 15
+
+**PASS.** The deployed implementation `75f1273057f842e046c59366a28151cb7f71a7c8` was verified from a detached clean checkout; its prior documentation commit is `b0b3278e483dc70193affd0b826be6e8e62e9582`. Product code was not changed.
+
+- All 17 exact claim commands passed separately; there are zero untested public claims.
+- `npm test` (14 unit tests), lint, build, all 45 browser tests, and both audits passed.
+- Fresh live desktop and phone flows passed: first-screen job/audience/action, populated demo, persistent sample label, reset, real-data isolation, within-limit status, keyboard, reduced motion, offline dialog, routes, legal pages, privacy, and the 195 px 404.
+- Live Axe had no serious or critical violations. Fresh mobile Lighthouse was 100/100/100/100, with LCP 1.0 s, TBT 0 ms, and CLS 0.
+- The deployed JS and CSS hashes exactly match the clean implementation build.
+
+The Sociobot billing offer has not yet been registered externally, so its checkout URL returns the stipulated HTTP 404. This is not a product defect for this verification; the sandboxed license claim uses its recorded checkout and verification fixtures. No product backend applies.
+
+See `.factory/verification-15.md` for the complete evidence and prior-finding disposition.
+
 # Nutrient Floor repair 9 handoff
 
 ## Outcome
