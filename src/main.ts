@@ -58,7 +58,7 @@ function upgradeSection() {
 }
 
 function landing() {
-  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Free plan: 10 foods</li><li>Stored on this device</li><li>Works offline after setup</li><li>$12 one-time upgrade</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section>${upgradeSection()}</main>`;
+  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Free plan: 10 foods · $12 one-time upgrade</li><li>Stored on this device</li><li>Works offline after setup</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section>${upgradeSection()}</main>`;
 }
 
 function targetRows() {
@@ -204,6 +204,9 @@ function cachedLicenseVerdict(token: string) {
     return verdict?.token === token && typeof verdict.valid === 'boolean' && typeof verdict.checkedAt === 'number' ? verdict as LicenseVerdict : null;
   } catch { return null; }
 }
+function licenseVerdictIsFresh(verdict: LicenseVerdict | null) {
+  return Boolean(verdict && Date.now() - verdict.checkedAt < LICENSE_MAX_AGE);
+}
 async function verifyLicense(token: string, userInitiated = false) {
   const normalized = token.trim();
   if (!normalized) {
@@ -214,6 +217,11 @@ async function verifyLicense(token: string, userInitiated = false) {
   safeSet(LICENSE_KEY, normalized);
   const cached = cachedLicenseVerdict(normalized);
   if (cached?.valid) licensed = true;
+  if (licenseVerdictIsFresh(cached)) {
+    licensed = cached!.valid;
+    if (userInitiated) notice = cached!.valid ? 'Paid features are active on this device.' : 'This license is not active. Check the token or buy the upgrade.';
+    return;
+  }
   try {
     const response = await fetch(`${VERIFY_URL}?license=${encodeURIComponent(normalized)}`);
     if (!response.ok) throw new Error('License verification unavailable');
@@ -232,20 +240,23 @@ async function verifyLicense(token: string, userInitiated = false) {
     if (userInitiated) notice = 'License checking is unavailable. The free planner still works.';
   }
 }
-async function collectLicense() {
+function collectLicense(): { token: string; userInitiated: boolean } | null {
   const query = new URLSearchParams(location.search);
   const returned = query.get('license');
   if (returned !== null) {
     query.delete('license');
     history.replaceState({}, '', `${location.pathname}${query.size ? `?${query}` : ''}${location.hash}`);
-    await verifyLicense(returned, true);
-    return;
+    const normalized = returned.trim();
+    if (!normalized) return null;
+    safeSet(LICENSE_KEY, normalized);
+    licensed = cachedLicenseVerdict(normalized)?.valid === true;
+    return { token: normalized, userInitiated: true };
   }
   const stored = safeGet(LICENSE_KEY);
-  if (!stored) return;
+  if (!stored) return null;
   const cached = cachedLicenseVerdict(stored);
   licensed = cached?.valid === true;
-  if (!cached || Date.now() - cached.checkedAt >= LICENSE_MAX_AGE) await verifyLicense(stored);
+  return licenseVerdictIsFresh(cached) ? null : { token: stored, userInitiated: false };
 }
 document.addEventListener('click', event => {
   const skip = (event.target as HTMLElement).closest<HTMLAnchorElement>('.skip');
@@ -320,6 +331,8 @@ document.addEventListener('submit', async event => {
   event.preventDefault();
   const data = new FormData(form);
   if (formName === 'license') {
+    notice = 'Checking this license with Sociobot.';
+    render();
     await verifyLicense(String(data.get('license') || ''), true);
     render();
     return;
@@ -415,4 +428,9 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').the
   const announceUpdate = () => { if (registration.waiting && navigator.serviceWorker.controller) { waitingWorker = registration.waiting; notice = 'An update is ready.'; render(); } };
   registration.addEventListener('updatefound', () => registration.installing?.addEventListener('statechange', announceUpdate));
 }).catch(() => undefined);
-void collectLicense().then(load);
+const pendingLicenseCheck = collectLicense();
+void load().then(async () => {
+  if (!pendingLicenseCheck) return;
+  await verifyLicense(pendingLicenseCheck.token, pendingLicenseCheck.userInitiated);
+  render();
+});

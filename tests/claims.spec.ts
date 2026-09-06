@@ -342,6 +342,22 @@ test('@claim:one-time-upgrade enforces the free limit and activates paid feature
   await expect.poll(() => revokedPage.evaluate(() => localStorage.getItem('sb_license:nutrient-floor-planner'))).toBeNull();
   await revokedContext.close();
 
+  const pendingContext = await browser.newContext();
+  let finishPendingCheck!: () => void;
+  const pendingCheck = new Promise<void>(resolve => { finishPendingCheck = resolve; });
+  await pendingContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=pending-test-token', async route => {
+    await pendingCheck;
+    await route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } });
+  });
+  const pendingPage = await pendingContext.newPage();
+  await pendingPage.goto('/plan?license=pending-test-token');
+  await expect(pendingPage).toHaveURL('http://127.0.0.1:4173/plan');
+  await expect(pendingPage.getByRole('heading', { name: 'Build a week that meets your targets.' })).toBeVisible();
+  await expect(pendingPage.getByRole('button', { name: 'Print week' })).toHaveCount(0);
+  finishPendingCheck();
+  await expect(pendingPage.getByRole('button', { name: 'Print week' })).toBeVisible();
+  await pendingContext.close();
+
   const paidContext = await browser.newContext();
   let verificationRequests = 0;
   await paidContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=paid-test-token', route => {
@@ -902,7 +918,7 @@ test('landing first screen remains readable and actionable at 390px', async ({ b
   await expect(page.getByRole('heading', { name: 'Plan meals that meet your nutrient targets.' })).toBeVisible();
   await expect(page.getByText('For home cooks who want enough fibre or protein without logging every calorie.')).toBeVisible();
   await expect(page.getByText('Loads seven foods, three meals, and three targets.')).toBeVisible();
-  for (const fact of ['Free plan: 10 foods', 'Stored on this device', 'Works offline after setup', '$12 one-time upgrade']) {
+  for (const fact of ['Free plan: 10 foods · $12 one-time upgrade', 'Stored on this device', 'Works offline after setup']) {
     const item = page.getByText(fact, { exact: true });
     await expect(item).toBeVisible();
     const factBox = await item.boundingBox();
