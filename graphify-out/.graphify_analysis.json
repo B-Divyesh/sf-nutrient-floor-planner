@@ -258,6 +258,16 @@
       "degree": 10
     },
     {
+      "id": "src_main_load",
+      "label": "load()",
+      "degree": 7
+    },
+    {
+      "id": "src_model_status",
+      "label": "status()",
+      "degree": 7
+    },
+    {
       "id": "src_main_e",
       "label": "e()",
       "degree": 7
@@ -268,37 +278,27 @@
       "degree": 7
     },
     {
-      "id": "src_model_status",
-      "label": "status()",
-      "degree": 7
-    },
-    {
-      "id": "src_main_load",
-      "label": "load()",
-      "degree": 7
-    },
-    {
       "id": "src_main_render",
       "label": "render()",
-      "degree": 6
-    },
-    {
-      "id": "src_main_targetrows",
-      "label": "targetRows()",
       "degree": 6
     },
     {
       "id": "src_model_calculatedtotals",
       "label": "calculatedTotals()",
       "degree": 6
+    },
+    {
+      "id": "src_model_isfood",
+      "label": "isFood()",
+      "degree": 6
     }
   ],
   "surprises": [
     {
-      "source": "mealCard()",
-      "target": "totals()",
+      "source": "readPlan()",
+      "target": "isPlan()",
       "source_files": [
-        "src/main.ts",
+        "src/store.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -317,10 +317,10 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "readPlan()",
-      "target": "isPlan()",
+      "source": "mealCard()",
+      "target": "totals()",
       "source_files": [
-        "src/store.ts",
+        "src/main.ts",
         "src/model.ts"
       ],
       "confidence": "EXTRACTED",
@@ -328,19 +328,19 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "formText()",
-      "target": "normalizeRequiredText()",
+      "source": "discardDemo()",
+      "target": "clearPlan()",
       "source_files": [
         "src/main.ts",
-        "src/model.ts"
+        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "cross-file semantic connection"
     },
     {
-      "source": "foodList()",
-      "target": "formatNutrient()",
+      "source": "formText()",
+      "target": "normalizeRequiredText()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
