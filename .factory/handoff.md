@@ -1,75 +1,44 @@
-# Nutrient Floor review 6 handoff — PASS
+# Nutrient Floor review 7 handoff — FAIL
 
-## Current review summary
+## Outcome
 
-- Reviewed the live product at https://nutrient-floor-planner.sociobot.in.
-- Added .factory/review-6.md; no product code was changed.
-- Cold phone/desktop first read, one-click sample, reset, Start for real,
-  real-plan isolation, request logging, offline use, routes, metadata, links,
-  404, mobile Axe, and prior-finding confirmation all passed.
-- Clean clone /tmp/nutrient-floor-review6.RuHLFs passed npm ci, all 17 exact
-  claim commands, npm test, npm run lint, npm run build, and Playwright 44/44.
-- Decision: PASS with zero findings. The researched .factory/brief.json is
-  absent, so no additional brief-specific scope could be verified.
-- Preserved unrelated pre-existing graphify-out worktree changes.
+- Reviewed the live product at <https://nutrient-floor-planner.sociobot.in>.
+- Added `.factory/review-7.md`; no product code was changed.
+- Implementation reviewed: `d461e3774ef56b37ca7536658b4dc368d5e9b7dc`.
+- Documentation checkout: `47d41a8c56f909c408fe70cc61a6efc57c17b233`.
+- Verdict: **FAIL** with 3 findings and 1 untested claim component.
 
-## Current re-run
+## Findings left
 
-    npm ci
-    npm test
-    npm run lint
-    npm run build
-    npx playwright test --reporter=line
+1. Medium: the public `target-comparison` claim promises a **within-limit**
+   state, but live and test output say **on plan** for a passing limit. The
+   designated test does not assert the promised state.
+2. Medium: the researched one-time purchase remains unavailable. The product
+   is honestly free, and the required Sociobot checkout still returns 404.
+3. Low: the standalone 404 is 213 px wide at a 195 px, 200%-zoom-equivalent
+   viewport, requiring 18 px of horizontal movement.
 
-## Historical verification 14 record
+## Verification completed
 
-## Release decision
-
-- Work order: `nutrient-floor-planner-verify-14`
-- Tested candidate: `9f7e27d6181cc622e5697303489f5884af5b2866`
-- Tested live URL: <https://nutrient-floor-planner.sociobot.in/>
-- Decision: **PASS — release-ready; the live deployment matches the candidate.**
-- Full report: `.factory/verification-14.md`
-
-## What was verified
-
-- Mandatory cold first-read and one-click sample gate: PASS.
-- All 17 exact `.factory/claims.json` commands from a clean detached checkout:
-  PASS.
-- `npm ci`, `npm test` (14/14), `npm run lint`, `npm run build`, the full
-  Playwright suite (44/44), `npm audit`, and production-only audit: PASS.
-- Normal planning, persistence, demo reset/isolation, JSON recovery, keyboard-
-  only use, prior numeric-overflow boundary, mobile, dark mode, reduced motion,
-  Axe, headers, caching, links, PWA update/offline behavior, and deployment
-  identity: PASS.
-- Live mobile Lighthouse: 99 performance, 100 accessibility, 100 best
-  practices, 100 SEO; LCP 1.2 s, TBT 120 ms, CLS 0.
-
-## Fresh release evidence
-
-The prior `1e308` false-pass defect is repaired: the field now reports range
-overflow, announces a 100,000 g maximum, saves no food, and cannot persist an
-unsafe total. A keyboard-only normal case produced and persisted 30 g against a
-30 g fibre floor as **on plan**.
-
-Local and live hashes match for the app shell, JS, CSS, hero, manifest, 404,
-favicon, and icons. The generated service worker matches after normalizing its
-cache timestamp. Browser request logging found only same-origin traffic and no
-analytics or meal-data request. Offline `/demo` retained seven foods and an
-operable meal dialog.
-
-## Findings
-
-- Medium, non-blocking scope deviation: the researched one-time paid option is
-  unavailable because the required Sociobot product endpoint returns 404. The
-  shipped product is honestly and completely free, with no dead payment path.
-- Low: the standalone 404 is 213 px wide at a 195 px zoom-equivalent viewport,
-  requiring 18 px of horizontal pan. It reflows at 256, 320, and 390 px; all
-  core routes remain overflow-free at 195 px.
-- Critical/high defects: none.
-
-No product code was changed. Only this handoff and the verification report were
-added/updated. Pre-existing `graphify-out` worktree changes were preserved.
+- Fresh 390 px phone and 1440 px desktop first-read checks passed.
+- One-click sample, populated totals, persistent demo label, reset, Start for
+  real, and demo/real isolation passed in disposable browser contexts.
+- Normal calculation, reload persistence, whitespace recovery, numeric
+  overflow rejection, malformed import recovery, keyboard, focus, reduced
+  motion, Axe, links, titles, legal pages, privacy requests, offline reload,
+  service-worker update check, and deliberate HTTP 404 behavior were checked.
+- Factory URL verification passed all five normal routes.
+- All 17 exact claim commands exited successfully, but one claim is still
+  semantically incomplete as described above.
+- `npm test`: 14/14 unit tests passed.
+- `npm run lint`: passed.
+- `npm run build`: passed and produced `dist/index.html`.
+- Full Playwright: 44/44 passed.
+- `npm audit` and production audit: zero vulnerabilities.
+- Live Lighthouse: 100 performance, 100 accessibility, 100 best practices,
+  100 SEO; LCP 0.91 s, TBT 0 ms, CLS 0.
+- Local and live runtime artifacts match; the worker differs only by its
+  generated cache timestamp.
 
 ## Re-run
 
@@ -80,3 +49,6 @@ npm run lint
 npm run build
 npx playwright test --reporter=line
 ```
+
+The full evidence and earlier-finding disposition are in
+`.factory/review-7.md`. Pre-existing `graphify-out` changes were preserved.
