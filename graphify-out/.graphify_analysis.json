@@ -5,10 +5,15 @@
       "src_main_closedialog",
       "src_main_days",
       "src_main_demobanner",
+      "src_main_dialogmarkup",
       "src_main_dialogstate",
       "src_main_discarddemo",
       "src_main_download",
+      "src_main_e",
+      "src_main_foodlist",
       "src_main_footer",
+      "src_main_formnumber",
+      "src_main_formtext",
       "src_main_header",
       "src_main_isdemolocation",
       "src_main_knownroutes",
@@ -21,28 +26,32 @@
       "src_main_opendialog",
       "src_main_page",
       "src_main_plan",
+      "src_main_planner",
+      "src_main_rememberdialogopener",
       "src_main_render",
       "src_main_routecopy",
       "src_main_routemeta",
       "src_main_save",
+      "src_main_showformerror",
       "src_main_storagefailure",
-      "src_model_blankplan",
-      "src_model_plan",
+      "src_main_toastmarkup",
+      "src_model_normalizerequiredtext",
       "src_model_sampleplan",
-      "src_store",
       "src_store_clearplan",
-      "src_store_open",
-      "src_store_readplan",
       "src_store_writeplan",
       "src_update",
       "src_update_applywaitingserviceworkerupdate",
       "src_update_test"
     ],
     "1": [
+      "src_main_mealcard",
+      "src_main_targetrows",
       "src_model",
       "src_model_calculatedtotals",
       "src_model_cansavetarget",
+      "src_model_coverage",
       "src_model_food",
+      "src_model_formatnutrient",
       "src_model_isfood",
       "src_model_isid",
       "src_model_isnumber",
@@ -62,12 +71,14 @@
       "src_model_nutrientkey",
       "src_model_nutrientkeys",
       "src_model_nutrientlabels",
+      "src_model_nutrientvalue",
       "src_model_planhassafecalculatedtotals",
       "src_model_portion",
       "src_model_status",
       "src_model_target",
       "src_model_target_limit",
       "src_model_test",
+      "src_model_totals",
       "src_model_uid"
     ],
     "2": [
@@ -113,20 +124,6 @@
       "tsconfig_include"
     ],
     "4": [
-      "src_main_dialogmarkup",
-      "src_main_e",
-      "src_main_foodlist",
-      "src_main_mealcard",
-      "src_main_planner",
-      "src_main_rememberdialogopener",
-      "src_main_targetrows",
-      "src_main_toastmarkup",
-      "src_model_coverage",
-      "src_model_formatnutrient",
-      "src_model_nutrientvalue",
-      "src_model_totals"
-    ],
-    "5": [
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
@@ -135,7 +132,7 @@
       "tests_claims_spec_planwithfoods",
       "tests_claims_spec_readexport"
     ],
-    "6": [
+    "5": [
       "scripts_check_claims",
       "scripts_check_claims_claims",
       "scripts_check_claims_declaredtags",
@@ -143,7 +140,7 @@
       "scripts_check_claims_root",
       "scripts_check_claims_undeclared"
     ],
-    "7": [
+    "6": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
@@ -151,76 +148,76 @@
       "scripts_generate_sw_precache",
       "scripts_generate_sw_shellassets"
     ],
-    "8": [
+    "7": [
       "factory_evidence_polish_3_live_qa",
       "factory_evidence_polish_3_live_qa_addfood",
       "factory_evidence_polish_3_live_qa_axe",
       "factory_evidence_polish_3_live_qa_results",
       "factory_evidence_polish_3_live_qa_watch"
     ],
-    "9": [
+    "8": [
       "factory_evidence_repair_6_live_qa",
       "factory_evidence_repair_6_live_qa_consoleerrors",
       "factory_evidence_repair_6_live_qa_datarequests",
       "factory_evidence_repair_6_live_qa_foreignrequests",
       "factory_evidence_repair_6_live_qa_results"
     ],
-    "10": [
+    "9": [
       "factory_evidence_verification_10_live_qa",
       "factory_evidence_verification_10_live_qa_importplan",
       "factory_evidence_verification_10_live_qa_results",
       "factory_evidence_verification_10_live_qa_scan",
       "factory_evidence_verification_10_live_qa_watch"
     ],
-    "11": [
+    "10": [
       "factory_evidence_verification_9_live_qa",
       "factory_evidence_verification_9_live_qa_importplan",
       "factory_evidence_verification_9_live_qa_results",
       "factory_evidence_verification_9_live_qa_scan",
       "factory_evidence_verification_9_live_qa_watch"
     ],
-    "12": [
+    "11": [
       "scripts_check_copy_audit",
       "scripts_check_copy_audit_landingcopy",
       "scripts_check_copy_audit_missingfromaudit",
       "scripts_check_copy_audit_missingfromsource",
       "scripts_check_copy_audit_root"
     ],
-    "13": [
-      "src_main_formnumber",
-      "src_main_formtext",
-      "src_main_showformerror",
-      "src_model_normalizerequiredtext"
+    "12": [
+      "src_model_blankplan",
+      "src_model_plan",
+      "src_store",
+      "src_store_open",
+      "src_store_readplan"
     ],
-    "14": [
+    "13": [
       "public_sw",
       "public_sw_shell"
     ],
-    "15": [
+    "14": [
       "playwright_config"
     ],
-    "16": [
+    "15": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.10793650793650794,
-    "1": 0.12643678160919541,
+    "0": 0.09390243902439024,
+    "1": 0.11428571428571428,
     "2": 0.09090909090909091,
     "3": 0.125,
-    "4": 0.24242424242424243,
-    "5": 0.38095238095238093,
+    "4": 0.38095238095238093,
+    "5": 0.3333333333333333,
     "6": 0.3333333333333333,
-    "7": 0.3333333333333333,
+    "7": 0.4,
     "8": 0.4,
     "9": 0.4,
     "10": 0.4,
     "11": 0.4,
-    "12": 0.4,
-    "13": 0.5,
+    "12": 0.5,
+    "13": 1.0,
     "14": 1.0,
-    "15": 1.0,
-    "16": 1.0
+    "15": 1.0
   },
   "gods": [
     {
@@ -276,6 +273,17 @@
   ],
   "surprises": [
     {
+      "source": "load()",
+      "target": "readPlan()",
+      "source_files": [
+        "src/main.ts",
+        "src/store.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
       "source": "readPlan()",
       "target": "isPlan()",
       "source_files": [
@@ -287,8 +295,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "targetRows()",
-      "target": "status()",
+      "source": "foodList()",
+      "target": "formatNutrient()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
@@ -314,17 +322,6 @@
       "source_files": [
         "src/main.ts",
         "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "load()",
-      "target": "readPlan()",
-      "source_files": [
-        "src/main.ts",
-        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
