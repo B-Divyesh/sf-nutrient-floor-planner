@@ -115,13 +115,11 @@ test('@claim:local-only demo sends no data off this origin', async ({ page }) =>
   const foreign: string[] = [];
   const dataTransfers: string[] = [];
   const requestsAfterLoad: string[] = [];
-  const licenseChecks: { url: string; method: string; body: string | null }[] = [];
   let loaded = false;
   await page.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=privacy-test-token', route => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
   page.on('request', request => {
     if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') foreign.push(request.url());
     if (['fetch', 'xhr', 'eventsource', 'websocket', 'ping'].includes(request.resourceType())) dataTransfers.push(request.url());
-    if (request.url().startsWith('https://api.sociobot.in/')) licenseChecks.push({ url: request.url(), method: request.method(), body: request.postData() });
     if (loaded) requestsAfterLoad.push(request.url());
   });
   await page.goto('/demo');
@@ -135,14 +133,17 @@ test('@claim:local-only demo sends no data off this origin', async ({ page }) =>
   await addFood(page, 'Private real-plan beans');
   await page.goto('/');
   await page.getByLabel('Have a license?').fill('privacy-test-token');
+  const verificationRequest = page.waitForRequest(request => request.url() === 'https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=privacy-test-token');
   await page.getByRole('button', { name: 'Restore purchase' }).click();
-  expect(licenseChecks).toHaveLength(1);
-  const requestUrl = new URL(licenseChecks[0].url);
+  const licenseCheck = await verificationRequest;
+  await expect(page.getByRole('status')).toContainText('Paid features are active on this device.');
+  const requestUrl = new URL(licenseCheck.url());
   expect(requestUrl.pathname).toBe('/api/v1/products/nutrient-floor-planner/verify');
   expect([...requestUrl.searchParams.keys()]).toEqual(['license']);
-  expect(licenseChecks[0]).toMatchObject({ method: 'GET', body: null });
-  expect(foreign).toEqual([licenseChecks[0].url]);
-  expect(dataTransfers).toEqual([licenseChecks[0].url]);
+  expect(licenseCheck.method()).toBe('GET');
+  expect(licenseCheck.postData()).toBeNull();
+  expect(foreign).toEqual([licenseCheck.url()]);
+  expect(dataTransfers).toEqual([licenseCheck.url()]);
 });
 
 test('@claim:offline-use reloads and stays usable offline after setup in the demo and planner', async ({ page, context }) => {
