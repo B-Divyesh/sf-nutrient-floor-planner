@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-09-06T04:19:17.189Z",
+  "desktop": {
+    "h1": "Plan meals that meet your nutrient targets.",
+    "audience": "For home cooks who want enough fibre or protein without logging every calorie.",
+    "firstAction": "Try it with sample data",
+    "facts": [
+      "Free plan: 10 foods · $12 one-time upgrade",
+      "Stored on this device",
+      "Works offline after setup"
+    ],
+    "width": 1440,
+    "errors": []
+  },
+  "phoneDemo": {
+    "sampleFoods": 7,
+    "sampleMeals": 3,
+    "sampleTargets": 3,
+    "passingLimit": "within limit",
+    "demoReset": true,
+    "realPlanPreserved": true
+  },
+  "keyboardMotionOffline": {
+    "skipFocus": true,
+    "reducedMotion": true,
+    "offlineDialog": true
+  },
+  "accessibility": {
+    "/": [],
+    "/demo": [],
+    "/plan": [],
+    "/privacy": [],
+    "/terms": [],
+    "/404.html": []
+  },
+  "notFound": {
+    "status": 404,
+    "viewportWidth": 195,
+    "documentWidth": 195
+  }
+}
