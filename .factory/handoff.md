@@ -1,4 +1,29 @@
-# Nutrient Floor verification 15 handoff
+# Nutrient Floor handoff
+
+## Strict review 8
+
+**FAIL.** The deployed implementation remains
+`75f1273057f842e046c59366a28151cb7f71a7c8`; its documentation handoff is
+`b0b3278e483dc70193affd0b826be6e8e62e9582`. Product code was not changed.
+
+All 17 declared claim commands passed separately, `npm test` passed 14 unit
+tests, lint and build passed, both audits found zero vulnerabilities, and a
+second exact browser run passed 45/45. Live phone and desktop checks passed the
+first screen, sample, reset, real-data isolation, offline, keyboard, reduced
+motion, accessibility, legal routes, and 195 px 404 checks. Lighthouse was
+100/100/100/100, and live assets match the candidate build.
+
+One low finding remains. The first clean full-browser run failed the
+`local-only` test once because it synchronously inspected a request started by
+an asynchronous submit listener. A 20-run repetition passed, so this is a
+test-wait race rather than a reproduced privacy failure, but a documented
+clean-checkout command did fail. Wait for the intercepted verification request
+or completed status before checking it, then repeat the full suite.
+
+Finding count: 1. Untested claim count: 0. See `.factory/review-8.md`.
+
+The external checkout still returns the stipulated registration 404. It is
+not counted as a product finding.
 
 ## Independent verification 15
 
