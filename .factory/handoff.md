@@ -1,46 +1,56 @@
-# Nutrient Floor review 7 handoff — FAIL
+# Nutrient Floor repair 9 handoff
 
 ## Outcome
 
-- Reviewed the live product at <https://nutrient-floor-planner.sociobot.in>.
-- Added `.factory/review-7.md`; no product code was changed.
-- Implementation reviewed: `d461e3774ef56b37ca7536658b4dc368d5e9b7dc`.
-- Documentation checkout: `47d41a8c56f909c408fe70cc61a6efc57c17b233`.
-- Verdict: **FAIL** with 3 findings and 1 untested claim component.
+The three review-7 product findings are repaired and deployed at
+<https://nutrient-floor-planner.sociobot.in>.
 
-## Findings left
+- Deployed implementation SHA: `75f1273057f842e046c59366a28151cb7f71a7c8`.
+- Evidence commit: `2539bbcf8cdab48a6de3416b82d4340b1de7e69b`.
+- Static deployment: `126875ec-9aba-4ef7-a88e-bddbe76d0ea0`.
+- The later evidence and handoff commits do not change the deployed artifact.
 
-1. Medium: the public `target-comparison` claim promises a **within-limit**
-   state, but live and test output say **on plan** for a passing limit. The
-   designated test does not assert the promised state.
-2. Medium: the researched one-time purchase remains unavailable. The product
-   is honestly free, and the required Sociobot checkout still returns 404.
-3. Low: the standalone 404 is 213 px wide at a 195 px, 200%-zoom-equivalent
-   viewport, requiring 18 px of horizontal movement.
+The first screen names the job, audience, and first action. It shows exactly
+three facts covering the free limit and price, local storage, and offline use.
+Fresh 390 px phone and 1440 px desktop captures confirm they are visible before
+scrolling.
 
-## Verification completed
+## Review-7 findings
 
-- Fresh 390 px phone and 1440 px desktop first-read checks passed.
-- One-click sample, populated totals, persistent demo label, reset, Start for
-  real, and demo/real isolation passed in disposable browser contexts.
-- Normal calculation, reload persistence, whitespace recovery, numeric
-  overflow rejection, malformed import recovery, keyboard, focus, reduced
-  motion, Axe, links, titles, legal pages, privacy requests, offline reload,
-  service-worker update check, and deliberate HTTP 404 behavior were checked.
-- Factory URL verification passed all five normal routes.
-- All 17 exact claim commands exited successfully, but one claim is still
-  semantically incomplete as described above.
-- `npm test`: 14/14 unit tests passed.
-- `npm run lint`: passed.
-- `npm run build`: passed and produced `dist/index.html`.
-- Full Playwright: 44/44 passed.
-- `npm audit` and production audit: zero vulnerabilities.
-- Live Lighthouse: 100 performance, 100 accessibility, 100 best practices,
-  100 SEO; LCP 0.91 s, TBT 0 ms, CLS 0.
-- Local and live runtime artifacts match; the worker differs only by its
-  generated cache timestamp.
+1. **Within-limit state:** passing maximum targets now say **within limit** in
+   visible text and the meter name. The tagged target-comparison test creates
+   all four states through the UI. The live sample reports 35.1 g against a
+   36 g sugar limit as **within limit**.
+2. **One-time purchase scope:** the live page now states the $12 one-time
+   price, 10-food free boundary, unlimited-food and weekly-printing paid
+   deliverables, hosted checkout link, license return capture, daily cached
+   verification, revoked-license handling, and paste-to-restore path. A forged
+   token cannot add an eleventh food or print. Verification never blocks the
+   free first paint. JSON export and accessibility remain free.
+3. **404 reflow:** the standalone 404 removes intrinsic minimum widths, wraps
+   narrow text, and uses a compact layout below 240 px. Its regression and the
+   fresh live check both report a 195 px document at a 195 px viewport.
 
-## Re-run
+## Demo and live checks
+
+One click opens seven foods, three placed meals, and three targets. The
+**Demo — sample data, nothing is saved** label remains visible. A live run
+added an eighth sample food, reset to seven, and returned to an unchanged real
+food with **Start for real**.
+
+The same live run checked the keyboard skip path, reduced motion, offline
+reload and dialog use, the within-limit result, and the deliberate unknown-URL
+404. Playwright Axe found no serious or critical issue on home, demo, planner,
+Privacy, Terms, or 404. All normal routes had one h1, one main, route-specific
+titles, labelled controls, and no console errors.
+
+Live Lighthouse mobile results are 100 performance, 100 accessibility, 100
+best practices, and 100 SEO. LCP was 1.59 s, TBT 0 ms, and CLS 0. The build is
+34.09 kB JavaScript raw / 11.55 kB gzip and 14.53 kB CSS raw / 3.99 kB gzip.
+
+## Clean-checkout verification
+
+Detached checkout: `/tmp/nfp-repair9-clean.9JmNfp` at the implementation SHA.
 
 ```sh
 npm ci
@@ -48,7 +58,45 @@ npm test
 npm run lint
 npm run build
 npx playwright test --reporter=line
+npm audit
+npm audit --omit=dev
 ```
 
-The full evidence and earlier-finding disposition are in
-`.factory/review-7.md`. Pre-existing `graphify-out` changes were preserved.
+- Every exact command in `.factory/claims.json`: 17/17 passed separately.
+- Unit tests: 14/14 passed.
+- Browser tests: 45/45 passed.
+- Both dependency audits: zero vulnerabilities.
+- `dist/index.html` was produced.
+
+The browser suite retains outcome checks for every earlier review and
+verification class: offline/update behavior, malformed and unsafe imports,
+numeric boundaries, whitespace recovery, storage failure, CSP-safe meters,
+light/dark contrast, dialogs and route focus, skip navigation, cancellation,
+deletion confirmation, target capacity, touch sizes, demo disposal, complete
+JSON transfer, full-plan persistence, and safe food/target edits.
+
+## Evidence
+
+- Live outcome report: `evidence/repair-9-live-qa.json`
+- Live audit script: `evidence/repair-9-live-qa.mjs`
+- Lighthouse: `evidence/repair-9-lighthouse-live.json`
+- Cold home phone/desktop: `evidence/repair-9-live-home/`
+- Populated demo phone/desktop: `evidence/repair-9-live-demo/`
+- 195 px 404: `evidence/repair-9-live-404-195.png`
+
+The catalog description is 64 characters, starts with a verb, and is copied
+to `/work/.evidence/catalog-description.txt`.
+
+## Remaining external dependency
+
+The Sociobot checkout route still returns HTTP 404 because the product offer
+has not yet been registered by the separate billing operator. No provider
+credential was invented and no checkout success is claimed. Public offer
+metadata is at `/work/.evidence/billing-offer.json`, with the live $12 price,
+one-time type, exact return URL, paid deliverables, and verification path.
+
+After registration, the operator should run one real hosted-checkout purchase
+and confirm that its returned license activates paid features. The free planner
+already works. No backend, account, runtime AI action, CLI, or library checks
+apply to this static local-first PWA. Lab INP was unavailable because
+Lighthouse performs no interaction.
