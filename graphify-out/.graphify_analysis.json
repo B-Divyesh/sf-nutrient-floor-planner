@@ -2,56 +2,54 @@
   "communities": {
     "0": [
       "src_main",
-      "src_main_cachedlicenseverdict",
       "src_main_closedialog",
-      "src_main_collectlicense",
       "src_main_days",
       "src_main_demobanner",
-      "src_main_dialogmarkup",
       "src_main_dialogstate",
+      "src_main_discarddemo",
       "src_main_download",
-      "src_main_e",
       "src_main_footer",
       "src_main_formnumber",
       "src_main_formtext",
       "src_main_header",
+      "src_main_isdemolocation",
       "src_main_knownroutes",
       "src_main_landing",
       "src_main_licenseverdict",
-      "src_main_licenseverdictisfresh",
       "src_main_link",
+      "src_main_load",
+      "src_main_namespace",
+      "src_main_navigate",
       "src_main_notfound",
       "src_main_opendialog",
       "src_main_page",
       "src_main_pendinglicensecheck",
       "src_main_plan",
-      "src_main_rememberdialogopener",
       "src_main_render",
       "src_main_routecopy",
       "src_main_routemeta",
-      "src_main_safeget",
-      "src_main_saferemove",
-      "src_main_safeset",
+      "src_main_save",
       "src_main_showformerror",
-      "src_main_toastmarkup",
+      "src_main_storagefailure",
       "src_main_upgradesection",
-      "src_main_verifylicense",
+      "src_model_blankplan",
       "src_model_normalizerequiredtext",
+      "src_model_plan",
+      "src_model_sampleplan",
+      "src_store",
+      "src_store_clearplan",
+      "src_store_open",
+      "src_store_readplan",
+      "src_store_writeplan",
       "src_update",
       "src_update_applywaitingserviceworkerupdate",
       "src_update_test"
     ],
     "1": [
-      "src_main_foodlist",
-      "src_main_mealcard",
-      "src_main_planner",
-      "src_main_targetrows",
       "src_model",
       "src_model_calculatedtotals",
       "src_model_cansavetarget",
-      "src_model_coverage",
       "src_model_food",
-      "src_model_formatnutrient",
       "src_model_isfood",
       "src_model_isid",
       "src_model_isnumber",
@@ -124,24 +122,27 @@
       "tsconfig_include"
     ],
     "4": [
-      "src_main_discarddemo",
-      "src_main_isdemolocation",
-      "src_main_load",
-      "src_main_namespace",
-      "src_main_navigate",
-      "src_main_save",
-      "src_main_storagefailure",
-      "src_model_blankplan",
-      "src_model_plan",
-      "src_model_sampleplan",
-      "src_store",
-      "src_store_clearplan",
-      "src_store_open",
-      "src_store_readplan",
-      "src_store_writeplan"
+      "src_main_dialogmarkup",
+      "src_main_e",
+      "src_main_foodlist",
+      "src_main_mealcard",
+      "src_main_planner",
+      "src_main_rememberdialogopener",
+      "src_main_targetrows",
+      "src_main_toastmarkup",
+      "src_model_coverage",
+      "src_model_formatnutrient"
     ],
     "5": [
-      "test",
+      "src_main_cachedlicenseverdict",
+      "src_main_collectlicense",
+      "src_main_licenseverdictisfresh",
+      "src_main_safeget",
+      "src_main_saferemove",
+      "src_main_safeset",
+      "src_main_verifylicense"
+    ],
+    "6": [
       "tests_claims_spec",
       "tests_claims_spec_addfood",
       "tests_claims_spec_addtarget",
@@ -150,7 +151,7 @@
       "tests_claims_spec_planwithfoods",
       "tests_claims_spec_readexport"
     ],
-    "6": [
+    "7": [
       "factory_evidence_repair_9_live_qa",
       "factory_evidence_repair_9_live_qa_accessibility",
       "factory_evidence_repair_9_live_qa_addfood",
@@ -158,7 +159,7 @@
       "factory_evidence_repair_9_live_qa_result",
       "factory_evidence_repair_9_live_qa_sugar"
     ],
-    "7": [
+    "8": [
       "scripts_check_claims",
       "scripts_check_claims_claims",
       "scripts_check_claims_declaredtags",
@@ -166,7 +167,7 @@
       "scripts_check_claims_root",
       "scripts_check_claims_undeclared"
     ],
-    "8": [
+    "9": [
       "scripts_generate_sw",
       "scripts_generate_sw_dist",
       "scripts_generate_sw_files",
@@ -174,70 +175,71 @@
       "scripts_generate_sw_precache",
       "scripts_generate_sw_shellassets"
     ],
-    "9": [
+    "10": [
       "factory_evidence_polish_3_live_qa",
       "factory_evidence_polish_3_live_qa_addfood",
       "factory_evidence_polish_3_live_qa_axe",
       "factory_evidence_polish_3_live_qa_results",
       "factory_evidence_polish_3_live_qa_watch"
     ],
-    "10": [
+    "11": [
       "factory_evidence_repair_6_live_qa",
       "factory_evidence_repair_6_live_qa_consoleerrors",
       "factory_evidence_repair_6_live_qa_datarequests",
       "factory_evidence_repair_6_live_qa_foreignrequests",
       "factory_evidence_repair_6_live_qa_results"
     ],
-    "11": [
+    "12": [
       "factory_evidence_verification_10_live_qa",
       "factory_evidence_verification_10_live_qa_importplan",
       "factory_evidence_verification_10_live_qa_results",
       "factory_evidence_verification_10_live_qa_scan",
       "factory_evidence_verification_10_live_qa_watch"
     ],
-    "12": [
+    "13": [
       "factory_evidence_verification_9_live_qa",
       "factory_evidence_verification_9_live_qa_importplan",
       "factory_evidence_verification_9_live_qa_results",
       "factory_evidence_verification_9_live_qa_scan",
       "factory_evidence_verification_9_live_qa_watch"
     ],
-    "13": [
+    "14": [
       "scripts_check_copy_audit",
       "scripts_check_copy_audit_landingcopy",
       "scripts_check_copy_audit_missingfromaudit",
       "scripts_check_copy_audit_missingfromsource",
       "scripts_check_copy_audit_root"
     ],
-    "14": [
+    "15": [
       "public_sw",
       "public_sw_shell"
     ],
-    "15": [
+    "16": [
       "playwright_config"
     ],
-    "16": [
+    "17": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.09446693657219973,
-    "1": 0.10810810810810811,
+    "0": 0.08748615725359911,
+    "1": 0.12298387096774194,
     "2": 0.09090909090909091,
     "3": 0.125,
-    "4": 0.18095238095238095,
-    "5": 0.32142857142857145,
-    "6": 0.3333333333333333,
+    "4": 0.28888888888888886,
+    "5": 0.42857142857142855,
+    "6": 0.38095238095238093,
     "7": 0.3333333333333333,
     "8": 0.3333333333333333,
-    "9": 0.4,
+    "9": 0.3333333333333333,
     "10": 0.4,
     "11": 0.4,
     "12": 0.4,
     "13": 0.4,
-    "14": 1.0,
+    "14": 0.4,
     "15": 1.0,
-    "16": 1.0
+    "16": 1.0,
+    "17": 1.0
   },
   "gods": [
     {
@@ -256,16 +258,6 @@
       "degree": 10
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
-      "degree": 7
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "degree": 7
-    },
-    {
       "id": "src_main_e",
       "label": "e()",
       "degree": 7
@@ -276,22 +268,54 @@
       "degree": 7
     },
     {
+      "id": "src_model_status",
+      "label": "status()",
+      "degree": 7
+    },
+    {
+      "id": "src_main_load",
+      "label": "load()",
+      "degree": 7
+    },
+    {
       "id": "src_main_render",
       "label": "render()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
       "id": "src_model_calculatedtotals",
       "label": "calculatedTotals()",
       "degree": 6
-    },
-    {
-      "id": "src_model_isfood",
-      "label": "isFood()",
-      "degree": 6
     }
   ],
   "surprises": [
+    {
+      "source": "mealCard()",
+      "target": "totals()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "targetRows()",
+      "target": "status()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
     {
       "source": "readPlan()",
       "target": "isPlan()",
@@ -302,17 +326,6 @@
       "confidence": "EXTRACTED",
       "relation": "calls",
       "why": "bridges separate communities"
-    },
-    {
-      "source": "discardDemo()",
-      "target": "clearPlan()",
-      "source_files": [
-        "src/main.ts",
-        "src/store.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
     },
     {
       "source": "formText()",
@@ -326,22 +339,11 @@
       "why": "cross-file semantic connection"
     },
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "foodList()",
+      "target": "formatNutrient()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "cross-file semantic connection"
-    },
-    {
-      "source": "load()",
-      "target": "readPlan()",
-      "source_files": [
-        "src/main.ts",
-        "src/store.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
