@@ -236,18 +236,13 @@
       "degree": 10
     },
     {
-      "id": "src_main_load",
-      "label": "load()",
-      "degree": 7
-    },
-    {
-      "id": "src_model_status",
-      "label": "status()",
-      "degree": 7
-    },
-    {
       "id": "src_main_e",
       "label": "e()",
+      "degree": 7
+    },
+    {
+      "id": "src_main_load",
+      "label": "load()",
       "degree": 7
     },
     {
@@ -256,22 +251,38 @@
       "degree": 7
     },
     {
+      "id": "src_model_status",
+      "label": "status()",
+      "degree": 7
+    },
+    {
       "id": "src_main_render",
       "label": "render()",
+      "degree": 6
+    },
+    {
+      "id": "src_main_targetrows",
+      "label": "targetRows()",
       "degree": 6
     },
     {
       "id": "src_model_calculatedtotals",
       "label": "calculatedTotals()",
       "degree": 6
-    },
-    {
-      "id": "src_model_isfood",
-      "label": "isFood()",
-      "degree": 6
     }
   ],
   "surprises": [
+    {
+      "source": "foodList()",
+      "target": "formatNutrient()",
+      "source_files": [
+        "src/main.ts",
+        "src/model.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
     {
       "source": "load()",
       "target": "readPlan()",
@@ -295,17 +306,6 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "foodList()",
-      "target": "formatNutrient()",
-      "source_files": [
-        "src/main.ts",
-        "src/model.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
       "source": "discardDemo()",
       "target": "clearPlan()",
       "source_files": [
@@ -317,8 +317,8 @@
       "why": "cross-file semantic connection"
     },
     {
-      "source": "load()",
-      "target": "samplePlan()",
+      "source": "formText()",
+      "target": "normalizeRequiredText()",
       "source_files": [
         "src/main.ts",
         "src/model.ts"
