@@ -1,5 +1,21 @@
 # Nutrient Floor handoff
 
+## Independent verification 16
+
+**PASS.** The deployed implementation `fad08d2adaa0689044d633854d0926188e798fff` was verified independently from a detached clean checkout. Its documentation commit is `4c4274ad51cc6ff424b98e0947026e7565bd56c0`; the later `0ec5cab772e313195ce96cee369e06f082193ddf` wrapper changes only Graphify output. Product code was not changed.
+
+- All 17 exact claim commands passed separately; the inventory guard found one test per claim and no untested public claim.
+- `npm test` passed 14/14 unit tests, lint and build passed, both audits found zero vulnerabilities, and the full browser suite passed 45/45.
+- The repaired `local-only` claim passed its exact command, the full run, and 30/30 consecutive repetitions.
+- Fresh 1440 × 900 desktop and 390 × 844 phone contexts passed the first-screen job/audience/action, populated sample, persistent demo label, reset, and real-plan isolation checks.
+- Fresh live keyboard, focus, reduced-motion, Axe, offline, link, route-title, legal-page, privacy-request, and 195 px 404 checks passed.
+- Fresh mobile Lighthouse scored 100/100/100/100; LCP was 1.03 s, TBT 82.5 ms, and CLS 0.
+- Live HTML, JavaScript, CSS, images, icons, manifest, robots, sitemap, and 404 assets match the clean candidate build. The worker matches after normalizing its generated cache number.
+
+Finding count: **0**. Untested claim count: **0**. See `.factory/verification-16.md` and `/work/.evidence/verify16/`.
+
+The $12 Sociobot offer remains externally unregistered, so checkout returns the stipulated HTTP 404. This is not a product finding. After registration, the billing operator should complete one real purchase. This static local-first PWA has no product backend, account, CLI, library, desktop package, or runtime AI feature.
+
 ## Repair 10
 
 ### Outcome
