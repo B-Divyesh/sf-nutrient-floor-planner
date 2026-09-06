@@ -18,8 +18,19 @@ let waitingWorker: ServiceWorker | null = null;
 let dialogReturnSelector: string | null = null;
 let dialogError = '';
 const CANONICAL_ORIGIN = 'https://nutrient-floor-planner.sociobot.in';
+const CHECKOUT_URL = 'https://api.sociobot.in/api/v1/products/nutrient-floor-planner/checkout';
+const VERIFY_URL = 'https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify';
+const LICENSE_KEY = 'sb_license:nutrient-floor-planner';
+const LICENSE_CHECK_KEY = 'sb_license_check:nutrient-floor-planner';
+const LICENSE_MAX_AGE = 24 * 60 * 60 * 1000;
+const FREE_FOOD_LIMIT = 10;
+type LicenseVerdict = { token: string; valid: boolean; checkedAt: number };
+let licensed = false;
 const targetLimitNotice = `You can save up to ${TARGET_LIMIT} targets.`;
 const e = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]!));
+const safeGet = (key: string) => { try { return localStorage.getItem(key); } catch { return null; } };
+const safeSet = (key: string, value: string) => { try { localStorage.setItem(key, value); return true; } catch { return false; } };
+const safeRemove = (key: string) => { try { localStorage.removeItem(key); } catch { /* Storage can be unavailable without breaking the free planner. */ } };
 const namespace = () => 'real:plan';
 const knownRoutes = new Set(['/', '/demo', '/plan', '/privacy', '/terms']);
 const isDemoLocation = () => location.pathname === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
@@ -33,17 +44,21 @@ function routeMeta(route: string) {
 }
 function link(path: string, label: string) { const current = activeRoute === path || (path === '/demo' && demo); return `<a href="${path}" data-route ${current ? 'aria-current="page"' : ''}>${label}</a>`; }
 function header() { return `<header class="site-header"><a class="wordmark" href="/" data-route aria-label="NF Nutrient Floor"><span aria-hidden="true">NF</span>Nutrient Floor</a><nav aria-label="Main navigation">${link('/demo', 'Demo')}${link('/plan', 'Planner')}${link('/privacy', 'Privacy')}</nav></header>`; }
-function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.5</p></footer>`; }
+function footer() { return `<footer><p>Private meal planning around your nutrient targets.</p><p>${link('/privacy', 'Privacy')} · ${link('/terms', 'Terms')} · Built by Param Factory · v1.6</p></footer>`; }
 function demoBanner() { return demo ? `<aside class="demo-banner" aria-label="Demo mode"><span><strong>Demo</strong> — sample data, nothing is saved.</span><span><button class="text-button" data-action="reset-demo">Reset demo</button><button class="text-button" data-action="start-real">Start for real</button></span></aside>` : ''; }
 
 function routeCopy(kind: 'privacy' | 'terms') {
-  const privacy = `<h1 tabindex="-1">Your meal plan stays on this device.</h1><p>Nutrient Floor stores foods, targets, and meals in your browser. It does not use analytics or send your plan elsewhere.</p><h2>What is stored</h2><p>Your plan remains until you import another plan or clear browser data. You can export a copy at any time.</p><h2>How the sample stays separate</h2><p>Sample changes stay only in the open demo. Reloading or leaving restores the bundled sample and never alters your real plan.</p><h2>Contact</h2><p>For product questions, email <a href="mailto:hello@sociobot.in">hello@sociobot.in</a>.</p>`;
-  const terms = `<h1 tabindex="-1">Use Nutrient Floor for personal meal planning.</h1><p>Nutrient Floor compares food values you enter with targets you choose.</p><h2>Choose your targets</h2><p>You choose every target value. The planner does not supply recommended target values.</p><h2>Check your values</h2><p>Check food labels and sources before relying on a value. Ask a qualified professional about personal nutrition needs.</p><h2>Keep a copy</h2><p>Export your plan if you need a backup.</p><h2>No warranty</h2><p>The app is provided as-is, to the extent allowed by law.</p>`;
+  const privacy = `<h1 tabindex="-1">Your meal plan stays on this device.</h1><p>Nutrient Floor stores foods, targets, and meals in your browser. It does not use analytics or send your plan elsewhere.</p><h2>What is stored</h2><p>Your plan remains until you import another plan or clear browser data. You can export a copy at any time.</p><h2>How the sample stays separate</h2><p>Sample changes stay only in the open demo. Reloading or leaving restores the bundled sample and never alters your real plan.</p><h2>Optional purchase</h2><p>If you buy the one-time upgrade, Nutrient Floor stores its license token in this browser. Only that token is sent to Sociobot for verification.</p><p>Sociobot and Dodo handle checkout details. Your foods, targets, and meals are not sent with the license.</p><h2>Contact</h2><p>For product questions, email <a href="mailto:hello@sociobot.in">hello@sociobot.in</a>.</p>`;
+  const terms = `<h1 tabindex="-1">Use Nutrient Floor for personal meal planning.</h1><p>Nutrient Floor compares food values you enter with targets you choose.</p><h2>Choose your targets</h2><p>You choose every target value. The planner does not supply recommended target values.</p><h2>Check your values</h2><p>Check food labels and sources before relying on a value. Ask a qualified professional about personal nutrition needs.</p><h2>One-time purchase</h2><p>The $12 upgrade adds unlimited saved foods and weekly printing. The free planner saves up to 10 foods.</p><p>Sociobot uses Dodo as merchant of record. A refund or revoked license removes paid access.</p><h2>Keep a copy</h2><p>Export your plan if you need a backup.</p><h2>No warranty</h2><p>The app is provided as-is, to the extent allowed by law.</p>`;
   return kind === 'privacy' ? privacy : terms;
 }
 
+function upgradeSection() {
+  return `<section class="upgrade" id="upgrade" aria-labelledby="upgrade-title"><div><p class="eyebrow">ONE-TIME PURCHASE</p><h2 id="upgrade-title">${licensed ? 'Your paid features are active.' : 'Add more foods and print the week.'}</h2><p>$12 is a one-time purchase. It adds unlimited saved foods and weekly printing.</p><p class="muted">The free planner saves up to 10 foods and includes JSON export.</p></div><div class="upgrade-actions">${licensed ? '<a class="button" href="/plan" data-route>Open your paid planner</a><button class="text-button" data-action="remove-license">Remove license</button>' : `<a class="button primary" href="${CHECKOUT_URL}" rel="external">Buy the $12 upgrade on Sociobot</a>`}<form class="license-form" data-form="license"><label for="license-token">Have a license?</label><div><input id="license-token" name="license" required autocomplete="off" spellcheck="false" /><button class="button" type="submit">Restore purchase</button></div></form></div></section>`;
+}
+
 function landing() {
-  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Free to use</li><li>Stored on this device</li><li>Works offline after setup</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section></main>`;
+  return `<main id="main" tabindex="-1"><section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow">PRIVATE MEAL PLANNER</p><h1 id="hero-title" tabindex="-1">Plan meals that meet your nutrient targets.</h1><p class="lede">For home cooks who want enough fibre or protein without logging every calorie.</p><div class="hero-actions"><a class="button primary" href="/?demo=1" data-route>Try it with sample data</a><span>Loads seven foods, three meals, and three targets.</span></div><ul class="facts"><li>Free plan: 10 foods</li><li>Stored on this device</li><li>Works offline after setup</li><li>$12 one-time upgrade</li></ul></div><figure class="hero-art"><img src="/assets/hero.webp" width="1200" height="800" fetchpriority="high" decoding="async" alt="Ingredients arranged across a blue kitchen planning sheet." /></figure></section><section class="live-preview ruled"><div><h2>Sample weekly nutrient totals</h2><p>Save familiar foods, choose targets, and place meal portions on a week.</p></div><div class="mini-board"><span>FIBRE</span><b>40 g</b><i>above the 30 g floor</i><span>PROTEIN</span><b>75.5 g</b><i>above the 75 g floor</i></div></section><section class="how" aria-labelledby="how-title"><h2 id="how-title">Plan a week in three steps</h2><ol><li><b>01 / Set a target</b><span>Choose a floor or limit in grams.</span></li><li><b>02 / Save your foods</b><span>Enter values and a source from the label.</span></li><li><b>03 / Place meals</b><span>See gaps before you cook.</span></li></ol></section><section class="plain-note"><h2>How your food values are used</h2><p>The planner compares your food values with your targets. Check labels before relying on the totals.</p></section>${upgradeSection()}</main>`;
 }
 
 function targetRows() {
@@ -54,7 +69,7 @@ function targetRows() {
     const actual = formatNutrient(state.actual);
     const targetValue = formatNutrient(state.target);
     const difference = formatNutrient(state.difference);
-    const wording = !state.calculationValid ? 'calculation needs attention' : state.passes ? 'on plan' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
+    const wording = !state.calculationValid ? 'calculation needs attention' : state.passes ? target.kind === 'min' ? 'on plan' : 'within limit' : target.kind === 'min' ? `${difference} g short` : `${difference} g over`;
     const label = state.calculationValid
       ? `${target.label}: ${actual} grams against a ${targetValue} gram ${target.kind === 'min' ? 'floor' : 'limit'}, ${wording}`
       : `${target.label}: calculation needs attention. Check the saved food values and portions.`;
@@ -70,7 +85,9 @@ function mealCard(meal: Plan['meals'][number]) {
   return `<article class="meal" data-meal="${e(meal.id)}"><div class="meal-top"><span class="day-label">${DAYS[meal.day]}</span><button class="icon-button" data-action="ask-delete-meal" data-id="${e(meal.id)}" aria-label="Delete ${e(meal.name)}">×</button></div><button class="meal-name" data-action="edit-meal" data-id="${e(meal.id)}">${e(meal.name)}</button><p>${meal.portions.length ? meal.portions.map(p => `${p.amount}× ${e(plan.foods.find(f => f.id === p.foodId)?.name || 'missing food')}`).join(' · ') : 'No portions yet'}</p><div class="meal-total">${plan.targets.slice(0, 2).map(t => `${formatNutrient(total[t.key])}g ${t.key}`).join(' · ') || 'Add targets'}</div></article>`;
 }
 function planner() {
-  return `<main id="main" class="app-main" tabindex="-1"><section class="planner-heading"><div><p class="eyebrow">WEEKLY TOTALS / ${demo ? 'SAMPLE PLAN' : 'YOUR PLAN'}</p><h1 tabindex="-1">Build a week that meets your targets.</h1><p>Each value is per serving. Check your labels before you rely on a plan.</p></div><div class="toolbar"><button class="button small" data-action="export-json">Export plan</button><label class="button small file-button">Import plan<input type="file" accept="application/json" data-action="import-json" /></label><button class="button small" data-action="print-plan">Print week</button></div></section><section class="coverage-board ruled" aria-labelledby="coverage-title"><div class="board-head"><h2 id="coverage-title">Week at a glance</h2><span>${plan.meals.length} meal${plan.meals.length === 1 ? '' : 's'} planned</span></div>${targetRows()}</section><section id="planner" class="week" aria-labelledby="week-title"><div class="board-head"><h2 id="week-title">Place meals on your week</h2><button class="button small" data-action="new-meal">Add a meal</button></div><div class="days">${DAYS.map((day, i) => `<section class="day" data-day="${i}"><h3>${day}</h3>${plan.meals.filter(m => m.day === i).map(mealCard).join('')}<button class="add-meal" data-action="new-meal" data-day="${i}">+ Add meal</button></section>`).join('')}</div></section><section class="two-col"><section class="pantry ruled" aria-labelledby="pantry-title"><div class="board-head"><div><p class="eyebrow">SAVED FOODS</p><h2 id="pantry-title">Your saved foods</h2></div><button class="button small" data-action="show-food">Add food</button></div>${foodList()}</section><section class="targets-panel" aria-labelledby="targets-title"><div class="board-head"><div><p class="eyebrow">UP TO 5 TARGETS</p><h2 id="targets-title">Your nutrient targets</h2></div><button class="button small" data-action="show-target">Add target</button></div>${plan.targets.length ? `<p class="muted">Use a floor for enough of something. Use a limit for less of something.</p>` : ''}</section></section></main>`;
+  const printAction = demo || licensed ? '<button class="button small" data-action="print-plan">Print week</button>' : '<a class="button small" href="/#upgrade">Get weekly printing</a>';
+  const foodPlan = demo ? 'SAMPLE FOODS' : licensed ? 'PAID PLAN / UNLIMITED FOODS' : `FREE PLAN / ${FREE_FOOD_LIMIT} FOODS`;
+  return `<main id="main" class="app-main" tabindex="-1"><section class="planner-heading"><div><p class="eyebrow">WEEKLY TOTALS / ${demo ? 'SAMPLE PLAN' : 'YOUR PLAN'}</p><h1 tabindex="-1">Build a week that meets your targets.</h1><p>Each value is per serving. Check your labels before you rely on a plan.</p></div><div class="toolbar"><button class="button small" data-action="export-json">Export plan</button><label class="button small file-button">Import plan<input type="file" accept="application/json" data-action="import-json" /></label>${printAction}</div></section><section class="coverage-board ruled" aria-labelledby="coverage-title"><div class="board-head"><h2 id="coverage-title">Week at a glance</h2><span>${plan.meals.length} meal${plan.meals.length === 1 ? '' : 's'} planned</span></div>${targetRows()}</section><section id="planner" class="week" aria-labelledby="week-title"><div class="board-head"><h2 id="week-title">Place meals on your week</h2><button class="button small" data-action="new-meal">Add a meal</button></div><div class="days">${DAYS.map((day, i) => `<section class="day" data-day="${i}"><h3>${day}</h3>${plan.meals.filter(m => m.day === i).map(mealCard).join('')}<button class="add-meal" data-action="new-meal" data-day="${i}">+ Add meal</button></section>`).join('')}</div></section><section class="two-col"><section class="pantry ruled" aria-labelledby="pantry-title"><div class="board-head"><div><p class="eyebrow">${foodPlan}</p><h2 id="pantry-title">Your saved foods</h2></div><button class="button small" data-action="show-food">Add food</button></div>${foodList()}</section><section class="targets-panel" aria-labelledby="targets-title"><div class="board-head"><div><p class="eyebrow">UP TO 5 TARGETS</p><h2 id="targets-title">Your nutrient targets</h2></div><button class="button small" data-action="show-target">Add target</button></div>${plan.targets.length ? `<p class="muted">Use a floor for enough of something. Use a limit for less of something.</p>` : ''}</section></section></main>`;
 }
 
 function dialogMarkup() {
@@ -180,6 +197,56 @@ function closeDialog() {
   if (returnSelector) window.setTimeout(() => document.querySelector<HTMLElement>(returnSelector)?.focus(), 0);
   dialogReturnSelector = null;
 }
+function cachedLicenseVerdict(token: string) {
+  try {
+    const raw = safeGet(LICENSE_CHECK_KEY);
+    const verdict = raw ? JSON.parse(raw) as Partial<LicenseVerdict> : null;
+    return verdict?.token === token && typeof verdict.valid === 'boolean' && typeof verdict.checkedAt === 'number' ? verdict as LicenseVerdict : null;
+  } catch { return null; }
+}
+async function verifyLicense(token: string, userInitiated = false) {
+  const normalized = token.trim();
+  if (!normalized) {
+    licensed = false;
+    if (userInitiated) notice = 'Enter the license from your purchase email.';
+    return;
+  }
+  safeSet(LICENSE_KEY, normalized);
+  const cached = cachedLicenseVerdict(normalized);
+  if (cached?.valid) licensed = true;
+  try {
+    const response = await fetch(`${VERIFY_URL}?license=${encodeURIComponent(normalized)}`);
+    if (!response.ok) throw new Error('License verification unavailable');
+    const result = await response.json() as { valid?: boolean };
+    const valid = result.valid === true;
+    safeSet(LICENSE_CHECK_KEY, JSON.stringify({ token: normalized, valid, checkedAt: Date.now() } satisfies LicenseVerdict));
+    licensed = valid;
+    if (valid) {
+      if (userInitiated) notice = 'Paid features are active on this device.';
+    } else {
+      safeRemove(LICENSE_KEY);
+      notice = 'This license is not active. Check the token or buy the upgrade.';
+    }
+  } catch {
+    if (!cached?.valid) licensed = false;
+    if (userInitiated) notice = 'License checking is unavailable. The free planner still works.';
+  }
+}
+async function collectLicense() {
+  const query = new URLSearchParams(location.search);
+  const returned = query.get('license');
+  if (returned !== null) {
+    query.delete('license');
+    history.replaceState({}, '', `${location.pathname}${query.size ? `?${query}` : ''}${location.hash}`);
+    await verifyLicense(returned, true);
+    return;
+  }
+  const stored = safeGet(LICENSE_KEY);
+  if (!stored) return;
+  const cached = cachedLicenseVerdict(stored);
+  licensed = cached?.valid === true;
+  if (!cached || Date.now() - cached.checkedAt >= LICENSE_MAX_AGE) await verifyLicense(stored);
+}
 document.addEventListener('click', event => {
   const skip = (event.target as HTMLElement).closest<HTMLAnchorElement>('.skip');
   if (!skip) return;
@@ -198,8 +265,13 @@ document.addEventListener('click', async event => {
   if (route) { event.preventDefault(); void navigate(`${route.pathname}${route.search}`); return; }
   const action = el.dataset.action; const id = el.dataset.id!;
   if (action === 'apply-update' && waitingWorker) { applyWaitingServiceWorkerUpdate(navigator.serviceWorker, waitingWorker, () => location.reload()); return; }
+  if (action === 'remove-license') { safeRemove(LICENSE_KEY); safeRemove(LICENSE_CHECK_KEY); licensed = false; notice = 'License removed from this device.'; render(); return; }
   if (action === 'close-dialog') { closeDialog(); return; }
-  if (action === 'show-food') { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); return; }
+  if (action === 'show-food') {
+    if (!demo && !licensed && plan.foods.length >= FREE_FOOD_LIMIT) { notice = `The free planner saves up to ${FREE_FOOD_LIMIT} foods. The $12 upgrade adds unlimited foods.`; render(); }
+    else { rememberDialogOpener(el); dialog = { kind: 'food' }; render(); }
+    return;
+  }
   if (action === 'show-target') { if (!canSaveTarget(plan.targets.length)) { notice = targetLimitNotice; render(); } else { rememberDialogOpener(el); dialog = { kind: 'target' }; render(); } return; }
   if (action === 'edit-food') { if (plan.foods.some(food => food.id === id)) { rememberDialogOpener(el); dialog = { kind: 'food', id }; render(); } return; }
   if (action === 'edit-target') { if (plan.targets.some(target => target.id === id)) { rememberDialogOpener(el); dialog = { kind: 'target', id }; render(); } return; }
@@ -247,6 +319,11 @@ document.addEventListener('submit', async event => {
   if (!formName) return;
   event.preventDefault();
   const data = new FormData(form);
+  if (formName === 'license') {
+    await verifyLicense(String(data.get('license') || ''), true);
+    render();
+    return;
+  }
   const previousPlan = structuredClone(plan);
   if (formName === 'confirm-delete' && dialog?.kind === 'confirm') {
     const { subject, id } = dialog;
@@ -315,6 +392,11 @@ document.addEventListener('change', async event => {
   try {
     const incoming: unknown = JSON.parse(await input.files[0].text());
     if (!isPlan(incoming)) throw new Error('Invalid plan');
+    if (!demo && !licensed && incoming.foods.length > FREE_FOOD_LIMIT) {
+      notice = `The free planner imports up to ${FREE_FOOD_LIMIT} foods. Remove foods from the file or buy the $12 upgrade.`;
+      render();
+      return;
+    }
     const previousPlan = plan;
     plan = incoming;
     if (await save()) notice = 'Plan imported.';
@@ -333,4 +415,4 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').the
   const announceUpdate = () => { if (registration.waiting && navigator.serviceWorker.controller) { waitingWorker = registration.waiting; notice = 'An update is ready.'; render(); } };
   registration.addEventListener('updatefound', () => registration.installing?.addEventListener('statechange', announceUpdate));
 }).catch(() => undefined);
-void load();
+void collectLicense().then(load);

@@ -1,6 +1,6 @@
 # Copy audit
 
-Audited 2026-08-29. Counts split on visible words. No sentence exceeds 22
+Audited 2026-09-06. Counts split on visible words. No sentence exceeds 22
 words, and no banned marketing word appears. `npm test` runs
 `scripts/check-copy-audit.mjs` and fails if any audited landing string drifts.
 
@@ -13,9 +13,10 @@ words, and no banned marketing word appears. `npm test` runs
 | For home cooks who want enough fibre or protein without logging every calorie. | 13 | pass |
 | Try it with sample data | 5 | pass |
 | Loads seven foods, three meals, and three targets. | 8 | pass |
-| Free to use | 3 | pass |
+| Free plan: 10 foods | 4 | pass |
 | Stored on this device | 4 | pass |
 | Works offline after setup | 4 | pass |
+| $12 one-time upgrade | 3 | pass |
 | Ingredients arranged across a blue kitchen planning sheet. | 8 | pass |
 | Sample weekly nutrient totals | 4 | pass |
 | Save familiar foods, choose targets, and place meal portions on a week. | 12 | pass |
@@ -35,11 +36,22 @@ words, and no banned marketing word appears. `npm test` runs
 | How your food values are used | 6 | pass |
 | The planner compares your food values with your targets. | 9 | pass |
 | Check labels before relying on the totals. | 7 | pass |
+| One-time purchase | 2 | pass |
+| Add more foods and print the week. | 7 | pass |
+| $12 is a one-time purchase. | 5 | pass |
+| It adds unlimited saved foods and weekly printing. | 8 | pass |
+| The free planner saves up to 10 foods and includes JSON export. | 11 | pass |
+| Buy the $12 upgrade on Sociobot | 6 | pass |
+| Have a license? | 3 | pass |
+| Restore purchase | 2 | pass |
 | Private meal planning around your nutrient targets. | 7 | pass |
+
+The active-license variants are “Your paid features are active,” “Open your
+paid planner,” and “Remove license.” Each is a short direct label.
 
 Navigation, footer link labels, the factory credit, and version are short
 labels rather than sentences. They use direct names: Demo, Planner, Privacy,
-Terms, Built by Param Factory, and v1.5.
+Terms, Built by Param Factory, and v1.6.
 
 ## Terminology
 

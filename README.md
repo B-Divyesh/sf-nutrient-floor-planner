@@ -35,10 +35,21 @@ single-page application. Keep the included `staticwebapp.config.json`.
 
 Foods, targets, and meal portions stay in browser storage on your device. The
 planner uses no analytics and sends no meal data elsewhere. You can export and
-reimport the complete plan as JSON. Nutrient Floor is free to use.
+reimport the complete plan as JSON.
 
-The planner and demo work offline after setup. You can also print the weekly
+The planner and demo work offline after setup. The sample can print the weekly
 plan. Read `/privacy` and `/terms` for details.
+
+## One-time purchase
+
+The free planner saves up to 10 foods. A $12 one-time purchase adds unlimited
+saved foods and weekly printing. JSON export and the five-target planner remain
+available on the free plan.
+
+Sociobot hosts checkout and uses Dodo as merchant of record. After payment, the
+returned license is stored in this browser and sent only to Sociobot for
+verification. Your meal plan is not sent with it. Paste an existing license in
+the home page form to restore a purchase on another device.
 
 ## How totals work
 
@@ -51,14 +62,14 @@ Check labels before relying on a total.
 - The sample opens with seven foods, three placed meals, and three targets.
 - The sample week totals 40 g fibre and 75.5 g protein.
 - The sample shows 40 g fibre above a 30 g floor and 75.5 g protein above a 75 g floor.
-- Nutrient Floor is free to use with no payment gate.
+- The free planner saves up to 10 foods. A $12 one-time purchase adds unlimited saved foods and weekly printing.
 - The planner uses no analytics and sends no meal data elsewhere.
 - The planner and demo work offline after setup.
 - You can export and reimport your complete plan as JSON.
 - Foods, targets, and meal portions stay on this device.
 - Demo changes stay in the open tab and reset when you leave.
 - The planner saves up to five targets.
-- The planner prints a weekly plan.
+- The sample prints a weekly plan.
 - Food values are entered by you and saved with a source.
 - The planner compares your food values with floors and limits you choose.
 - It shows short, on-plan, within-limit, and over-limit states.

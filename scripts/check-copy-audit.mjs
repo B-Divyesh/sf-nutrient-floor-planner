@@ -15,9 +15,10 @@ const landingCopy = [
   'For home cooks who want enough fibre or protein without logging every calorie.',
   'Try it with sample data',
   'Loads seven foods, three meals, and three targets.',
-  'Free to use',
+  'Free plan: 10 foods',
   'Stored on this device',
   'Works offline after setup',
+  '$12 one-time upgrade',
   'Ingredients arranged across a blue kitchen planning sheet.',
   'Sample weekly nutrient totals',
   'Save familiar foods, choose targets, and place meal portions on a week.',
@@ -37,6 +38,14 @@ const landingCopy = [
   'How your food values are used',
   'The planner compares your food values with your targets.',
   'Check labels before relying on the totals.',
+  'One-time purchase',
+  'Add more foods and print the week.',
+  '$12 is a one-time purchase.',
+  'It adds unlimited saved foods and weekly printing.',
+  'The free planner saves up to 10 foods and includes JSON export.',
+  'Buy the $12 upgrade on Sociobot',
+  'Have a license?',
+  'Restore purchase',
   'Private meal planning around your nutrient targets.'
 ];
 

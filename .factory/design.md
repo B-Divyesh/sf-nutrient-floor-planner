@@ -35,6 +35,10 @@ precision of a blueprint. Space follows a 4 / 8 / 12 / 16 / 24 / 32 / 48 scale.
 Corners are mostly square (2px), with clipped-corner tabs for selected views.
 Lines and tick marks group information before panels do.
 
+The one-time purchase uses a ruled order strip rather than a generic pricing
+card. Price, paid features, checkout, and license restore sit on one drafting
+line so the commercial boundary is as inspectable as a nutrient target.
+
 ## Interaction and motion
 
 The weekly board is the visual centre and takes priority on phones. Changes

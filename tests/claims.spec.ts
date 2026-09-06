@@ -115,10 +115,13 @@ test('@claim:local-only demo sends no data off this origin', async ({ page }) =>
   const foreign: string[] = [];
   const dataTransfers: string[] = [];
   const requestsAfterLoad: string[] = [];
+  const licenseChecks: { url: string; method: string; body: string | null }[] = [];
   let loaded = false;
+  await page.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=privacy-test-token', route => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
   page.on('request', request => {
     if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') foreign.push(request.url());
     if (['fetch', 'xhr', 'eventsource', 'websocket', 'ping'].includes(request.resourceType())) dataTransfers.push(request.url());
+    if (request.url().startsWith('https://api.sociobot.in/')) licenseChecks.push({ url: request.url(), method: request.method(), body: request.postData() });
     if (loaded) requestsAfterLoad.push(request.url());
   });
   await page.goto('/demo');
@@ -127,6 +130,19 @@ test('@claim:local-only demo sends no data off this origin', async ({ page }) =>
   expect(foreign).toEqual([]);
   expect(dataTransfers).toEqual([]);
   expect(requestsAfterLoad).toEqual([]);
+
+  await page.goto('/plan');
+  await addFood(page, 'Private real-plan beans');
+  await page.goto('/');
+  await page.getByLabel('Have a license?').fill('privacy-test-token');
+  await page.getByRole('button', { name: 'Restore purchase' }).click();
+  expect(licenseChecks).toHaveLength(1);
+  const requestUrl = new URL(licenseChecks[0].url);
+  expect(requestUrl.pathname).toBe('/api/v1/products/nutrient-floor-planner/verify');
+  expect([...requestUrl.searchParams.keys()]).toEqual(['license']);
+  expect(licenseChecks[0]).toMatchObject({ method: 'GET', body: null });
+  expect(foreign).toEqual([licenseChecks[0].url]);
+  expect(dataTransfers).toEqual([licenseChecks[0].url]);
 });
 
 test('@claim:offline-use reloads and stays usable offline after setup in the demo and planner', async ({ page, context }) => {
@@ -283,15 +299,79 @@ test('@claim:demo-reset restores the bundled sample without touching real data',
   await expect(page.getByText('Real-plan beans')).toBeVisible();
 });
 
-test('@claim:free-to-use ignores a legacy forged token and does not gate foods', async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem('sb_license:nutrient-floor-planner', 'forged-review-token'));
-  await page.goto('/plan');
-  await importPlan(page, planWithFoods(11));
-  await expect(page.locator('.food')).toHaveCount(11);
-  await addFood(page, 'Twelfth food');
-  await expect(page.locator('.food')).toHaveCount(12);
-  await expect(page.getByText(/upgrade|license|purchase/i)).toHaveCount(0);
-  await expect(page.locator('a[href*="api.sociobot.in"]')).toHaveCount(0);
+test('@claim:one-time-upgrade enforces the free limit and activates paid features only after verification', async ({ browser }) => {
+  const offerContext = await browser.newContext();
+  await offerContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/checkout', route => route.fulfill({
+    status: 200,
+    contentType: 'text/html',
+    body: '<!doctype html><html><body><h1>Hosted checkout</h1></body></html>'
+  }));
+  const offerPage = await offerContext.newPage();
+  await offerPage.goto('/');
+  await expect(offerPage.getByText('$12 is a one-time purchase. It adds unlimited saved foods and weekly printing.')).toBeVisible();
+  const buy = offerPage.getByRole('link', { name: 'Buy the $12 upgrade on Sociobot' });
+  await expect(buy).toHaveAttribute('href', 'https://api.sociobot.in/api/v1/products/nutrient-floor-planner/checkout');
+  await buy.click();
+  await expect(offerPage).toHaveURL('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/checkout');
+  await expect(offerPage.getByRole('heading', { name: 'Hosted checkout' })).toBeVisible();
+  await offerContext.close();
+
+  const invalidContext = await browser.newContext();
+  await invalidContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=forged-review-token', route => route.abort());
+  await invalidContext.addInitScript(() => localStorage.setItem('sb_license:nutrient-floor-planner', 'forged-review-token'));
+  const invalidPage = await invalidContext.newPage();
+  await invalidPage.goto('/plan');
+  await importPlan(invalidPage, planWithFoods(10));
+  await expect(invalidPage.locator('.food')).toHaveCount(10);
+  await invalidPage.getByRole('button', { name: 'Add food' }).click();
+  await expect(invalidPage.getByRole('dialog')).toHaveCount(0);
+  await expect(invalidPage.getByRole('status')).toContainText('The free planner saves up to 10 foods.');
+  await expect(invalidPage.getByRole('button', { name: 'Print week' })).toHaveCount(0);
+  await invalidContext.close();
+
+  const revokedContext = await browser.newContext();
+  await revokedContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=revoked-test-token', route => route.fulfill({ json: { valid: false, reason: 'revoked', expires_at: null } }));
+  await revokedContext.addInitScript(() => {
+    localStorage.setItem('sb_license:nutrient-floor-planner', 'revoked-test-token');
+    localStorage.setItem('sb_license_check:nutrient-floor-planner', JSON.stringify({ token: 'revoked-test-token', valid: true, checkedAt: Date.now() - 172_800_000 }));
+  });
+  const revokedPage = await revokedContext.newPage();
+  await revokedPage.goto('/plan');
+  await expect(revokedPage.getByRole('status')).toContainText('This license is not active.');
+  await expect(revokedPage.getByRole('button', { name: 'Print week' })).toHaveCount(0);
+  await expect.poll(() => revokedPage.evaluate(() => localStorage.getItem('sb_license:nutrient-floor-planner'))).toBeNull();
+  await revokedContext.close();
+
+  const paidContext = await browser.newContext();
+  let verificationRequests = 0;
+  await paidContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=paid-test-token', route => {
+    verificationRequests += 1;
+    return route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } });
+  });
+  await paidContext.addInitScript(() => { (window as Window & { printed?: number }).print = () => { window.printed = (window.printed || 0) + 1; }; });
+  const paidPage = await paidContext.newPage();
+  await paidPage.goto('/plan?license=paid-test-token');
+  await expect(paidPage).toHaveURL('http://127.0.0.1:4173/plan');
+  await expect.poll(() => paidPage.evaluate(() => localStorage.getItem('sb_license:nutrient-floor-planner'))).toBe('paid-test-token');
+  await importPlan(paidPage, planWithFoods(10));
+  await addFood(paidPage, 'Eleventh paid food');
+  await expect(paidPage.locator('.food')).toHaveCount(11);
+  await paidPage.getByRole('button', { name: 'Print week' }).click();
+  await expect.poll(() => paidPage.evaluate(() => (window as Window & { printed?: number }).printed)).toBe(1);
+  await paidPage.reload();
+  await expect(paidPage.getByRole('button', { name: 'Print week' })).toBeVisible();
+  expect(verificationRequests).toBe(1);
+  await paidContext.close();
+
+  const restoreContext = await browser.newContext();
+  await restoreContext.route('https://api.sociobot.in/api/v1/products/nutrient-floor-planner/verify?license=restored-test-token', route => route.fulfill({ json: { valid: true, reason: 'ok', expires_at: null } }));
+  const restorePage = await restoreContext.newPage();
+  await restorePage.goto('/');
+  await restorePage.getByLabel('Have a license?').fill('restored-test-token');
+  await restorePage.getByRole('button', { name: 'Restore purchase' }).click();
+  await expect(restorePage.getByRole('heading', { name: 'Your paid features are active.' })).toBeVisible();
+  await expect(restorePage.getByRole('status')).toContainText('Paid features are active on this device.');
+  await restoreContext.close();
 });
 
 test('@claim:target-cap blocks a sixth target after five saves', async ({ page }) => {
@@ -366,7 +446,8 @@ test('@claim:target-comparison compares floors and limits with short, on-plan, w
   const limitMet = page.locator('.target', { hasText: 'Sugar limit met' });
   await expect(limitMet).toHaveClass(/pass/);
   await expect(limitMet.getByText('6 g', { exact: true })).toBeVisible();
-  await expect(limitMet.getByText('on plan', { exact: true })).toBeVisible();
+  await expect(limitMet.getByText('within limit', { exact: true })).toBeVisible();
+  await expect(limitMet.getByRole('meter')).toHaveAccessibleName('Sugar limit met: 6 grams against a 6 gram limit, within limit');
 
   const limitGap = page.locator('.target', { hasText: 'Sugar limit gap' });
   await expect(limitGap).toHaveClass(/gap/);
@@ -758,13 +839,14 @@ test('demo has no serious or critical axe violations', async ({ page }) => {
   expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
 });
 
-test('dark demo has no serious or critical axe violations', async ({ browser }) => {
+test('dark landing and demo have no serious or critical axe violations', async ({ browser }) => {
   const context = await browser.newContext({ colorScheme: 'dark' });
   const page = await context.newPage();
-  await page.goto('/demo');
-  await page.getByRole('heading', { name: 'Build a week that meets your targets.' }).waitFor();
-  const results = await new AxeBuilder({ page }).analyze();
-  expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
+  for (const path of ['/', '/demo']) {
+    await page.goto(path);
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
+  }
   await context.close();
 });
 
@@ -802,18 +884,43 @@ test('the styled 404 has the full shell, legal links, metadata, and recovery act
   expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
 });
 
+test('the styled 404 reflows without horizontal scrolling at 200% zoom', async ({ browser }) => {
+  for (const width of [390, 195]) {
+    const context = await browser.newContext({ viewport: { width, height: 844 } });
+    const page = await context.newPage();
+    await page.goto('/404.html');
+    await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    await context.close();
+  }
+});
+
 test('landing first screen remains readable and actionable at 390px', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Plan meals that meet your nutrient targets.' })).toBeVisible();
   await expect(page.getByText('For home cooks who want enough fibre or protein without logging every calorie.')).toBeVisible();
+  await expect(page.getByText('Loads seven foods, three meals, and three targets.')).toBeVisible();
+  for (const fact of ['Free plan: 10 foods', 'Stored on this device', 'Works offline after setup', '$12 one-time upgrade']) {
+    const item = page.getByText(fact, { exact: true });
+    await expect(item).toBeVisible();
+    const factBox = await item.boundingBox();
+    expect((factBox?.y || 0) + (factBox?.height || 0)).toBeLessThanOrEqual(844);
+  }
   await expect(page.locator('.hero-art img')).toHaveAttribute('alt', 'Ingredients arranged across a blue kitchen planning sheet.');
   await expect(page.locator('.hero-art figcaption')).toHaveCount(0);
   const action = page.getByRole('link', { name: 'Try it with sample data' });
   await expect(action).toBeVisible();
   const box = await action.boundingBox();
   expect(box?.height).toBeGreaterThanOrEqual(44);
+  await page.locator('#upgrade').scrollIntoViewIfNeeded();
+  for (const control of [page.getByRole('link', { name: 'Buy the $12 upgrade on Sociobot' }), page.getByRole('button', { name: 'Restore purchase' })]) {
+    const controlBox = await control.boundingBox();
+    expect(controlBox?.height).toBeGreaterThanOrEqual(44);
+  }
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations.filter(violation => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
   await context.close();
 });
